@@ -1,17 +1,23 @@
+/**
+ * Main layout css file.
+ */
 header {
-    min-height: 80vh;
+    min-height: 70vh;
     background-image: url('../imgs/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 20vh;
     text-align: center;
+    padding-top: 5vh;
     width: 100%;
 }
 
-header h1 {
-    width: 30%;
-    margin: auto;
+.logo {
+    font-size: 60px;
+    font-family: 'Leckerli One', cursive;
+}
+
+header h2 {
+    margin-top: 7vh;
     padding: 20px;
-    font-weight: bolder;
     background-color: rgba(0, 80, 80, 0.7);
 }

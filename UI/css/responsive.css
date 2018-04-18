@@ -7,6 +7,7 @@
  * Reference: https://www.w3schools.com/css/css_rwd_grid.asp
  */ 
 
+
 /**
  * Here we implement responsive classes with a 12 columns grid system.
  *
@@ -32,6 +33,24 @@
 .col-11 { width: 91.66%; }
 .col-12 { width: 100%; }
 
+/* offset utilities  for mobile */
+/* offset right */
+.off-r-1 { margin-right: 8.33%; }
+.off-r-2 { margin-right: 16.66%; }
+.off-r-3 { margin-right: 25%; }
+.off-r-4 { margin-right: 33.33%; }
+.off-r-5 { margin-right: 41.66%; }
+.off-r-6 { margin-right: 50%; }
+
+/* offset left */
+.off-l-1 { margin-left: 8.33%; }
+.off-l-2 { margin-left: 16.66%; }
+.off-l-3 { margin-left: 25%; }
+.off-l-4 { margin-left: 33.33%; }
+.off-l-5 { margin-left: 41.66%; }
+.off-l-6 { margin-left: 50%; }
+
+
 /* for tablet (allow the tablet to override that of mobile) */
 @media only screen and (min-width: 600px) {
     .col-t-1 { width: 8.33%; }
@@ -46,6 +65,23 @@
     .col-t-10 { width: 83.33%; }
     .col-t-11 { width: 91.66%; }
     .col-t-12 { width: 100%; }
+
+    /* offsets for tablet */
+    /* offset right */
+    .off-r-t-1 { margin-right: 8.33%; }
+    .off-r-t-2 { margin-right: 16.66%; }
+    .off-r-t-3 { margin-right: 25%; }
+    .off-r-t-4 { margin-right: 33.33%; }
+    .off-r-t-5 { margin-right: 41.66%; }
+    .off-r-t-6 { margin-right: 50%; }
+
+    /* offset left */
+    .off-l-t-1 { margin-left: 8.33%; }
+    .off-l-t-2 { margin-left: 16.66%; }
+    .off-l-t-3 { margin-left: 25%; }
+    .off-l-t-4 { margin-left: 33.33%; }
+    .off-l-t-5 { margin-left: 41.66%; }
+    .off-l-t-6 { margin-left: 50%; }
 }
 
 /* for desktop (allow desktop to override that of tablet)  */
@@ -62,12 +98,35 @@
     .col-d-10 { width: 83.33%; }
     .col-d-11 { width: 91.66%; }
     .col-d-12 { width: 100%; }
+
+    /* offsets for tablet */
+    /* offset right */
+    .off-r-d-1 { margin-right: 8.33%; }
+    .off-r-d-2 { margin-right: 16.66%; }
+    .off-r-d-3 { margin-right: 25%; }
+    .off-r-d-4 { margin-right: 33.33%; }
+    .off-r-d-5 { margin-right: 41.66%; }
+    .off-r-d-6 { margin-right: 50%; }
+
+    /* offset left */
+    .off-l-d-1 { margin-left: 8.33%; }
+    .off-l-d-2 { margin-left: 16.66%; }
+    .off-l-d-3 { margin-left: 25%; }
+    .off-l-d-4 { margin-left: 33.33%; }
+    .off-l-d-5 { margin-left: 41.66%; }
+    .off-l-d-6 { margin-left: 50%; }
 }
 
 /* make all the columns float left and have a defualt padding */ 
 [class*="col-"] {
     float: left;
     padding: 15px;
+}
+
+/* this will act as a container */
+.wrapper {
+    padding: 10px;
+    width: 100%;
 }
 
 /* since the columns are displayed using float-left, we need to clear a row */
@@ -155,4 +214,11 @@
 .pr-3 { padding-right: 15px; }
 .pr-4 { padding-right: 20px; }
 .pr-5 { padding-right: 25px; }
+
+/* float utilities */
+.float-r { float: right; }
+.float-l { float: left; }
+
+/* text utilities */
+.text-center { text-align: center; }
 

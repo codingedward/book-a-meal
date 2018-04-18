@@ -4,12 +4,14 @@
 
 /**
  * Fonts.
+ *
  * Here we will use Google fonts...
  */
 
-/* default font */
+@import url('https://fonts.googleapis.com/css?family=Leckerli+One');
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 * { font-family: 'Nunito', sans-serif; }
+
 
 /**
  * Colors.
@@ -40,7 +42,6 @@
 .text-small { font-size: 14px; }
 .text-large { font-size: 30px; }
 
-
 /* header sizes */ 
 h1 { font-size: 45px; }
 h2 { font-size: 40px; }
@@ -49,6 +50,25 @@ h4 { font-size: 30px; }
 h5 { font-size: 25px; }
 h6 { font-size: 20px; }
 
+button:active {
+    outline: none;
+}
+
+input[type="button"].bt, 
+button.bt {
+    color: black;
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color: #eee;
+    border: 5px solid #eee;
+    cursor: pointer;
+    transition: .2s all;
+}
 
 
-
+input[type="button"].bt-orange, 
+button.bt-orange {
+    color: black;
+    background-color: orange;
+    border-color: orange;
+}
