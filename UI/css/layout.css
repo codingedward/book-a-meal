@@ -6,7 +6,7 @@ body {
 }
 header.welcome {
     min-height: 70vh;
-    background-image: url('../imgs/bg.jpg');
+    background-image: url('../imgs/bg1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
@@ -16,7 +16,7 @@ header.welcome {
     font-size: 60px;
     font-family: 'Leckerli One', cursive;
 }
-header.welcome h2 {
+header.welcome h3 {
     padding: 20px;
     background-color: rgba(0, 80, 80, 0.7);
 }
@@ -33,15 +33,23 @@ header.welcome h2 {
 footer {
     margin-top: 40px;
     min-height: 250px;
-    background-image: url('../imgs/skulls.png');
+    background-image: url('../imgs/food.png');
 }
+
+footer p {
+    color: white;
+    width: 100%;
+    margin: auto;
+    background-color: rgba(0,80, 80, .4);
+}
+
 
 /* tablet designs to override mobile */
 @media only screen and (min-width: 600px) {
     header.welcome {
         padding-top: 2vh;
     }
-    header.welcome h2 {
+    header.welcome h3 {
         margin-top: 7vh;
     }
     .welcome .bt {
@@ -51,6 +59,9 @@ footer {
     /* fix floating issue */
     .menu .menu-item {
         height: 420px;
+    }
+    footer p {
+        width: 60%;
     }
 }
 
@@ -65,5 +76,8 @@ footer {
     /* fix floating issue */
     .menu .menu-item {
         height: initial;
+    }
+    footer p {
+        width: 40%;
     }
 }
