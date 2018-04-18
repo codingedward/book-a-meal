@@ -29,7 +29,17 @@ The following is the chosen scheme:
 
 ### Fonts
 The following are the fonts used for this project:
-1. [Nunito (Google Fonts) ](https://fonts.google.com/?query=Nunito&selection.family=Nunito)
+1. [Nunito (Google Fonts) ](https://fonts.google.com/?query=Nunito)
+2. [Leckerli One (Google Fonts)](https://fonts.google.com/?query=Leckerli+One)
+
+### Images and Textures
+The following are the images and textures used for this project:
+1. [Photo](https://unsplash.com/photos/4_jhDO54BYg) by Dan Gold on Unsplash.
+2. [Photo](https://unsplash.com/photos/awj7sRviVXo) by Casey Lee on Unsplash.
+3. [Photo](https://unsplash.com/photos/tzl1UCXg5Es) by Robin Stickel on Unsplash.
+3. [Photo](https://unsplash.com/photos/QaGDmf5tMiE) by Joseph Gonzalez on Unsplash.
+4. [Photo](https://unsplash.com/photos/Vajgh8pZKnI) by Tran Mau Trin Tam on Unsplash.
+5. [Texture](https://www.transparenttextures.com/skulls.html) background pattern.
 
 ### Pages
 We will now tackle the development process page by page:

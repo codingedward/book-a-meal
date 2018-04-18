@@ -12,7 +12,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 * { font-family: 'Nunito', sans-serif; }
 
-
 /**
  * Colors.
  * This uses a colorscheme obtained from coolors.co
@@ -27,7 +26,7 @@
 .bg-brown { background-color: #ab3428; }
 
 /* text color */
-* { color: #777; } /* better for contrast */
+* { color: #666; } /* better for contrast */
 .text-white { color: #fff; }
 .text-teal { color: #2d728f; }
 .text-blue { color: #3b83a5; }
@@ -42,6 +41,10 @@
 .text-small { font-size: 14px; }
 .text-large { font-size: 30px; }
 
+p {
+    padding: 4px;
+}
+
 /* header sizes */ 
 h1 { font-size: 45px; }
 h2 { font-size: 40px; }
@@ -50,10 +53,10 @@ h4 { font-size: 30px; }
 h5 { font-size: 25px; }
 h6 { font-size: 20px; }
 
+/* buttons */
 button:active {
     outline: none;
 }
-
 input[type="button"].bt, 
 button.bt {
     color: black;
@@ -64,11 +67,11 @@ button.bt {
     cursor: pointer;
     transition: .2s all;
 }
-
-
 input[type="button"].bt-orange, 
 button.bt-orange {
     color: black;
     background-color: orange;
     border-color: orange;
 }
+
+

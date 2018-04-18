@@ -1,23 +1,69 @@
 /**
  * Main layout css file.
  */
-header {
+body {
+    background-color: #eee;
+}
+header.welcome {
     min-height: 70vh;
     background-image: url('../imgs/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
-    padding-top: 5vh;
     width: 100%;
 }
-
-.logo {
+.welcome .logo {
     font-size: 60px;
     font-family: 'Leckerli One', cursive;
 }
-
-header h2 {
-    margin-top: 7vh;
+header.welcome h2 {
     padding: 20px;
     background-color: rgba(0, 80, 80, 0.7);
+}
+
+.menu img {
+    width: 80%;
+    margin: auto;
+}
+
+.menu .menu-item {
+    border: 2px dashed #008080;
+}
+
+footer {
+    margin-top: 40px;
+    min-height: 250px;
+    background-image: url('../imgs/skulls.png');
+}
+
+/* tablet designs to override mobile */
+@media only screen and (min-width: 600px) {
+    header.welcome {
+        padding-top: 2vh;
+    }
+    header.welcome h2 {
+        margin-top: 7vh;
+    }
+    .welcome .bt {
+        margin: 15px; 
+    }
+
+    /* fix floating issue */
+    .menu .menu-item {
+        height: 420px;
+    }
+}
+
+/* desktop designs to override tablet */
+@media only screen and (min-width: 768px) {
+    header.welcome {
+        padding-top: 3.5vh;
+    }
+    .welcome .bt {
+        margin: 20px; 
+    }
+    /* fix floating issue */
+    .menu .menu-item {
+        height: initial;
+    }
 }
