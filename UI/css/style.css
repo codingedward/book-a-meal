@@ -1,0 +1,54 @@
+/**
+ * This will handle styling of the site.
+ */
+
+/**
+ * Fonts.
+ * Here we will use Google fonts...
+ */
+
+/* default font */
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+* { font-family: 'Nunito', sans-serif; }
+
+/**
+ * Colors.
+ * This uses a colorscheme obtained from coolors.co
+ * Reference: https://coolors.co/2d728f-3b8ea5-f5ee9e-f49e4c-ab3428
+ */
+
+/* backgrounds */
+.bg-teal { background-color: #2d728f; }
+.bg-blue { background-color: #3b83a5; }
+.bg-flav { background-color: #f5ee9e; }
+.bg-carrot { background-color: #f49e5c; }
+.bg-brown { background-color: #ab3428; }
+
+/* text color */
+* { color: #777; } /* better for contrast */
+.text-white { color: #fff; }
+.text-teal { color: #2d728f; }
+.text-blue { color: #3b83a5; }
+.text-flav { color: #f5ee9e; }
+.text-carrot { color: #f49e5c; }
+.text-brown { color: #ab3428; }
+
+/**
+ * Font sizing utilities
+ */
+* { font-size: 18px; }
+.text-small { font-size: 14px; }
+.text-large { font-size: 30px; }
+
+
+/* header sizes */ 
+h1 { font-size: 45px; }
+h2 { font-size: 40px; }
+h3 { font-size: 35px; }
+h4 { font-size: 30px; }
+h5 { font-size: 25px; }
+h6 { font-size: 20px; }
+
+
+
+

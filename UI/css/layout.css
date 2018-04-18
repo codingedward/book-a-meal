@@ -1,0 +1,17 @@
+header {
+    min-height: 80vh;
+    background-image: url('../imgs/bg2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 20vh;
+    text-align: center;
+    width: 100%;
+}
+
+header h1 {
+    width: 30%;
+    margin: auto;
+    padding: 20px;
+    font-weight: bolder;
+    background-color: rgba(0, 80, 80, 0.7);
+}
