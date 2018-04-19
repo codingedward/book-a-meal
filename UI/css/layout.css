@@ -100,8 +100,9 @@ footer p {
     font-size: 35px;
     width: 50%;
     margin: auto;
-    background-color: rgba(0, 80, 80, 0.7);
+    background-color: rgba(0, 0, 0, 0.2);
 }
+
 
 .form-login .bt {
     margin: auto;
@@ -112,22 +113,84 @@ footer p {
 
 /* tablet designs to override mobile */
 @media only screen and (min-width: 600px) {
-    .login .logo, .sign-up .logo {
+    .login .logo {
+        margin-top: 7vh;
+    }
+
+    .sign-up .logo  {
         margin-top: 3vh;
     }
 }
 
 /* desktop designs to override tablet */
 @media only screen and (min-width: 768px) {
-    .login .logo, .sign-up .logo {
-        margin-top: 5vh;
+    .login .logo {
+        margin-top: 15vh;
+    }
+
+    .sign-up .logo {
+        margin-top: 8vh;
     }
 }
 
+/* ===================== Home Page ===================== */
+.controls {
+    height: 100vh;
+    background-color: #eee;
+}
 
+.controls .logo {
+    font-size: 35px;
+    text-align: center;
+}
 
+.controls hr {
+    display: block; 
+    border-top: 2px solid #ddd; 
+    width: 60%; 
+    margin-top: 20px;
+}
 
+.controls hr.last {
+    margin-top: 70px;
+}
 
+.controls .bt {
+    display: block;
+    width: 75%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #f5ee9e;
+}
+
+.controls .bt:hover,
+.controls .bt.active {
+    background-color: orange;
+    border-color: orange;
+}
+
+.controls .bt:first-of-type { 
+    margin-top: 70px;
+}
+
+.controls .bt-logout {
+    font-size: 20px;
+    color: white;
+    padding: 10px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+}
+
+.controls .bt-logout:hover {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    background-color: #ddd;
+    height: 100vh;
+}
 
 
 

@@ -26,7 +26,7 @@
 .bg-brown { background-color: #ab3428; }
 
 /* text color */
-* { color: #666; } /* better for contrast */
+* { color: #555; } /* better for contrast */
 .text-white { color: #fff; }
 .text-teal { color: #2d728f; }
 .text-blue { color: #3b83a5; }
@@ -34,6 +34,7 @@
 .text-carrot { color: #f49e5c; }
 .text-brown { color: #ab3428; }
 .text-orange { color: orange; }
+.text-black { color: #000; }
 .text-underline { text-decoration: underline; }
 .text-bold { font-weight: bold; }
 .text-italic { font-style: italic; }
@@ -73,8 +74,8 @@ button.bt {
     color: black;
     font-size: 18px;
     padding: 5px 10px;
-    background-color: #eee;
-    border: 5px solid #eee;
+    background-color: #f5ee9e;
+    border: 5px solid #f5ee9e;
     cursor: pointer;
     transition: .2s all;
 }
@@ -90,7 +91,7 @@ button.bt-orange {
 /* cards */
 .card {
     padding: 30px;
-    background-color: #fff;
+    background-color: #ddd;
 }
 
 
@@ -99,7 +100,7 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
     width: 100%;
-    border: 1px solid #444;
+    border: 1px solid #999;
     background-color: #f4f1d6;
     margin-bottom: 15px;
 }
