@@ -52,3 +52,19 @@ The following is the the wireframe of this page:
 
 From here the user can either choose to login or sign up as well as see some 
 of the menus available for that particular day.
+
+#### Sign Up Page
+This will be used to create an account by a new user.
+The  following is this page's wireframe:
+
+![Sign Up Page Wireframe](https://image.ibb.co/gexeWn/sign_up.png)
+
+**Note**: The administrator does not sign up and he/she will have a default
+account.
+
+#### Login Page
+This page will be used by both the adminstrator(the caterer) and the 
+customers. The two will be differentiated using roles on the server. 
+
+![Login Page Wireframe](https://image.ibb.co/eDJmBn/login.png) 
+
