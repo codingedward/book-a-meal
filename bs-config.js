@@ -22,6 +22,7 @@ module.exports = {
     },
     "files": [ 
         './*.html', 
+        'UI/*.html', 
         'UI/css/*.css', 
         'UI/js/*.js', 
         'UI/imgs/*.png',
