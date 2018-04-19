@@ -76,6 +76,11 @@ This is where the administrator will manage the meals in the application.
 
 ![Caterer Meals Management Frame](https://image.ibb.co/d89osS/manage_meals.png)
 
+#### Caterer Menu Management 
+Here the caterer can set the menu for a specific day
+
+![Caterer Set Menu](https://image.ibb.co/dKxxmn/set_menu.png)
+
 #### Caterer Orders 
 Here, the caterer will be able to see meals ordered by the customer.
 
@@ -86,7 +91,3 @@ Here the caterer can view the history of orders made by customers.
 
 ![Caterer Order History ](https://image.ibb.co/jJRORn/order_history.png)
 
-#### Caterer Menu Management 
-Here the caterer can set the menu for a specific day
-
-![Caterer Set Menu](https://image.ibb.co/dKxxmn/set_menu.png)
