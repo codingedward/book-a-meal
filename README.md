@@ -1,6 +1,8 @@
 # Book A Meal :pizza:
 This is the Andela Book-A-Meal web project challenge. 
 
+![Book A Meal](https://image.ibb.co/fEdExS/show.png)
+
 **Note**: This repository is managed through the PivotalTracker project 
 [here](https://www.pivotaltracker.com/n/projects/2165567). 
 
