@@ -81,6 +81,10 @@
 .mb-4 { margin-bottom: 20px; }
 .mb-5 { margin-bottom: 25px; }
 
+.m-auto {
+    margin: auto;
+}
+
 /* margin-right */
 .mr-1 { margin-right: 5px; }
 .mr-2 { margin-right: 10px; }
@@ -136,8 +140,6 @@
     float: left;
     padding: 15px;
 }
-
-
 
 /* this will act as a container */
 .wrapper {

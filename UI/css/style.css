@@ -33,11 +33,15 @@
 .text-flav { color: #f5ee9e; }
 .text-carrot { color: #f49e5c; }
 .text-brown { color: #ab3428; }
+.text-orange { color: orange; }
+.text-underline { text-decoration: underline; }
+.text-bold { font-weight: bold; }
+.text-italic { font-style: italic; }
 
 /**
  * Font sizing utilities
  */
-* { font-size: 18px; }
+* { font-size: 16px; }
 .text-small { font-size: 14px; }
 .text-large { font-size: 30px; }
 
@@ -57,21 +61,50 @@ h6 { font-size: 20px; }
 button:active {
     outline: none;
 }
+
+a.bt {
+    text-decoration: none;
+}
+
+a.bt,
 input[type="button"].bt, 
+input[type="submit"].bt, 
 button.bt {
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     padding: 5px 10px;
     background-color: #eee;
     border: 5px solid #eee;
     cursor: pointer;
     transition: .2s all;
 }
+a.bt,
 input[type="button"].bt-orange, 
+input[type="submit"].bt-orange, 
 button.bt-orange {
     color: black;
     background-color: orange;
     border-color: orange;
 }
 
+/* cards */
+.card {
+    padding: 30px;
+    background-color: #fff;
+}
+
+
+/* input */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    border: 1px solid #444;
+    background-color: #f4f1d6;
+    margin-bottom: 15px;
+}
+
+label {
+    vertical-align: middle;
+}
 

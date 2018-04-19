@@ -1,24 +1,38 @@
 /**
  * Main layout css file.
  */
+
+/* ================ Landing Page ================= */
 body {
     background-color: #eee;
 }
 header.welcome {
     min-height: 70vh;
+    background-color: #333;
     background-image: url('../imgs/bg1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
     width: 100%;
 }
-.welcome .logo {
+
+.logo {
     font-size: 60px;
     font-family: 'Leckerli One', cursive;
 }
+
+
 header.welcome h3 {
     padding: 20px;
     background-color: rgba(0, 80, 80, 0.7);
+}
+
+.welcome .bt {
+    font-size: 20px;
+}
+
+.patterns {
+    background-image: url('../imgs/food.png');
 }
 
 .menu img {
@@ -33,7 +47,6 @@ header.welcome h3 {
 footer {
     margin-top: 40px;
     min-height: 250px;
-    background-image: url('../imgs/food.png');
 }
 
 footer p {
@@ -42,7 +55,6 @@ footer p {
     margin: auto;
     background-color: rgba(0,80, 80, .4);
 }
-
 
 /* tablet designs to override mobile */
 @media only screen and (min-width: 600px) {
@@ -81,3 +93,33 @@ footer p {
         width: 40%;
     }
 }
+
+/* ================ Login && Sign Up Page ================= */
+.form-login .bt {
+    margin: auto;
+    margin-top: 10px;
+    display: block;
+    width: 50%;
+}
+
+/* tablet designs to override mobile */
+@media only screen and (min-width: 600px) {
+    .login .logo {
+        margin-top: 3vh;
+    }
+}
+
+/* desktop designs to override tablet */
+@media only screen and (min-width: 768px) {
+    .login .logo {
+        margin-top: 5vh;
+    }
+}
+
+
+
+
+
+
+
+
