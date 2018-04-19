@@ -71,3 +71,22 @@ customers. The two will be differentiated using roles on the server.
 
 ![Login Page Wireframe](https://image.ibb.co/gtzDsS/login.png) 
 
+#### Caterer Meals Management Page
+This is where the administrator will manage the meals in the application.
+
+![Caterer Meals Management Frame](https://image.ibb.co/d89osS/manage_meals.png)
+
+#### Caterer Orders 
+Here, the caterer will be able to see meals ordered by the customer.
+
+![Caterer Orders](https://image.ibb.co/h82Kz7/orders.png)
+
+#### Caterer Order History
+Here the caterer can view the history of orders made by customers.
+
+![Caterer Order History ](https://image.ibb.co/jJRORn/order_history.png)
+
+#### Caterer Menu Management 
+Here the caterer can set the menu for a specific day
+
+![Caterer Set Menu](https://image.ibb.co/dKxxmn/set_menu.png)
