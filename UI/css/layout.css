@@ -95,6 +95,14 @@ footer p {
 }
 
 /* ================ Login && Sign Up Page ================= */
+.login .logo, .sign-up .logo {
+    padding: 15px;
+    font-size: 35px;
+    width: 50%;
+    margin: auto;
+    background-color: rgba(0, 80, 80, 0.7);
+}
+
 .form-login .bt {
     margin: auto;
     margin-top: 10px;

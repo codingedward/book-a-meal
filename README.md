@@ -1,10 +1,13 @@
 # Book A Meal :pizza:
 This is the Andela Book-A-Meal web project challenge. 
 
+**Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
+
+**Note**: The PivotalTracker project is [here](
+[here](https://www.pivotaltracker.com/n/projects/2165567). 
+
 ![Book A Meal](https://image.ibb.co/fEdExS/show.png)
 
-**Note**: This repository is managed through the PivotalTracker project 
-[here](https://www.pivotaltracker.com/n/projects/2165567). 
 
 This GitHub repository has also been integrated with that PivotalTracker 
 project and on every commit, there will be an id to the story being worked on.
