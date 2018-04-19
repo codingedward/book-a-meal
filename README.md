@@ -2,11 +2,8 @@
 This is the Andela Book-A-Meal web project challenge. 
 
 **Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
-
-**Note**: The PivotalTracker project is [here](
+**Note**: The PivotalTracker project is
 [here](https://www.pivotaltracker.com/n/projects/2165567). 
-
-![Book A Meal](https://image.ibb.co/fEdExS/show.png)
 
 
 This GitHub repository has also been integrated with that PivotalTracker 
@@ -62,7 +59,7 @@ of the menus available for that particular day.
 This will be used to create an account by a new user.
 The  following is this page's wireframe:
 
-![Sign Up Page Wireframe](https://image.ibb.co/gexeWn/sign_up.png)
+![Sign Up Page Wireframe](https://image.ibb.co/eYR4z7/sign_up.png)
 
 **Note**: The administrator does not sign up and he/she will have a default
 account.
@@ -71,5 +68,5 @@ account.
 This page will be used by both the adminstrator(the caterer) and the 
 customers. The two will be differentiated using roles on the server. 
 
-![Login Page Wireframe](https://image.ibb.co/eDJmBn/login.png) 
+![Login Page Wireframe](https://image.ibb.co/gtzDsS/login.png) 
 
