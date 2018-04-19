@@ -46,17 +46,15 @@
 .text-small { font-size: 14px; }
 .text-large { font-size: 30px; }
 
-p {
-    padding: 4px;
-}
-
 /* header sizes */ 
 h1 { font-size: 45px; }
 h2 { font-size: 40px; }
 h3 { font-size: 35px; }
 h4 { font-size: 30px; }
-h5 { font-size: 25px; }
+h5 { font-size: 23px; }
 h6 { font-size: 20px; }
+
+p { padding: 4px; }
 
 /* buttons */
 button:active {
@@ -65,6 +63,7 @@ button:active {
 
 a.bt {
     text-decoration: none;
+    text-align: center;
 }
 
 a.bt,
@@ -72,20 +71,30 @@ input[type="button"].bt,
 input[type="submit"].bt, 
 button.bt {
     color: black;
-    font-size: 18px;
+    font-size: 17px;
     padding: 5px 10px;
     background-color: #f5ee9e;
     border: 5px solid #f5ee9e;
     cursor: pointer;
     transition: .2s all;
 }
-a.bt,
+
+a.bt.bt-orange,
 input[type="button"].bt-orange, 
 input[type="submit"].bt-orange, 
 button.bt-orange {
     color: black;
     background-color: orange;
     border-color: orange;
+}
+
+a.bt.bt-teal,
+input[type="button"].bt-teal, 
+input[type="submit"].bt-teal, 
+button.bt-teal {
+    color: white;
+    background-color: #2d728f;
+    border-color: #2d728f;
 }
 
 /* cards */
@@ -97,6 +106,7 @@ button.bt-orange {
 
 /* input */
 input[type="text"],
+input[type="number"],
 input[type="password"],
 input[type="email"] {
     width: 100%;
@@ -108,4 +118,96 @@ input[type="email"] {
 label {
     vertical-align: middle;
 }
+
+/* display utility */
+.d-none { display: none; }
+.d-inline { display: inline; }
+.d-block { display: block; }
+.d-table { display: table; }
+.d-inline-block { display: inline-block; }
+
+/* table design */
+table {
+    width: 100%;
+    border: 1px dashed #2d728f;
+}
+
+.table-holder {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+table, th, td {
+    border: 2px dashed #2d728f;
+}
+
+th, td {
+    text-align: center;
+    padding: 4px;
+}
+
+/**
+ * Modal 
+ *
+ * Reference: https://www.w3schools.com/howto/howto_css_modals.asp 
+ */
+
+.modal {
+    left; 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 1000;
+    overflow: auto;
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-content {
+    width: 90%;
+    padding: 10px;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background-color: #eee;
+}
+
+.modal-content .row {
+    margin-top: 20px;
+}
+
+.modal .close {
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+/* for tablet (allow tablet to override that of mobile)  */
+@media only screen and (min-width: 768px) {
+    .modal-content {
+        width: 80%;
+    }
+    .modal-small .modal-content {
+        width: 60%;
+    }
+}
+
+/* for desktop (allow desktop to override that of tablet)  */
+@media only screen and (min-width: 768px) {
+    .modal-content {
+        width: 70%;
+    }
+    .modal-small .modal-content {
+        width: 40%;
+    }
+}
+
 

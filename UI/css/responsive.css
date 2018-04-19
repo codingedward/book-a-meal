@@ -16,12 +16,21 @@
  *
  */ 
 
+html {
+    height: 100%;
+}
+
 /* float utilities */
 .float-r { float: right; }
 .float-l { float: left; }
 
 /* text utilities */
 .text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-middle { vertical-align: middle; }
+.text-bottom { vertical-align: bottom; }
+.text-top { vertical-align: top; }
 
 /* make all the columns float left and have a defualt padding */ 
 [class*="col-"] {
@@ -111,6 +120,7 @@
 .mb-5 { margin-bottom: 25px; }
 
 .m-auto {
+    display: block;
     margin: auto;
 }
 
@@ -162,7 +172,6 @@
 .pr-3 { padding-right: 25px; }
 .pr-4 { padding-right: 30px; }
 .pr-5 { padding-right: 45px; }
-
 
 
 
@@ -230,6 +239,13 @@
     .off-l-d-4 { margin-left: 33.33%; }
     .off-l-d-5 { margin-left: 41.66%; }
     .off-l-d-6 { margin-left: 50%; }
+
+
+    /* hidden utilities */
+    .hidden-d { display: none; }
+    .hidden-t { display: none; }
+    .hidden-m { display: none; }
 }
+
 
 
