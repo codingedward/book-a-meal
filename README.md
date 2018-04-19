@@ -39,7 +39,7 @@ The following are the images and textures used for this project:
 3. [Photo](https://unsplash.com/photos/tzl1UCXg5Es) by Robin Stickel on Unsplash.
 3. [Photo](https://unsplash.com/photos/QaGDmf5tMiE) by Joseph Gonzalez on Unsplash.
 4. [Photo](https://unsplash.com/photos/Vajgh8pZKnI) by Tran Mau Trin Tam on Unsplash.
-5. [Texture](https://www.transparenttextures.com/skulls.html) background pattern.
+5. [Texture](https://www.transparenttextures.com/food.html) background pattern.
 
 ### Pages
 We will now tackle the development process page by page:
