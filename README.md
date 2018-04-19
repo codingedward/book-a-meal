@@ -2,6 +2,7 @@
 This is the Andela Book-A-Meal web project challenge. 
 
 **Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
+
 **Note**: The PivotalTracker project is
 [here](https://www.pivotaltracker.com/n/projects/2165567). 
 
