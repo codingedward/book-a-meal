@@ -104,14 +104,14 @@ footer p {
 
 /* tablet designs to override mobile */
 @media only screen and (min-width: 600px) {
-    .login .logo {
+    .login .logo, .sign-up .logo {
         margin-top: 3vh;
     }
 }
 
 /* desktop designs to override tablet */
 @media only screen and (min-width: 768px) {
-    .login .logo {
+    .login .logo, .sign-up .logo {
         margin-top: 5vh;
     }
 }
