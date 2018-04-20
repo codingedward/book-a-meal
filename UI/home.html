@@ -55,32 +55,32 @@
                                             <td>Spaghetti</td>
                                             <td>Ksh. 200</td>
                                             <td>19/04/2018</td>
-                                            <td>Edit</td>
-                                            <td>Delete</td>
+                                            <td> <a class="edit-meal" href="#">Edit</a></td>
+                                            <td> <a class="delete-meal" href="#">Delete</a></td>
+                                        </tr> 
+                                        <tr>
+                                            <td> <img src="imgs/food2.jpg" /></td>
+                                            <td>Pudding</td>
+                                            <td>Ksh. 500</td>
+                                            <td>19/04/2018</td>
+                                            <td> <a class="edit-meal" href="#">Edit</a></td>
+                                            <td> <a class="delete-meal" href="#">Delete</a></td>
                                         </tr> 
                                         <tr>
                                             <td> <img src="imgs/food3.jpg" /></td>
-                                            <td>Eggs</td>
+                                            <td>Eggs!</td>
                                             <td>Ksh. 50</td>
                                             <td>19/04/2018</td>
-                                            <td>Edit</td>
-                                            <td>Delete</td>
+                                            <td> <a class="edit-meal" href="#">Edit</a></td>
+                                            <td> <a class="delete-meal" href="#">Delete</a></td>
                                         </tr> 
                                         <tr>
-                                            <td> <img src="imgs/food3.jpg" /></td>
-                                            <td>Eggs</td>
-                                            <td>Ksh. 50</td>
+                                            <td> <img src="imgs/food4.jpg" /></td>
+                                            <td>Weird Stuff</td>
+                                            <td>Ksh. 250</td>
                                             <td>19/04/2018</td>
-                                            <td>Edit</td>
-                                            <td>Delete</td>
-                                        </tr> 
-                                        <tr>
-                                            <td> <img src="imgs/food3.jpg" /></td>
-                                            <td>Eggs</td>
-                                            <td>Ksh. 50</td>
-                                            <td>19/04/2018</td>
-                                            <td>Edit</td>
-                                            <td>Delete</td>
+                                            <td> <a class="edit-meal" href="#">Edit</a></td>
+                                            <td> <a class="delete-meal" href="#">Delete</a></td>
                                         </tr> 
                                     </tbody>
                                 </table>
@@ -95,7 +95,7 @@
             </section>
         </main>
 
-        <div id="add-modal" class="modal modal-small d-none">
+        <section id="add-modal" class="modal modal-small">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form action="#" class="row">
@@ -105,15 +105,47 @@
                         <button class="bt bt-teal m-auto">Select Image</button>
                         <label>Name</label>
                         <input type="text" value="" name="" id=""/>
-                        <label>Cost</label>
+                        <label>Cost(Ksh)</label>
                         <input type="number" value="" name="" id=""/>
                         <button class="bt bt-orange m-auto ">Save Meal</button>
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
 
-        <div id="controls-modal" class="modal modal-small hidden-t hidden-d">
+        <section id="edit-modal" class="modal modal-small">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="#" class="row">
+                    <h5 class="text-center">Edit This Meal</h5>
+                    <div class="off-l-d-2 col-d-8 off-l-t-2 col-t-8 col-12">
+                        <img class="m-auto mb-2" src="imgs/food3.jpg"> 
+                        <button class="bt bt-teal m-auto">Select Image</button>
+                        <label>Name</label>
+                        <input type="text" value="Spaghetti" name="" id=""/>
+                        <label>Cost(Ksh)</label>
+                        <input type="number" value="100" name="" id=""/>
+                        <button class="bt bt-orange m-auto ">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="delete-modal" class="modal modal-small">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="#" class="row">
+                    <h5 class="text-center">Delete This Meal?</h5>
+                    <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
+                        <p><b>Spaghetti</b></p>
+                        <p class="pb-4"> Are you sure you want to delete this meal? </p>
+                        <button class="bt bt-red m-auto">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="controls-modal" class="modal modal-small hidden-t hidden-d">
             <div class="modal-content bg-teal p-0">
                 <span class="close">&times;</span>
                 <nav class="row controls bg-teal patterns"> 
@@ -129,20 +161,16 @@
                         <a href="../index.html" class="bt bt-logout">Logout</a>
                     </div>
                 </nav>
-
-                <!--form action="#" class="row">
-                    <h5 class="text-center">Add New Meal</h5>
-                    <div class="off-l-d-2 col-d-8 off-l-t-2 col-t-8 col-12">
-                    </div>
-                </form-->
             </div>
-        </div>
+        </section>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="js/app.js" charset="utf-8"></script>
         <script>
             initModal('#add', '#add-modal');
             initModal('.controls-icon', '#controls-modal');
+            initModal('.edit-meal', '#edit-modal');
+            initModal('.delete-meal', '#delete-modal');
         </script>
     </body>
 </html>

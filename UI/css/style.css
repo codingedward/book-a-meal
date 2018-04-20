@@ -55,6 +55,10 @@ h5 { font-size: 23px; }
 h6 { font-size: 20px; }
 
 p { padding: 4px; }
+a { 
+    color: #2d728f; 
+    font-style: italic;
+}
 
 /* buttons */
 button:active {
@@ -62,8 +66,9 @@ button:active {
 }
 
 a.bt {
-    text-decoration: none;
+    font-style: normal;
     text-align: center;
+    text-decoration: none;
 }
 
 a.bt,
@@ -77,6 +82,15 @@ button.bt {
     border: 5px solid #f5ee9e;
     cursor: pointer;
     transition: .2s all;
+}
+a.bt.bt-red,
+input[type="button"].bt-red, 
+input[type="submit"].bt-red, 
+button.bt-red {
+    color: white;
+    font-weight: bold;
+    background-color: #cc0000;
+    border-color: #cc0000;
 }
 
 a.bt.bt-orange,

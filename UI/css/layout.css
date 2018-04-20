@@ -206,7 +206,6 @@ footer p {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
 .content {
     background-color: #eee;
     height: 100vh;
@@ -218,9 +217,15 @@ footer p {
     max-height: 90px;
 }
 
-#add-modal img {
+#add-modal img,
+#edit-modal img,
+#delete-modal img {
     width: 65%;
     margin-bottom: 20px;
+}
+
+.delete-meal {
+    color: #cc0000;
 }
 
 
