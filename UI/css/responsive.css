@@ -254,3 +254,15 @@ html {
     .hidden-d { display: none; }
 }
 
+/* table responsiveness */
+table {
+    width: 100%;
+}
+
+.table-holder {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 0;
+    margin: 0;
+}
+

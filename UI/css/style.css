@@ -119,14 +119,20 @@ button.bt-teal {
 
 
 /* input */
+select,
 input[type="text"],
 input[type="number"],
+input[type="date"],
 input[type="password"],
 input[type="email"] {
     width: 100%;
     border: 1px solid #999;
     background-color: #f4f1d6;
     margin-bottom: 15px;
+}
+
+select {
+    padding: 4px;
 }
 
 label {
@@ -141,16 +147,6 @@ label {
 .d-inline-block { display: inline-block; }
 
 /* table design */
-table {
-    width: 100%;
-    border: 1px dashed #2d728f;
-}
-
-.table-holder {
-    width: 100%;
-    overflow-x: scroll;
-}
-
 table, th, td {
     border: 2px dashed #2d728f;
 }

@@ -133,10 +133,11 @@ footer p {
     }
 }
 
-/* ===================== Home Page ===================== */
+/* ===================== Home Pages Design ===================== */
+/* contains navigation */
 .controls {
     height: 100vh;
-    min-height: 650px;
+    min-height: 790px;
     background-color: #eee;
 }
 
@@ -148,6 +149,7 @@ footer p {
     margin-bottom: 0px;
 }
 
+/* this modal has navigation for mobile*/
 #controls-modal .modal-content {
     padding: 0px;
 }
@@ -189,6 +191,7 @@ footer p {
     border-color: orange;
 }
 
+/* first button should have margin */
 .controls .bt:first-of-type { 
     margin-top: 50px;
 }
@@ -206,6 +209,7 @@ footer p {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* this is the main content */
 .content {
     background-color: #eee;
     height: 100vh;
@@ -217,6 +221,21 @@ footer p {
     max-height: 90px;
 }
 
+/* search width for tablet */
+@media only screen and (min-width: 600px) {
+    .content .search {
+        width: 70%;
+    }
+}
+
+/* search width for desktop */
+@media only screen and (min-width: 768px) {
+    .content .search {
+        width: 30%;
+    }
+}
+
+/* size of image in adding of meal */
 #add-modal img,
 #edit-modal img,
 #delete-modal img {
@@ -224,7 +243,8 @@ footer p {
     margin-bottom: 20px;
 }
 
-.delete-meal {
+/* deletion to have read for warning */
+.delete-act {
     color: #cc0000;
 }
 
