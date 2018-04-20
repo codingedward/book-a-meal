@@ -210,10 +210,3 @@ th, td {
     }
 }
 
-/* menu icon */ 
-.menu-icon {
-    width: 30px;
-    margin: auto;
-    margin-bottom: 0px;
-    cursor: pointer;
-}

@@ -27,7 +27,7 @@
                 <div class="col-12 col-t-8 col-d-9 p-1 content">
                     <div class="row">
                         <div class="col-12 pb-0">
-                            <img class="hidden-t hidden-d menu-icon" src="imgs/menu.png" alt=""/>
+                            <img class="hidden-t hidden-d controls-icon" src="imgs/menu.png" alt=""/>
                         </div>
                         <div class="col-12 pt-1">
                             <h5 class="d-inline-block"> Manage Meals </h5>
@@ -94,7 +94,8 @@
                 </div>
             </section>
         </main>
-        <div id="add-modal" class="modal modal-small">
+
+        <div id="add-modal" class="modal modal-small d-none">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form action="#" class="row">
@@ -111,6 +112,32 @@
                 </form>
             </div>
         </div>
+
+        <div id="controls-modal" class="modal modal-small hidden-t hidden-d">
+            <div class="modal-content bg-teal p-0">
+                <span class="close">&times;</span>
+                <nav class="row controls bg-teal patterns"> 
+                    <div class="col-12">
+                        <h1 class="logo text-flav">BAM!</h1> 
+                        <hr/>
+                        <a href="#" class="bt active">Manage Meals</a>
+                        <a href="#" class="bt">Set Menu</a>
+                        <a href="#" class="bt">Manage Orders</a>
+                        <a href="#" class="bt">Users</a>
+                        <a href="#" class="bt">Order History</a>
+                        <hr class="last"/>
+                        <a href="../index.html" class="bt bt-logout">Logout</a>
+                    </div>
+                </nav>
+
+                <!--form action="#" class="row">
+                    <h5 class="text-center">Add New Meal</h5>
+                    <div class="off-l-d-2 col-d-8 off-l-t-2 col-t-8 col-12">
+                    </div>
+                </form-->
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -119,6 +146,12 @@
                     $('#add-modal .close').on('click', function () {
                         $('#add-modal').css('display', 'none');
                     });
+                });
+                $('.controls-icon').on('click', function () {
+                    $('#controls-modal').css('display', 'block');
+                    $('#controls-modal .close').on('click', function () {
+                        $('#controls-modal').css('display', 'none');
+                    })
                 });
             });
         </script>

@@ -20,6 +20,7 @@ html {
     height: 100%;
 }
 
+
 /* float utilities */
 .float-r { float: right; }
 .float-l { float: left; }
@@ -252,6 +253,4 @@ html {
     .hidden-m { display: initial; }
     .hidden-d { display: none; }
 }
-
-
 

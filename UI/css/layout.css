@@ -136,7 +136,27 @@ footer p {
 /* ===================== Home Page ===================== */
 .controls {
     height: 100vh;
+    min-height: 650px;
     background-color: #eee;
+}
+
+/* will show when in mobile */
+.controls-icon {
+    width: 30px;
+    margin: auto;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
+#controls-modal .modal-content {
+    padding: 0px;
+}
+
+#controls-modal .close {
+    color: white;
+    font-size: 35px;
+    padding-right: 20px;
+    padding-top: 10px;
 }
 
 .controls .logo {
@@ -202,6 +222,5 @@ footer p {
     width: 65%;
     margin-bottom: 20px;
 }
-
 
 
