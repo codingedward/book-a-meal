@@ -139,21 +139,10 @@
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="js/app.js" charset="utf-8"></script>
         <script>
-            $(document).ready(function () {
-                $('#add').on('click', function () {
-                    $('#add-modal').css('display', 'block');
-                    $('#add-modal .close').on('click', function () {
-                        $('#add-modal').css('display', 'none');
-                    });
-                });
-                $('.controls-icon').on('click', function () {
-                    $('#controls-modal').css('display', 'block');
-                    $('#controls-modal .close').on('click', function () {
-                        $('#controls-modal').css('display', 'none');
-                    })
-                });
-            });
+            initModal('#add', '#add-modal');
+            initModal('.controls-icon', '#controls-modal');
         </script>
     </body>
 </html>
