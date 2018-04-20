@@ -173,6 +173,8 @@ html {
 .pr-4 { padding-right: 30px; }
 .pr-5 { padding-right: 45px; }
 
+/* hidden utilities */
+.hidden-m { display: none; }
 
 
 /* for tablet (allow the tablet to override that of mobile) */
@@ -206,6 +208,10 @@ html {
     .off-l-t-4 { margin-left: 33.33%; }
     .off-l-t-5 { margin-left: 41.66%; }
     .off-l-t-6 { margin-left: 50%; }
+
+    /* hidden utilities */
+    .hidden-m { display: initial; }
+    .hidden-t { display: none; }
 }
 
 /* for desktop (allow desktop to override that of tablet)  */
@@ -242,9 +248,9 @@ html {
 
 
     /* hidden utilities */
+    .hidden-t { display: initial; }
+    .hidden-m { display: initial; }
     .hidden-d { display: none; }
-    .hidden-t { display: none; }
-    .hidden-m { display: none; }
 }
 
 

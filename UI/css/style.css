@@ -71,7 +71,7 @@ input[type="button"].bt,
 input[type="submit"].bt, 
 button.bt {
     color: black;
-    font-size: 17px;
+    font-size: 16px;
     padding: 5px 10px;
     background-color: #f5ee9e;
     border: 5px solid #f5ee9e;
@@ -210,4 +210,10 @@ th, td {
     }
 }
 
-
+/* menu icon */ 
+.menu-icon {
+    width: 30px;
+    margin: auto;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
