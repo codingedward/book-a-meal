@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <title>Caterer | Users</title>
+        <title>Caterer | Order History</title>
         <link rel="stylesheet" href="css/reset.css" type="text/css" charset="utf-8">
         <link rel="stylesheet" href="css/layout.css" type="text/css" charset="utf-8">
         <link rel="stylesheet" href="css/responsive.css" type="text/css" charset="utf-8">
@@ -18,8 +18,8 @@
                     <a href="meals.html" class="bt">Manage Meals</a>
                     <a href="menu.html" class="bt">Set Menu</a>
                     <a href="orders.html" class="bt">Manage Orders</a>
-                    <a href="#" class="bt active">Users</a>
-                    <a href="orders-history.html" class="bt">Order History</a>
+                    <a href="users.html" class="bt">Users</a>
+                    <a href="#" class="bt active">Order History</a>
                     <hr class="last"/>
                     <a href="../index.html" class="bt bt-logout">Logout</a>
                 </nav>
@@ -30,22 +30,18 @@
                             <img class="hidden-t hidden-d controls-icon" src="imgs/menu.png" alt=""/>
                         </div>
                         <div class="col-12 pt-1 pb-0 pl-0">
-                            <h5 class="">Manage Users</h5>
+                            <h5 class="">Orders History</h5>
                         </div>
                     </div>
 
                     <div class="row m-0 p-0">
                         <div class="col-d-4 col-12 table-control m-0 pb-0">
-                           <label>Text:</label>
+                           <label>Text:&nbsp;</label>
                            <input type="text" value="" name=""  placeholder=" Search text..."/>
                         </div>
                         <div class="col-d-4 col-12 table-control  m-0 pb-0">
-                           <label>Role:</label>
-                           <select name="role" id="role">
-                              <option value="">All</option> 
-                              <option value="">User (Customer)</option> 
-                              <option value="">Admin (Caterer)</option> 
-                           </select>
+                           <label>Date:</label>
+                           <input type="date" value="" name=""  placeholder=" Type to filter..."/>
                         </div>
                         <div class="col-d-4 col-12 table-control m-0 pb-0">
                             <button class="bt bt-teal m-auto-m m-auto-t">Filter </button>
@@ -58,36 +54,46 @@
                                 <table id="order-table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Sign Up Date</th>
-                                            <th>Role</th>
+                                            <th>Customer</th>
+                                            <th>Meal</th>
+                                            <th>Category</th>
+                                            <th>Cost</th>
+                                            <th>Order Date</th>
+                                            <th>Last State</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Vicky</td>
-                                            <td>vicky@gmail.com</td>
-                                            <td>19/04/2018</td>
-                                            <td> <a class="make-act" href="#">Make Admin</a></td>
+                                            <td>Pudding</td>
+                                            <td>Supper</td>
+                                            <td>Ksh. 500</td>
+                                            <td>19/04/2017</td>
+                                            <td> <a href="#">Accepted</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Mumanyi</td>
-                                            <td>mumanyi@yahoo.com</td>
+                                            <td>Eggs!</td>
+                                            <td>Breakfast</td>
+                                            <td>Ksh. 50</td>
                                             <td>30/05/2018</td>
-                                            <td> <a class="revoke-act" href="#">Remove Admin</a></td>
+                                            <td> <a class="revoked-state" href="#">Revoked</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Edward</td>
-                                            <td>edward@gmail.com</td>
+                                            <td>Wierd Stuff</td>
+                                            <td>Supper</td>
+                                            <td>Ksh. 250</td>
                                             <td>30/07/2018</td>
-                                            <td> <a class="make-act" href="#">Make Admin</a></td>
+                                            <td> <a class="accepted-state" href="#">Accepted</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Moses</td>
-                                            <td>moses@gmail.com</td>
+                                            <td>Spaghetti</td>
+                                            <td>Lunch</td>
+                                            <td>Ksh. 200</td>
                                             <td>03/02/2018</td>
-                                            <td> <a class="make-act" href="#">Make Admin</a></td>
+                                            <td> <a class="revoked-state" href="#">Revoked</a></td>
                                         </tr> 
                                     </tbody>
                                 </table>
@@ -103,40 +109,6 @@
             </section>
         </main>
 
-
-
-        <section id="make-modal" class="modal modal-small">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="#" class="row">
-                    <h5 class="text-center">Make A Caterer?</h5>
-                    <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
-                        <p> <b>Moses</b></p>
-                        <p class="pb-4">Turn this user into a caterer?</p>
-                        <button class="bt bt-orange m-auto">Accept</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-
-        <section id="revoke-modal" class="modal modal-small">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="#" class="row">
-                    <h5 class="text-center">Remove This Caterer?</h5>
-                    <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
-                        <p><b>Edward</b></p>
-                        <p class="pb-4">
-                            Remove this user from being a caterer? 
-                            He/she will be turned into a normal user.
-                        </p>
-                        <button class="bt bt-red m-auto">Remove</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
         <section id="controls-modal" class="modal modal-small hidden-t hidden-d">
             <div class="modal-content bg-teal p-0">
                 <span class="close">&times;</span>
@@ -147,8 +119,8 @@
                         <a href="meals.html" class="bt">Manage Meals</a>
                         <a href="menu.html" class="bt">Set Menu</a>
                         <a href="orders.html" class="bt">Manage Orders</a>
-                        <a href="#" class="bt active">Users</a>
-                        <a href="orders-history.html" class="bt">Order History</a>
+                        <a href="users.html" class="bt">Users</a>
+                        <a href="#" class="bt active">Order History</a>
                         <hr class="last"/>
                         <a href="../index.html" class="bt bt-logout">Logout</a>
                     </div>
@@ -160,8 +132,6 @@
         <script src="js/app.js" charset="utf-8"></script>
         <script>
             initModal('.controls-icon', '#controls-modal');
-            initModal('.make-act', '#make-modal');
-            initModal('.revoke-act', '#revoke-modal');
         </script>
     </body>
 </html>

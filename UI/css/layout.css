@@ -270,7 +270,7 @@ footer p {
 }
 
 /* deletion to have read for warning */
-.delete-act, .revoke-act {
+.delete-act, .revoke-act, .revoked-state {
     color: #cc0000;
 }
 
