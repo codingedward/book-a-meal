@@ -295,3 +295,24 @@ footer p {
 
 
 /* ================== Customer Home ================ */
+.content .menu:last-of-type {
+    margin-bottom: 100px;
+}
+
+.content .menu h5 {
+    text-align: center;
+}
+
+/* fix floating columns displaced issue */
+@media only screen and (min-width: 600px) {
+    .content .menu .menu-item {
+        height: 300px;
+    }
+}
+
+/* revert to initial height on desktop */
+@media only screen and (min-width: 768px) {
+    .content .menu .menu-item {
+        height: initial;
+    }
+}

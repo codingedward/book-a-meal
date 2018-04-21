@@ -16,9 +16,9 @@
                     <h1 class="logo text-flav">BAM!</h1> 
                     <hr/>
                     <a href="#" class="bt active">Today's Menu</a>
-                    <a href="#" class="bt">My Orders</a>
-                    <a href="#" class="bt">Notifications</a>
-                    <a href="#" class="bt">Order History</a>
+                    <a href="user-orders.html" class="bt">My Orders</a>
+                    <a href="user-notifications.html" class="bt">Notifications(4)</a>
+                    <a href="user-orders-history.html" class="bt">Order History</a>
                     <hr class="last"/>
                     <a href="../index.html" class="bt bt-logout">Logout</a>
                 </nav>
@@ -31,30 +31,30 @@
                     </div>
                     <div class="row menu text-center">
                         <h4>On Today's Menu</h4>
-                        <h5 >Breakfast</h5>
+                        <h5>Breakfast</h5>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food1.jpg" alt="Food Image">
                             <p>Ksh. 800</p>
                             <p>Spaghetti</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food2.jpg" alt="Yummy Stuff">
                             <p>Ksh. 400</p>
                             <p>Pudding</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food3.jpg" alt="Food! Forever!">
                             <p>Ksh. 50</p>
                             <p>Eggs!</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food4.jpg" alt="I'm Hungry">
                             <p>Ksh. 300</p>
                             <p>Weird Stuff</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                     </div>
 
@@ -64,25 +64,25 @@
                             <img src="imgs/food1.jpg" alt="Food Image">
                             <p>Ksh. 800</p>
                             <p>Spaghetti</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food2.jpg" alt="Yummy Stuff">
                             <p>Ksh. 400</p>
                             <p>Pudding</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food3.jpg" alt="Food! Forever!">
                             <p>Ksh. 50</p>
                             <p>Eggs!</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food4.jpg" alt="I'm Hungry">
                             <p>Ksh. 300</p>
                             <p>Weird Stuff</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                     </div>
 
@@ -92,76 +92,42 @@
                             <img src="imgs/food1.jpg" alt="Food Image">
                             <p>Ksh. 800</p>
                             <p>Spaghetti</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food2.jpg" alt="Yummy Stuff">
                             <p>Ksh. 400</p>
                             <p>Pudding</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food3.jpg" alt="Food! Forever!">
                             <p>Ksh. 50</p>
                             <p>Eggs!</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                         <div class="menu-item col-12 col-t-6 col-d-3 text-center">
                             <img src="imgs/food4.jpg" alt="I'm Hungry">
                             <p>Ksh. 300</p>
                             <p>Weird Stuff</p>
-                            <button class="bt bt-orange">Order Now</button>
+                            <button class="bt bt-orange bt-order">Order Now</button>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
 
-        <section id="add-modal" class="modal modal-small">
+        <section id="order-modal" class="modal modal-small">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form action="#" class="row">
-                    <h5 class="text-center">Add New Meal</h5>
-                    <div class="off-l-d-2 col-d-8 off-l-t-2 col-t-8 col-12">
-                        <img class="m-auto mb-2" src="imgs/food3.jpg"> 
-                        <button class="bt bt-teal m-auto">Select Image</button>
-                        <label>Name</label>
-                        <input type="text" value="" name="" id=""/>
-                        <label>Cost(Ksh)</label>
-                        <input type="number" value="" name="" id=""/>
-                        <button class="bt bt-orange m-auto ">Save Meal</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section id="edit-modal" class="modal modal-small">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="#" class="row">
-                    <h5 class="text-center">Edit This Meal</h5>
-                    <div class="off-l-d-2 col-d-8 off-l-t-2 col-t-8 col-12">
-                        <img class="m-auto mb-2" src="imgs/food3.jpg"> 
-                        <button class="bt bt-teal m-auto">Select Image</button>
-                        <label>Name</label>
-                        <input type="text" value="Spaghetti" name="" id=""/>
-                        <label>Cost(Ksh)</label>
-                        <input type="number" value="100" name="" id=""/>
-                        <button class="bt bt-orange m-auto ">Save Changes</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section id="delete-modal" class="modal modal-small">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <form action="#" class="row">
-                    <h5 class="text-center">Delete This Meal?</h5>
+                    <h5 class="text-center">Order This Meal?</h5>
                     <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
-                        <p><b>Spaghetti</b></p>
-                        <p class="pb-4"> Are you sure you want to delete this meal? </p>
-                        <button class="bt bt-red m-auto">Delete</button>
+                        <p><b>Eggs!</b></p>
+                        <p class="pb-4">
+                            Please confirm this order...
+                        </p>
+                        <button class="bt bt-orange m-auto">Order</button>
                     </div>
                 </form>
             </div>
@@ -175,9 +141,9 @@
                         <h1 class="logo text-flav">BAM!</h1> 
                         <hr/>
                         <a href="#" class="bt active">Today's Menu</a>
-                        <a href="#" class="bt">My Orders</a>
-                        <a href="#" class="bt">Notifications</a>
-                        <a href="#" class="bt">Order History</a>
+                        <a href="user-orders.html" class="bt">My Orders</a>
+                        <a href="user-notifications.html" class="bt">Notifications(4)</a>
+                        <a href="user-orders-history.html" class="bt">Order History</a>
                         <hr class="last"/>
                         <a href="../index.html" class="bt bt-logout">Logout</a>
                     </div>
@@ -188,10 +154,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="js/app.js" charset="utf-8"></script>
         <script>
-            initModal('#add', '#add-modal');
             initModal('.controls-icon', '#controls-modal');
-            initModal('.edit-act', '#edit-modal');
-            initModal('.delete-act', '#delete-modal');
+            initModal('.bt-order', '#order-modal');
         </script>
     </body>
 </html>
