@@ -226,7 +226,6 @@ footer p {
     }
 }
 
-
 .content table img {
     display: block;
     margin: auto;
@@ -252,7 +251,7 @@ footer p {
 }
 
 .table-control .bt {
-    border-width: 3px;
+    border-width: 2px;
 }
 
 /* search width for tablet */
