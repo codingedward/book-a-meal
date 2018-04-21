@@ -69,6 +69,7 @@ a.bt {
     font-style: normal;
     text-align: center;
     text-decoration: none;
+    display: inline-block;
 }
 
 a.bt,
