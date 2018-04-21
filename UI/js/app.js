@@ -13,6 +13,11 @@ function initModal(trigger, target) {
             $(`${target} .close`).on('click', function () {
                 $(target).css('display', 'none');
             });
+
+            /* temporary to allow closing of modals by pressing submit */
+            $(`${target} .bt-orange, ${target} .bt-red`).on('click', function () {
+                $(target).css('display', 'none');
+            });
         });
     });
 }
