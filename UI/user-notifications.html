@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-12 pt-1 pb-0 pl-0">
                             <h5 class="d-inline">Notifications</h5>
-                            <button id="add" class="bt bt-teal float-r">Close All</button>
+                            <button id="clear" class="bt bt-teal float-r">Close All</button>
                         </div>
                     </div>
 
@@ -96,6 +96,22 @@
             </section>
         </main>
 
+        <section id="clear-modal" class="modal modal-small">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="#" class="row">
+                    <h5 class="text-center">Clear Notifications?</h5>
+                    <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
+                        <p class="pb-4">
+                            Please confirm your action...
+                        </p>
+                        <button class="bt bt-red m-auto">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
         <section id="controls-modal" class="modal modal-small hidden-t hidden-d">
             <div class="modal-content bg-teal p-0">
                 <span class="close">&times;</span>
@@ -118,7 +134,7 @@
         <script src="js/app.js" charset="utf-8"></script>
         <script>
             initModal('.controls-icon', '#controls-modal');
-            initModal('.bt-order', '#order-modal');
+            initModal('#clear', '#clear-modal');
         </script>
     </body>
 </html>
