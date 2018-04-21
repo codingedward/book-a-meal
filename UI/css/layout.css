@@ -316,3 +316,24 @@ footer p {
         height: initial;
     }
 }
+
+
+/* ======================= User Notifications Page ======================*/
+
+.notice {
+    text-align: center;
+    border: 2px dashed #2d728f;
+    min-height: 140px;
+}
+.notice p {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.notice .close {
+    float: right;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-right: 10px;
+}
