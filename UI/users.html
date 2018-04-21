@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <title>Home</title>
+        <title>Caterer | Users</title>
         <link rel="stylesheet" href="css/reset.css" type="text/css" charset="utf-8">
         <link rel="stylesheet" href="css/layout.css" type="text/css" charset="utf-8">
         <link rel="stylesheet" href="css/responsive.css" type="text/css" charset="utf-8">
@@ -17,9 +17,9 @@
                     <hr/>
                     <a href="meals.html" class="bt">Manage Meals</a>
                     <a href="menu.html" class="bt">Set Menu</a>
-                    <a href="#" class="bt active">Manage Orders</a>
-                    <a href="users.html" class="bt">Users</a>
-                    <a href="orders-history.html" class="bt">Order History</a>
+                    <a href="orders.html" class="bt">Manage Orders</a>
+                    <a href="#" class="bt active">Users</a>
+                    <a href="#" class="bt">Order History</a>
                     <hr class="last"/>
                     <a href="../index.html" class="bt bt-logout">Logout</a>
                 </nav>
@@ -30,18 +30,22 @@
                             <img class="hidden-t hidden-d controls-icon" src="imgs/menu.png" alt=""/>
                         </div>
                         <div class="col-12 pt-1 pb-0 pl-0">
-                            <h5 class="">Manage Orders</h5>
+                            <h5 class="">Manage Users</h5>
                         </div>
                     </div>
 
                     <div class="row m-0 p-0">
                         <div class="col-d-4 col-12 table-control m-0 pb-0">
-                           <label>Text:&nbsp;</label>
+                           <label>Text:</label>
                            <input type="text" value="" name=""  placeholder=" Search text..."/>
                         </div>
                         <div class="col-d-4 col-12 table-control  m-0 pb-0">
-                           <label>Date:</label>
-                           <input type="date" value="" name=""  placeholder=" Type to filter..."/>
+                           <label>Role:</label>
+                           <select name="role" id="role">
+                              <option value="">All</option> 
+                              <option value="">User (Customer)</option> 
+                              <option value="">Admin (Caterer)</option> 
+                           </select>
                         </div>
                         <div class="col-d-4 col-12 table-control m-0 pb-0">
                             <button class="bt bt-teal m-auto-m m-auto-t">Filter </button>
@@ -54,46 +58,36 @@
                                 <table id="order-table">
                                     <thead>
                                         <tr>
-                                            <th>Customer</th>
-                                            <th>Meal</th>
-                                            <th>Category</th>
-                                            <th>Cost</th>
-                                            <th>Order Date</th>
-                                            <th>Toggle State</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Sign Up Date</th>
+                                            <th>Role</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Vicky</td>
-                                            <td>Pudding</td>
-                                            <td>Supper</td>
-                                            <td>Ksh. 500</td>
+                                            <td>vicky@gmail.com</td>
                                             <td>19/04/2018</td>
-                                            <td> <a class="accept-act" href="#">Accept</a></td>
+                                            <td> <a class="make-act" href="#">Make Admin</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Mumanyi</td>
-                                            <td>Eggs!</td>
-                                            <td>Breakfast</td>
-                                            <td>Ksh. 50</td>
+                                            <td>mumanyi@yahoo.com</td>
                                             <td>30/05/2018</td>
-                                            <td> <a class="revoke-act" href="#">Revoke</a></td>
+                                            <td> <a class="revoke-act" href="#">Remove Admin</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Edward</td>
-                                            <td>Wierd Stuff</td>
-                                            <td>Supper</td>
-                                            <td>Ksh. 250</td>
+                                            <td>edward@gmail.com</td>
                                             <td>30/07/2018</td>
-                                            <td> <a class="accept-act" href="#">Accept</a></td>
+                                            <td> <a class="make-act" href="#">Make Admin</a></td>
                                         </tr> 
                                         <tr>
                                             <td>Moses</td>
-                                            <td>Spaghetti</td>
-                                            <td>Lunch</td>
-                                            <td>Ksh. 200</td>
+                                            <td>moses@gmail.com</td>
                                             <td>03/02/2018</td>
-                                            <td> <a class="revoke-act" href="#">Revoke</a></td>
+                                            <td> <a class="make-act" href="#">Make Admin</a></td>
                                         </tr> 
                                     </tbody>
                                 </table>
@@ -111,14 +105,14 @@
 
 
 
-        <section id="accept-modal" class="modal modal-small">
+        <section id="make-modal" class="modal modal-small">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form action="#" class="row">
-                    <h5 class="text-center">Accept This Order?</h5>
+                    <h5 class="text-center">Make A Caterer?</h5>
                     <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
-                        <p><b>Spaghetti</b> by <b>Moses</b></p>
-                        <p class="pb-4"></p>
+                        <p> <b>Moses</b></p>
+                        <p class="pb-4">Turn this user into a caterer?</p>
                         <button class="bt bt-orange m-auto">Accept</button>
                     </div>
                 </form>
@@ -130,11 +124,14 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form action="#" class="row">
-                    <h5 class="text-center">Revoke This Order?</h5>
+                    <h5 class="text-center">Remove This Caterer?</h5>
                     <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
-                        <p><b>Spaghetti</b> by <b>Moses</b></p>
-                        <p class="pb-4"> Are you sure you want to revoke this order? </p>
-                        <button class="bt bt-red m-auto">Revoke</button>
+                        <p><b>Edward</b></p>
+                        <p class="pb-4">
+                            Remove this user from being a caterer? 
+                            He/she will be turned into a normal user.
+                        </p>
+                        <button class="bt bt-red m-auto">Remove</button>
                     </div>
                 </form>
             </div>
@@ -148,10 +145,10 @@
                         <h1 class="logo text-flav">BAM!</h1> 
                         <hr/>
                         <a href="meals.html" class="bt">Manage Meals</a>
-                        <a href="menu.html" class="bt">Set Menu</a>
-                        <a href="#" class="bt active">Manage Orders</a>
-                        <a href="users.html" class="bt">Users</a>
-                        <a href="orders-history.html" class="bt">Order History</a>
+                        <a href="#" class="bt active">Set Menu</a>
+                        <a href="#" class="bt">Manage Orders</a>
+                        <a href="#" class="bt">Users</a>
+                        <a href="#" class="bt">Order History</a>
                         <hr class="last"/>
                         <a href="../index.html" class="bt bt-logout">Logout</a>
                     </div>
@@ -163,7 +160,7 @@
         <script src="js/app.js" charset="utf-8"></script>
         <script>
             initModal('.controls-icon', '#controls-modal');
-            initModal('.accept-act', '#accept-modal');
+            initModal('.make-act', '#make-modal');
             initModal('.revoke-act', '#revoke-modal');
         </script>
     </body>
