@@ -125,6 +125,12 @@ html {
     margin: auto;
 }
 
+/* margin auto on mobile*/
+.m-auto-m {
+    display: block;
+    margin: auto;
+}
+
 /* margin-right */
 .mr-0 { margin-right: 0; }
 .mr-0 { margin-right: 0; }
@@ -213,6 +219,18 @@ html {
     /* hidden utilities */
     .hidden-m { display: initial; }
     .hidden-t { display: none; }
+
+    /* margin auto on mobile*/
+    .m-auto-m {
+        display: initial;
+        margin: initial;
+    }
+
+    /* margin auto on tablet */
+    .m-auto-t {
+        display: block;
+        margin: auto;
+    }
 }
 
 /* for desktop (allow desktop to override that of tablet)  */
@@ -252,6 +270,23 @@ html {
     .hidden-t { display: initial; }
     .hidden-m { display: initial; }
     .hidden-d { display: none; }
+
+    /* margin auto on mobile*/
+    .m-auto-m {
+        display: initial;
+        margin: initial;
+    }
+
+    /* margin auto on tablet */
+    .m-auto-t {
+        display: initial;
+        margin: initial;
+    }
+    /* margin auto on desktop */
+    .m-auto-d {
+        display: block;
+        margin: auto;
+    }
 }
 
 /* table responsiveness */

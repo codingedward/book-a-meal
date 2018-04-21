@@ -133,7 +133,7 @@ footer p {
     }
 }
 
-/* ===================== Home Pages Design ===================== */
+/* ===================== Logged In Page Design ===================== */
 /* contains navigation */
 .controls {
     height: 100vh;
@@ -143,10 +143,11 @@ footer p {
 
 /* will show when in mobile */
 .controls-icon {
-    width: 30px;
+    width: 40px;
+    display: block;
     margin: auto;
     cursor: pointer;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
 /* this modal has navigation for mobile*/
@@ -215,26 +216,66 @@ footer p {
     height: 100vh;
 }
 
+.content h5 {
+    text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .content h5  {
+        text-align: left;
+    }
+}
+
+
 .content table img {
     display: block;
     margin: auto;
     max-height: 90px;
 }
 
+.table-control {
+    margin-top: 0;
+    padding-top: 0;
+    white-space: nowrap;
+}
+.table-control,
+.table-control input,
+.table-control label {
+    display: inline-block;
+    margin-top: 0;
+}
+
+.table-control input[type="date"],
+.table-control input[type="text"] {
+    width: 90%;
+    margin-bottom: 0;
+}
+
+.table-control .bt {
+    border-width: 3px;
+}
+
 /* search width for tablet */
 @media only screen and (min-width: 600px) {
-    .content .search {
+    .content #search {
         width: 70%;
     }
 }
 
 /* search width for desktop */
 @media only screen and (min-width: 768px) {
-    .content .search {
+    .content #search {
         width: 30%;
     }
 }
 
+/* deletion to have read for warning */
+.delete-act, .revoke-act {
+    color: #cc0000;
+}
+
+
+/* ================  Manage Meals && Set Menu =============*/
 /* size of image in adding of meal */
 #add-modal img,
 #edit-modal img,
@@ -243,9 +284,7 @@ footer p {
     margin-bottom: 20px;
 }
 
-/* deletion to have read for warning */
-.delete-act {
-    color: #cc0000;
+/* ================  Manage Orders  =============*/
+#order-table td {
+    padding: 8px;
 }
-
-
