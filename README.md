@@ -46,7 +46,12 @@ The following are the images and textures used for this project:
 6. Hamburger menu [icon](https://icons8.com/icon/5574/menu).
 
 ### Pages
-We will now tackle the development process page by page:
+Here we will show the wireframes of the main pages. 
+The heirarchy of the application is as follows:
+
+![Map](https://image.ibb.co/gwHiWx/map.png)
+
+The web application will have the following pages:
 
 #### Landing Page
 This will be the first page any user of the application will land on. 
@@ -92,3 +97,26 @@ Here the caterer can view the history of orders made by customers.
 
 ![Caterer Order History ](https://image.ibb.co/jJRORn/order_history.png)
 
+
+#### Customer Menu
+Here, the user can view what has been set on the menu and make orders.
+
+![User Menu](https://image.ibb.co/byRMJc/user_menu.png)
+
+#### Customer Orders
+Here the customer can see and track the orders they made. After it has been
+approved by the caterer, the status of the order will also change and he/she
+can see this.
+
+![User Orders](https://image.ibb.co/n92Tyc/user_orders.png)
+
+#### Customer Notifications
+Here the customer will get updates on new meals and when the caterer sets the
+menu.
+
+![User Notifications](https://image.ibb.co/i5DqBx/user_notifications.png)
+
+#### Customer Order History.
+Here the customer can see their order history.
+
+![User Order History](https://image.ibb.co/guyqBx/user_history.png)
