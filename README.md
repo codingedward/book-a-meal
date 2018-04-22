@@ -101,14 +101,14 @@ Here the caterer can view the history of orders made by customers.
 #### Customer Menu
 Here, the user can view what has been set on the menu and make orders.
 
-![User Menu](https://image.ibb.co/byRMJc/user_menu.png)
+![User Menu](https://image.ibb.co/cGb2rx/user_menu.png)
 
 #### Customer Orders
 Here the customer can see and track the orders they made. After it has been
 approved by the caterer, the status of the order will also change and he/she
 can see this.
 
-![User Orders](https://image.ibb.co/n92Tyc/user_orders.png)
+![User Orders](https://image.ibb.co/jY62rx/user_orders.png)
 
 #### Customer Notifications
 Here the customer will get updates on new meals and when the caterer sets the
