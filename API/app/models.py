@@ -76,9 +76,9 @@ class Meal(db.Model):
 
 
 class MealType(enum.Enum):
-    Breakfast = 1
-    Lunch = 2
-    Supper = 3
+    BREAKFAST = 1
+    LUNCH = 2
+    SUPPER = 3
 
 
 class Menu(db.Model):
