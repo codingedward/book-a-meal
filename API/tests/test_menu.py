@@ -6,10 +6,12 @@ from app.models import MealType
 
 
 class MenuTestCase(unittest.TestCase):
+    """ Will test menu model"""
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
 
+        # create a temporary meal
         res = self.client().post(
             '/meals', 
             data={ 

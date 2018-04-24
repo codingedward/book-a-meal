@@ -5,10 +5,12 @@ from app import create_app, db
 
 
 class NotificationTestCase(unittest.TestCase):
+    """ Will test notification model"""
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
 
+        # create a temporary user
         res = self.client().post(
             '/users', 
             data={ 

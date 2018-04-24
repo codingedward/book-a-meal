@@ -5,6 +5,7 @@ from app import create_app, db
 
 
 class UserTestCase(unittest.TestCase):
+    """ Will test user model"""
 
     def setUp(self):
         self.app = create_app(config_name='testing')

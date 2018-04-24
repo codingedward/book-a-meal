@@ -5,6 +5,7 @@ from app import create_app, db
 
 
 class MealTestCase(unittest.TestCase):
+    """ Will test meal model"""
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
