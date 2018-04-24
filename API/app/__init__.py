@@ -11,6 +11,7 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config)
     app.config.from_pyfile('config.py')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     api_manager = APIManager(app, flask_sqlalchemy_db=db)
