@@ -5,11 +5,12 @@ from app import create_app, db
 
 
 class AuthenticationTestCase(unittest.TestCase):
-    """ Will test authentication """
+    """ This will test authentication endpoints"""
+
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.user = {'name': 'John', 'email': 'john@doe.com', 
+        self.user = {'name': 'John', 'email': 'john@doe.com',
                      'password': 'secret'}
 
         with self.app.app_context():
@@ -35,7 +36,8 @@ class AuthenticationTestCase(unittest.TestCase):
 
 
 class MealTestCase(unittest.TestCase):
-    """ Will test meal model"""
+    """ This will test meal resource endpoints"""
+
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
@@ -96,17 +98,18 @@ class MealTestCase(unittest.TestCase):
 
 
 class MenuTestCase(unittest.TestCase):
-    """ Will test menu model"""
+    """ This will test menu resource endpoints"""
+
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
 
         # create a temporary meal
         res = self.client().post(
-            '/meals', 
-            data={ 
-                'name': 'Ugali', 
-                'img_path': '#', 
+            '/meals',
+            data={
+                'name': 'Ugali',
+                'img_path': '#',
                 'cost': 200.0
             }
         )
@@ -127,7 +130,6 @@ class MenuTestCase(unittest.TestCase):
         )
         res.assertEqual(res.status_code, 201)
         res.assertIn('id', res.data)
-
 
     def test_can_get_all_menus(self):
         res = self.client().post(
@@ -202,15 +204,16 @@ class MenuTestCase(unittest.TestCase):
 
 
 class NotificationTestCase(unittest.TestCase):
-    """ Will test notification model"""
+    """ This will test notification resource endpoints"""
+
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
 
         # create a temporary user
         res = self.client().post(
-            '/users', 
-            data={ 
+            '/users',
+            data={
                 'username': 'John',
                 'email': 'john@doe.com',
                 'password': 'secret'
@@ -229,20 +232,19 @@ class NotificationTestCase(unittest.TestCase):
             db.create_all()
 
     def test_notification_creation(self):
-        res = self.client().post( '/notifications', data=self.notification)
+        res = self.client().post('/notifications', data=self.notification)
         res.assertEqual(res.status_code, 201)
         res.assertIn('id', res.data)
 
-
     def test_can_get_all_notifications(self):
-        res = self.client().post( '/notifications', data=self.notification)
+        res = self.client().post('/notifications', data=self.notification)
         res.assertEqual(res.status_code, 201)
 
         res = self.client().get('/notifications')
         self.assertEqual(res.status_code, 200)
 
     def test_can_get_notification_by_id(self):
-        res = self.client().post( '/notifications', data=self.notification)
+        res = self.client().post('/notifications', data=self.notification)
         res.assertEqual(res.status_code, 201)
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
@@ -253,7 +255,7 @@ class NotificationTestCase(unittest.TestCase):
         self.assertIn('id', res.data)
 
     def test_notification_can_be_updated(self):
-        res = self.client().post( '/notifications', data=self.notification)
+        res = self.client().post('/notifications', data=self.notification)
         res.assertEqual(res.status_code, 201)
 
         res = self.client().put(
@@ -268,7 +270,7 @@ class NotificationTestCase(unittest.TestCase):
         self.assertIn('Hello again', res)
 
     def test_notification_deletion(self):
-        res = self.client().post( '/notifications', data=self.notification)
+        res = self.client().post('/notifications', data=self.notification)
         res.assertEqual(res.status_code, 201)
 
         res = self.client().delete('/notifications/1')
@@ -284,16 +286,17 @@ class NotificationTestCase(unittest.TestCase):
 
 
 class OrderTestCase(unittest.TestCase):
-    """ Will test order model"""
+    """ This will test order resource endpoints"""
+
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
 
         res = self.client().post(
-            '/meals', 
-            data={ 
-                'name': 'Ugali', 
-                'img_path': '#', 
+            '/meals',
+            data={
+                'name': 'Ugali',
+                'img_path': '#',
                 'cost': 200.0
             }
         )
@@ -302,8 +305,8 @@ class OrderTestCase(unittest.TestCase):
         self.meal_id = json_result['id']
 
         res = self.client().post(
-            '/users', 
-            data={ 
+            '/users',
+            data={
                 'username': 'John',
                 'email': 'john@doe.com',
                 'password': 'secret'
@@ -321,20 +324,19 @@ class OrderTestCase(unittest.TestCase):
             db.create_all()
 
     def test_order_creation(self):
-        res = self.client().post( '/orders', data=self.order)
+        res = self.client().post('/orders', data=self.order)
         res.assertEqual(res.status_code, 201)
         res.assertIn('id', res.data)
 
-
     def test_can_get_all_orders(self):
-        res = self.client().post( '/orders', data=self.order)
+        res = self.client().post('/orders', data=self.order)
         res.assertEqual(res.status_code, 201)
 
         res = self.client().get('/orders')
         self.assertEqual(res.status_code, 200)
 
     def test_can_get_order_by_id(self):
-        res = self.client().post( '/orders', data=self.order)
+        res = self.client().post('/orders', data=self.order)
         res.assertEqual(res.status_code, 201)
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
@@ -345,15 +347,15 @@ class OrderTestCase(unittest.TestCase):
         self.assertIn('id', res.data)
 
     def test_order_can_be_updated(self):
-        res = self.client().post( '/orders', data=self.order)
+        res = self.client().post('/orders', data=self.order)
         res.assertEqual(res.status_code, 201)
 
         json_result = json.loads(res.data.decode('utf-8').replace("'", "\""))
         res = self.client().post(
-            '/meals', 
-            data={ 
-                'name': 'Ugali Skuma', 
-                'img_path': '#', 
+            '/meals',
+            data={
+                'name': 'Ugali Skuma',
+                'img_path': '#',
                 'cost': 200.0
             }
         )
@@ -369,7 +371,7 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_order_deletion(self):
-        res = self.client().post( '/orders', data=self.order)
+        res = self.client().post('/orders', data=self.order)
         res.assertEqual(res.status_code, 201)
 
         res = self.client().delete('/orders/1')
@@ -385,12 +387,12 @@ class OrderTestCase(unittest.TestCase):
 
 
 class UserTestCase(unittest.TestCase):
-    """ Will test user model"""
+    """ This will test user resource endpoints"""
 
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.user = {'username': 'John', 'email': 'john2@doe.com', 
+        self.user = {'username': 'John', 'email': 'john2@doe.com',
                      'password': 'secret'}
 
         with self.app.app_context():
@@ -448,4 +450,3 @@ class UserTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
