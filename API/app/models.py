@@ -48,7 +48,7 @@ class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True)
     cost = db.Column(db.Float(2))
-    img_path = db.Column(dp.String(1024))
+    img_path = db.Column(db.String(1024))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,

@@ -6,6 +6,7 @@ class Config(object):
     CSRF_ENABLED = True    # prevent cross site request forgery
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
