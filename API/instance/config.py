@@ -3,17 +3,20 @@ import os
 
 class Config(object):
     DEBUG = False
-    CSRF_ENABLED = True # prevent cross site request forgery
+    CSRF_ENABLED = True    # prevent cross site request forgery
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+
 
 class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
 
+
 class DevConfig(Config):
-   "Config for development"
-   DEBUG = True
+    "Config for development"
+    DEBUG = True
+
 
 class TestingConfig(Config):
     DEBUG = True

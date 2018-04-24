@@ -13,7 +13,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(300))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
-        db.DateTime, 
+        db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
@@ -51,7 +51,7 @@ class Meal(db.Model):
     img_path = db.Column(dp.String(1024))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
-        db.DateTime, 
+        db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
@@ -90,7 +90,7 @@ class Menu(db.Model):
     category = db.Column(db.Enum(MealType))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
-        db.DateTime, 
+        db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
@@ -116,13 +116,13 @@ class Menu(db.Model):
 class Order(db.Model):
 
     __tablename__ = 'orders'
-    
+
     id = db.Column(db.Integer, primary_key=True)
     menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
-        db.DateTime, 
+        db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
@@ -154,7 +154,7 @@ class Notification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
-        db.DateTime, 
+        db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
@@ -175,4 +175,3 @@ class Notification(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
