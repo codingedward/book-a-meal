@@ -146,7 +146,7 @@ class MenuTestCase(unittest.TestCase):
         res = self.client().post(
             '/menus',
             data={
-                'meal_id': self.meal_id
+                'meal_id': self.meal_id,
                 'category': MealType.BREAKFAST,
             }
         )
