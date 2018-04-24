@@ -5,3 +5,4 @@
 ./**/*.swo
 ./**/*.swn
 API/venv/*
+__pycache__
