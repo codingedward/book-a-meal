@@ -1,3 +1,7 @@
 *.swp
+*.swo
+*.swn
 ./**/*.swp
+./**/*.swo
+./**/*.swn
 API/venv/*

@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_restless import APIManager
 from flask_sqlalchemy import SQLAlchemy 
-from  app.config import app_config
+from instance.config import app_config
+
 
 db = SQLAlchemy()
+
 
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
