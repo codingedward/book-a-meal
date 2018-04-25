@@ -2,6 +2,10 @@ import enum
 from app import db
 from passlib.hash import bcrypt
 
+class UserType(enum.Enum):
+    CATERER = 1
+    CUSTOMER = 2
+
 class User(db.Model):
 
     __tablename__ = 'users'
@@ -17,8 +21,7 @@ class User(db.Model):
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
-    orders = db.relationship('Order')
-    notifications = db.relationship('Notification')
+
 
     def __init__(self, username, email, password):
         self.email = email
@@ -55,7 +58,7 @@ class Meal(db.Model):
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
-    menus = db.relationship('Menu')
+
 
     def __init__(self, name, cost, img_path):
         self.name = name
@@ -86,7 +89,7 @@ class Menu(db.Model):
     __tablename__ = 'menus'
 
     id = db.Column(db.Integer, primary_key=True)
-    meal_id = db.Column(db.Integer, db.ForeignKey('meals.id'))
+    meal_id = db.Column(db.Integer, db.ForeignKey('meals.id', ondelete='CASCADE'))
     category = db.Column(db.Enum(MealType))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
@@ -94,7 +97,11 @@ class Menu(db.Model):
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
     )
-    orders = db.relationship('Order')
+
+    meal = db.relationship(
+        'Meal',
+        backref=db.backref("menus", lazy="dynamic")
+    )
 
     def __init__(self, meal_id, category):
         self.meal_id = meal_id
@@ -118,13 +125,23 @@ class Order(db.Model):
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
-    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
+    )
+
+    menu = db.relationship(
+        'Menu',
+        backref=db.backref("orders", lazy="dynamic")
+    )
+
+    user = db.relationship(
+        'User',
+        backref=db.backref("orders", lazy="dynamic")
     )
 
     def __init__(self, menu_id, user_id):
@@ -151,12 +168,17 @@ class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     message = db.Column(db.String(1024))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
         default=db.func.current_timestamp(),
         onupdate=db.func.current_timestamp()
+    )
+
+    user = db.relationship(
+        'User',
+        backref=db.backref("notifications", lazy="dynamic")
     )
 
     def __init__(self, title, message, user_id):
