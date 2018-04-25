@@ -1,6 +1,7 @@
 *.swp
 *.swo
 *.swn
+.env
 ./**/*.swp
 ./**/*.swo
 ./**/*.swn
