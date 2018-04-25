@@ -2,10 +2,6 @@ import enum
 from app import db
 from passlib.hash import bcrypt
 
-class UserType(enum.Type):
-    CATERER = 1
-    CUSTOMER = 2
-
 class User(db.Model):
 
     __tablename__ = 'users'
