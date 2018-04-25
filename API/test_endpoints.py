@@ -17,16 +17,16 @@ class AuthenticationTestCase(unittest.TestCase):
             db.create_all()
 
     def test_user_can_signup(self):
-        res = self.client().post('/users/auth/signup', data=self.user)
+        res = self.client().post('/auth/signup', data=self.user)
         self.assertEqual(res.status_code, 201)
 
     def test_user_can_login(self):
-        res = self.client().post('/users/auth/login', data=self.user)
+        res = self.client().post('/auth/login', data=self.user)
         self.assertEqual(res.status_code, 201)
         self.assertIn('token', res.data)
 
     def test_user_can_logout(self):
-        res = self.client().post('/user/autho/logout')
+        res = self.client().post('/auth/logout')
         self.assertEqual(res.status_code, 201)
 
     def tearDown(self):

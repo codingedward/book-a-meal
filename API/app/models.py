@@ -2,6 +2,9 @@ import enum
 from app import db
 from passlib.hash import bcrypt
 
+class UserType(enum.Type):
+    CATERER = 1
+    CUSTOMER = 2
 
 class User(db.Model):
 
@@ -11,6 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(1024), unique=True)
     password_hash = db.Column(db.String(300))
+    role = db.Column(db.Enum(UserType))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
