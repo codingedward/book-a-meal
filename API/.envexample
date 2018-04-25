@@ -1,0 +1,11 @@
+FLASK_APP="run.py"
+
+# dev, testing or production
+APP_MODE=
+
+# your app secret token
+SECRET=
+
+# change username, password, your host, db and db_test
+DATABASE_URL="postgresql://username:password@host/db"
+TEST_DATABASE_URL="postgresql://username:password@host/db_test"
