@@ -14,6 +14,7 @@ class Config(object):
     # use email instead of password
     JWT_AUTH_USERNAME_KEY = 'email'
     JWT_EXPIRATION_DELTA = timedelta(seconds=3600)
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class ProductionConfig(Config):
