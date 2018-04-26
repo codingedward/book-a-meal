@@ -41,7 +41,7 @@ class User(db.Model):
         db.session.commit()
 
     def validate_password(self, password):
-        return bcrypt.verify(password, self.password)
+        return bcrypt.verify(password, self.password_hash)
 
 
 class Meal(db.Model):
