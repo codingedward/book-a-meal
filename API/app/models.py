@@ -43,6 +43,9 @@ class User(db.Model):
     def validate_password(self, password):
         return bcrypt.verify(password, self.password_hash)
 
+    def is_caterer(self):
+        return self.role == UserType.CATERER
+
 
 class Meal(db.Model):
 
