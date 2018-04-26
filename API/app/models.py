@@ -2,9 +2,11 @@ import enum
 from app import db
 from passlib.hash import bcrypt
 
-class UserType(enum.Enum):
+
+class UserType:
     CATERER = 1
     CUSTOMER = 2
+
 
 class User(db.Model):
 
@@ -14,7 +16,7 @@ class User(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(1024), unique=True)
     password_hash = db.Column(db.String(300))
-    role = db.Column(db.Enum(UserType))
+    role = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -23,8 +25,9 @@ class User(db.Model):
     )
 
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, role = UserType.CUSTOMER):
         self.email = email
+        self.role = role
         self.username = username
         self.password_hash = bcrypt.encrypt(password)
 
@@ -81,7 +84,7 @@ class Meal(db.Model):
         db.session.commit()
 
 
-class MealType(enum.Enum):
+class MealType:
     BREAKFAST = 1
     LUNCH = 2
     SUPPER = 3
@@ -93,7 +96,7 @@ class Menu(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     meal_id = db.Column(db.Integer, db.ForeignKey('meals.id', ondelete='CASCADE'))
-    category = db.Column(db.Enum(MealType))
+    category = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -148,7 +151,7 @@ class Order(db.Model):
     )
 
     def __init__(self, menu_id, user_id):
-        self.meal_id = meal_id
+        self.menu_id = menu_id
         self.user_id = user_id
 
     def save(self):
