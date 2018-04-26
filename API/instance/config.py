@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 
 class Config(object):
@@ -7,6 +8,12 @@ class Config(object):
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # auth endpoint
+    JWT_AUTH_URL_RULE = '/api/v1/auth/login'
+    # use email instead of password
+    JWT_AUTH_USERNAME_KEY = 'email'
+    JWT_EXPIRATION_DELTA = timedelta(seconds=3600)
 
 
 class ProductionConfig(Config):
