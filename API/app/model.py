@@ -1,5 +1,6 @@
 import os
-from simplevalidator import Validator
+import re
+from passlib.hash import bcrypt
 
 
 class MealType:
@@ -8,18 +9,18 @@ class MealType:
     BREAKFAST = 3
 
 class UserType:
-    USER = 1 
-    ADMIN = 2
+    CATERER = 1 
+    CUSTOMER = 2
 
 class BAM:
     def __init__(self):
         self.clear()
-
         # create default caterer
         self.post_user({
             'username': os.getenv('DEFAULT_ADMIN_USERNAME'),
             'email': os.getenv('DEFAULT_ADMIN_EMAIL'),
-            'password': os.getenv('DEFAULT_ADMIN_PASSWORD')
+            'password': os.getenv('DEFAULT_ADMIN_PASSWORD'),
+            'role': UserType.CATERER
         })
 
     @property
@@ -29,7 +30,16 @@ class BAM:
     def post_user(self, user):
         self._users_index += 1
         user['id'] = self._users_index
+        user['role'] = UserType.CUSTOMER
+        user['password'] = bcrypt.encrypt(user['password'])
+        self._users_internal[self._users_index] = {
+            'id': self._users_index,
+            'email': user['email'],
+            'password': user['password']
+        }
+        del user['password']
         self._users[self._users_index] = user
+
         return user
 
     def put_user(self, user, id):
@@ -38,8 +48,8 @@ class BAM:
     def get_user(self, id):
         return self._users.get(id, None)
 
-    def get_user_by_email(self, email):
-        for u in self._users.values():
+    def get_internal_user_by_email(self, email):
+        for u in self._users_internal.values():
             if u['email'] == email:
                 return u
 
@@ -50,18 +60,24 @@ class BAM:
         del self._users[id]
 
     def validate_user_fails(self, fields):
-        v = Validator()
-        v.make(
-            fields=fields,
-            rules={
-                'username': 'required',
-                'email': 'required|email',
-                'password': 'required|min:8',
-            },
-        )
+        if not fields['username']:
+            return True, ['Username is required']
+
+        if not fields['email']:
+            return True, ['Email is required']
+
+        if not fields['password']:
+            return True, ['Password is required']
+
+        if len(fields['password']) < 6:
+            return True, ['Password must be at least 6 characters']
+        
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", 
+                        fields['email']):
+            return True, ['Please provide a valid email']
 
         for u in self._users.values():
-            if u['email'] == user['email']:
+            if u['email'] == fields['email']:
                 return True, ['Email must be unique']
 
         return False, []
@@ -90,20 +106,19 @@ class BAM:
         del self._meals[id]
 
     def validate_meal_fails(self, fields):
-        v = Validator()
-        v.make(
-            fields=fields,
-            rules={
-                'name': 'required',
-                'cost': 'required|posinteger',
-            },
-        )
-        if v.fails():
-            return True, v.errors()
+        if not fields['name']:
+            return True, ['Name is required']
+
+        if not fields['cost']:
+            return True, ['Cost is required']
+
+        if not str(fields['cost']).isdigit():
+            return True, ['Cost must be numeric']
 
         for m in self._meals.values():
             if m['name'] == fields['name']:
                 return True, ['Meal name must be unique']
+
         return False, []
 
 
@@ -130,16 +145,11 @@ class BAM:
         del self._menus[id]
 
     def validate_menu_fails(self, fields):
-        v = Validator()
-        v.make(
-            fields=fields,
-            rules={
-                'meal_id': 'required|posinteger',
-                'category': 'required|posinteger',
-            },
-        )
-        if v.fails():
-            return True, v.errors()
+        if not fields['meal_id']:
+            return True, ['Meal id is required']
+
+        if not fields['Category']:
+            return True, ['Category is required']
 
         if fields['meal_id'] not in self._meals.keys():
             return True, ['No meal found for that meal_id']
@@ -160,8 +170,8 @@ class BAM:
         self._orders[self._orders_index] = order
         return order
 
-    def put_order(self, user, id):
-        self._orders[id] = user
+    def put_order(self, order, id):
+        self._orders[id] = order
 
     def get_order(self, id):
         return self._orders.get(id, None)
@@ -173,16 +183,11 @@ class BAM:
         del self._orders[id]
 
     def validate_order_fails(self, fields):
-        v = Validator()
-        v.make(
-            fields=fields,
-            rules={
-                'user_id': 'required|posinteger',
-                'menu_id': 'required|posinteger',
-            },
-        )
-        if v.fails():
-            return True, v.errors()
+        if not fields['menu_id']:
+            return True, ['Menu id is required']
+
+        if not fields['user_id']:
+            return True, ['User id is required']
 
         if fields['user_id'] not in self._users.keys():
             return True, ['No user found for that user_id']
@@ -216,17 +221,14 @@ class BAM:
         del self._notifications[id]
 
     def validate_notification_fails(self, fields):
-        v = Validator()
-        v.make(
-            fields=fields,
-            rules={
-                'title': 'required',
-                'message': 'required',
-                'user_id': 'required|posinteger'
-            },
-        )
-        if v.fails():
-            return True, v.errors()
+        if not fields['title']:
+            return True, ['Title is required']
+
+        if not fields['message']:
+            return True, ['Message is required']
+        
+        if not fields['user_id']:
+            return True, ['User id is required']
 
         if fields['user_id'] not in self._users.keys():
             return True, ['No user found for that user_id']
@@ -234,7 +236,9 @@ class BAM:
         return False, []
 
     def clear(self):
+        self.logged_in = []
         self._users = {}
+        self._users_internal = {}
         self._users_index = 0
         self._meals = {}
         self._meals_index = 0
