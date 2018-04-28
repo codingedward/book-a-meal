@@ -14,3 +14,6 @@ DEFAULT_ADMIN_PASS=
 
 # first admin email
 DEFAULT_ADMIN_EMAIL=
+
+# secret key for jwt
+JWT_SECRET_KEY=
