@@ -8,6 +8,7 @@ install:
     - cd API
     - pip install pipenv
     - pipenv install
+    - cp .envexample .env
 # run tests
 script:
     - pipenv shell
