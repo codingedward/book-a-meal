@@ -26,8 +26,8 @@ python-dotenv = "*"
 bcrypt = "*"
 simplevalidator = "*"
 flask-restful = "*"
-flask-jwt = "*"
 flask-apispec = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_version = "3.6"
