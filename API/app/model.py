@@ -48,8 +48,8 @@ class BAM:
             if u['email'] == email:
                 return u
 
-    def get_internal_user_by_email(self, email):
-        for u in self._users_internal.values():
+    def get_user_by_email(self, email):
+        for u in self._users.values():
             if u['email'] == email:
                 return u
 
@@ -237,7 +237,6 @@ class BAM:
         return False, []
 
     def clear(self):
-        self.logged_in = []
         self._users = {}
         self._users_internal = {}
         self._users_index = 0

@@ -10,7 +10,6 @@ api = Blueprint('api', __name__)
 bam = BAM()
 blacklist = set()
 
-
 """
 Authentication Routes
 
@@ -119,6 +118,7 @@ def menus():
             'errors': ['Request should be JSON'] }), 400
 
     fails, errors = bam.validate_menu_fails(request.json)
+    print(errors)
     if fails:
         return jsonify({ 'errors': errors }), 400
     else:
