@@ -8,9 +8,11 @@ class MealType:
     SUPPER = 2
     BREAKFAST = 3
 
+
 class UserType:
-    CATERER = 1 
+    CATERER = 1
     CUSTOMER = 2
+
 
 class BAM:
     def __init__(self):
@@ -71,8 +73,8 @@ class BAM:
 
         if len(fields.get('password')) < 6:
             return True, ['Password must be at least 6 characters']
-        
-        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", 
+
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
                         fields['email']):
             return True, ['Please provide a valid email']
 
@@ -82,7 +84,6 @@ class BAM:
 
         return False, []
 
-    
     @property
     def meals(self):
         return self._meals
@@ -122,7 +123,6 @@ class BAM:
 
         return False, []
 
-
     @property
     def menus(self):
         return self._menus
@@ -160,8 +160,7 @@ class BAM:
 
         return False, []
 
-
-    @property 
+    @property
     def orders(self):
         return self._orders
 
@@ -198,7 +197,6 @@ class BAM:
 
         return False, []
 
-
     @property
     def notifications(self):
         return self._notifications
@@ -227,7 +225,7 @@ class BAM:
 
         if not fields.get('message'):
             return True, ['Message is required']
-        
+
         if not fields.get('user_id'):
             return True, ['User id is required']
 
@@ -255,4 +253,3 @@ class BAM:
             'password': os.getenv('DEFAULT_ADMIN_PASSWORD'),
             'role': UserType.CATERER
         })
-

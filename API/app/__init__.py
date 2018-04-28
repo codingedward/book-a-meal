@@ -23,7 +23,4 @@ def create_app(config_name):
         jti = decrypted_token['jti']
         return jti in blacklist
 
-
     return app
-
-
