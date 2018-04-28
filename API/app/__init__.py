@@ -1,9 +1,12 @@
 import json
-from app.api import api
-from instance.config import app_config
 from flask import Flask
-
-
+from collections import namedtuple
+from instance.config import app_config
+from flask_jwt_extended import (
+    JWTManager, jwt_optional, create_access_token,
+    get_jwt_identity
+)
+from app.api import api, bam, blacklist
 
 
 def create_app(config_name):
@@ -11,6 +14,15 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     app.register_blueprint(api)
+
+    jwt = JWTManager(app)
+
+    @jwt.token_in_blacklist_loader
+    def check_token_in_blacklist(decrypted_token):
+        """ Check if token is in blacklist """
+        jti = decrypted_token['jti']
+        return jti in blacklist
+
 
     return app
 
