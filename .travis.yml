@@ -6,11 +6,8 @@ python:
 # install dependancies
 install:
     - cd API
-    - export PIPENV_IGNORE_VIRTUALENVS=1
-    - pip install pipenv
-    - pipenv install
     - cp .envexample .env
+    - pip install -r requirements.txt
 # run tests
 script:
-    - pipenv shell
     - nosetests test_endpoints.py
