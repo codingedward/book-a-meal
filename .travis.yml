@@ -1,6 +1,6 @@
 language: python
 python:
-    - "3.5"
+    - "2.7"
     - "3.6"
 
 # install dependancies
@@ -11,5 +11,5 @@ install:
     - cp .envexample .env
 # run tests
 script:
-    - pipenv shell
+    - pipenv shell --capture=no 
     - nosetests test_endpoints.py
