@@ -1,19 +1,19 @@
 FLASK_APP="run.py"
 
 # dev, testing or production
-APP_MODE=
+APP_MODE='testing'
 
 # your app secret token
-SECRET=
+SECRET='1aodfadfjo23erofoasdfuoaisdufadadfuo32'
 
 # first admin username
-DEFAULT_ADMIN_USERNAME=
+DEFAULT_ADMIN_USERNAME='admin'
 
 # first admin password
-DEFAULT_ADMIN_PASS=
+DEFAULT_ADMIN_PASS='super-secret'
 
 # first admin email
-DEFAULT_ADMIN_EMAIL=
+DEFAULT_ADMIN_EMAIL='bam@admin.com'
 
 # secret key for jwt
-JWT_SECRET_KEY=
+JWT_SECRET_KEY='aoaudfouaeoru23432oiuriuiaudsfiadf'
