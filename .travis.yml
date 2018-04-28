@@ -6,8 +6,9 @@ python:
 # install dependancies
 install:
     - cd API
+    - pip install pipenv
     - pipenv install
-    - pipenv shell
 # run tests
 script:
+    - pipenv shell
     - nosetests test_endpoints.py
