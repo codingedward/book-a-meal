@@ -15,13 +15,6 @@ class UserType:
 class BAM:
     def __init__(self):
         self.clear()
-        # create default caterer
-        self.post_user({
-            'username': os.getenv('DEFAULT_ADMIN_USERNAME'),
-            'email': os.getenv('DEFAULT_ADMIN_EMAIL'),
-            'password': os.getenv('DEFAULT_ADMIN_PASSWORD'),
-            'role': UserType.CATERER
-        })
 
     @property
     def users(self):
@@ -30,8 +23,7 @@ class BAM:
     def post_user(self, user):
         self._users_index += 1
         user['id'] = self._users_index
-        user['role'] = UserType.CUSTOMER
-        user['password'] = bcrypt.encrypt(user['password'])
+        user['password'] = user['password']
         self._users_internal[self._users_index] = {
             'id': self._users_index,
             'email': user['email'],
@@ -46,10 +38,18 @@ class BAM:
         self._users[id] = user
 
     def get_user(self, id):
-        return self._users.get(id, None)
+        return self._users.get(id)
 
     def get_internal_user_by_email(self, email):
+        """
+        The internal user has a password field
+        """
         for u in self._users_internal.values():
+            if u['email'] == email:
+                return u
+
+    def get_user_by_email(self, email):
+        for u in self._users.values():
             if u['email'] == email:
                 return u
 
@@ -60,16 +60,16 @@ class BAM:
         del self._users[id]
 
     def validate_user_fails(self, fields):
-        if not fields['username']:
+        if not fields.get('username'):
             return True, ['Username is required']
 
-        if not fields['email']:
+        if not fields.get('email'):
             return True, ['Email is required']
 
-        if not fields['password']:
+        if not fields.get('password'):
             return True, ['Password is required']
 
-        if len(fields['password']) < 6:
+        if len(fields.get('password')) < 6:
             return True, ['Password must be at least 6 characters']
         
         if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", 
@@ -97,7 +97,7 @@ class BAM:
         self._meals[id] = meal
 
     def get_meal(self, id):
-        return self._meals.get(id, None)
+        return self._meals.get(id)
 
     def get_meals(self):
         return self._meals
@@ -106,13 +106,14 @@ class BAM:
         del self._meals[id]
 
     def validate_meal_fails(self, fields):
-        if not fields['name']:
+        if not fields.get('name'):
             return True, ['Name is required']
 
-        if not fields['cost']:
+        if not fields.get('cost'):
             return True, ['Cost is required']
-
-        if not str(fields['cost']).isdigit():
+        try:
+            float(fields.get('cost'))
+        except ValueError:
             return True, ['Cost must be numeric']
 
         for m in self._meals.values():
@@ -136,7 +137,7 @@ class BAM:
         self._menus[id] = menu
 
     def get_menu(self, id):
-        return self._menus.get(id, None)
+        return self._menus.get(id)
 
     def get_menus(self):
         return self._menus
@@ -145,16 +146,16 @@ class BAM:
         del self._menus[id]
 
     def validate_menu_fails(self, fields):
-        if not fields['meal_id']:
+        if not fields.get('meal_id'):
             return True, ['Meal id is required']
 
-        if not fields['Category']:
+        if not fields.get('category'):
             return True, ['Category is required']
 
-        if fields['meal_id'] not in self._meals.keys():
+        if fields.get('meal_id') not in self._meals.keys():
             return True, ['No meal found for that meal_id']
 
-        if fields['category'] not in [1, 2, 3]:
+        if fields.get('category') not in [1, 2, 3]:
             return True, ['Unknown meal type']
 
         return False, []
@@ -174,7 +175,7 @@ class BAM:
         self._orders[id] = order
 
     def get_order(self, id):
-        return self._orders.get(id, None)
+        return self._orders.get(id)
 
     def get_orders(self):
         return self._orders
@@ -183,16 +184,16 @@ class BAM:
         del self._orders[id]
 
     def validate_order_fails(self, fields):
-        if not fields['menu_id']:
+        if not fields.get('menu_id'):
             return True, ['Menu id is required']
 
-        if not fields['user_id']:
+        if not fields.get('user_id'):
             return True, ['User id is required']
 
-        if fields['user_id'] not in self._users.keys():
+        if fields.get('user_id') not in self._users.keys():
             return True, ['No user found for that user_id']
 
-        if fields['menu_id'] not in self._menus.keys():
+        if fields.get('menu_id') not in self._menus.keys():
             return True, ['No menu found for that menu_id']
 
         return False, []
@@ -212,7 +213,7 @@ class BAM:
         self._notifications[id] = notification
 
     def get_notification(self, id):
-        return self._notifications.get(id, None)
+        return self._notifications.get(id)
 
     def get_notifications(self):
         return self._notifications
@@ -221,22 +222,21 @@ class BAM:
         del self._notifications[id]
 
     def validate_notification_fails(self, fields):
-        if not fields['title']:
+        if not fields.get('title'):
             return True, ['Title is required']
 
-        if not fields['message']:
+        if not fields.get('message'):
             return True, ['Message is required']
         
-        if not fields['user_id']:
+        if not fields.get('user_id'):
             return True, ['User id is required']
 
-        if fields['user_id'] not in self._users.keys():
+        if fields.get('user_id') not in self._users.keys():
             return True, ['No user found for that user_id']
 
         return False, []
 
     def clear(self):
-        self.logged_in = []
         self._users = {}
         self._users_internal = {}
         self._users_index = 0
@@ -248,4 +248,11 @@ class BAM:
         self._orders_index = 0
         self._notifications = {}
         self._notifications_index = 0
+        # create default caterer
+        self.post_user({
+            'username': os.getenv('DEFAULT_ADMIN_USERNAME'),
+            'email': os.getenv('DEFAULT_ADMIN_EMAIL'),
+            'password': os.getenv('DEFAULT_ADMIN_PASSWORD'),
+            'role': UserType.CATERER
+        })
 
