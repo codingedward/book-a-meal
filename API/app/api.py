@@ -27,7 +27,6 @@ def register():
         request.json['role'] = UserType.CUSTOMER
         return jsonify(bam.post_user(request.json)), 201
 
-<<<<<<< HEAD
 @api.route('/api/v1/auth/login', methods=['POST'])
 def login():
     if not request.is_json: 
@@ -48,29 +47,19 @@ def logout():
     blacklist.add(jti)
     return jsonify({'msg': 'Successfully logged out.'}), 200
 
-=======
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 """
 Meals Routes
 
 """
 @api.route('/api/v1/meals', methods=['POST'])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def meals():
     if not request.is_json:
         return jsonify({ 
             'errors': ['Request should be JSON'] }), 400
 
-<<<<<<< HEAD
     current_user = bam.get_user_by_email(get_jwt_identity())
     if not current_user['role'] == UserType.CATERER:
-=======
-    if not current_identity['role'] == UserType.CATERER:
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
         return jsonify({ 
             'errors': ['Unauthorized access to non-caterer'] }), 401
 
@@ -80,23 +69,14 @@ def meals():
     else:
         return jsonify(bam.post_meal(request.json)), 201
 
-<<<<<<< HEAD
 @api.route('/api/v1/meals', methods=['GET'])
-=======
-@api.route('/api/v1/meals', methods=['GET' ])
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def meals_get():
     return jsonify({'num_results': len(bam.meals), 
                     'objects': list(bam.get_meals().values())})
 
 
-<<<<<<< HEAD
 @api.route('/api/v1/meals/<int:id>', methods=['DELETE', 'PATCH'])
 @jwt_required
-=======
-@api.route('/api/v1/meals/<int:id>', methods=['PATCH', 'PATCH'])
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def meal_modify(id):
     if request.method == 'DELETE': 
         if not id in bam.meals.keys():
@@ -139,10 +119,6 @@ def menus():
             'errors': ['Request should be JSON'] }), 400
 
     fails, errors = bam.validate_menu_fails(request.json)
-<<<<<<< HEAD
-    print(errors)
-=======
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
     if fails:
         return jsonify({ 'errors': errors }), 400
     else:
@@ -155,11 +131,7 @@ def menus_get():
                     'objects': list(bam.get_menus().values())})
 
 @api.route('/api/v1/menus/<int:id>', methods=['PATCH', 'DELETE'])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def menu_modify(id):
     if request.method == 'DELETE': 
         if not id in bam.menus.keys():
@@ -194,11 +166,7 @@ Orders Routes
 
 """
 @api.route('/api/v1/orders', methods=['POST', 'GET' ])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def orders():
     if request.method == 'POST':
         if not request.is_json:
@@ -216,11 +184,7 @@ def orders():
                         'objects': list(bam.get_orders().values())})
 
 @api.route('/api/v1/orders/<int:id>', methods=['PATCH', 'GET', 'DELETE'])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def order(id):
     if request.method == 'GET':
         if not id in bam.orders.keys():
@@ -254,11 +218,7 @@ Notifications Routes
 """
 
 @api.route('/api/v1/notifications', methods=['POST', 'GET' ])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def notifications():
     if request.method == 'POST':
         if not request.is_json:
@@ -276,11 +236,7 @@ def notifications():
                         'objects': list(bam.get_notifications().values())})
 
 @api.route('/api/v1/notifications/<int:id>', methods=['PATCH', 'GET', 'DELETE'])
-<<<<<<< HEAD
 @jwt_required
-=======
-@jwt_required()
->>>>>>> 696a0b98485f35483e09d5fb13afdceeb938da52
 def notification(id):
     if request.method == 'GET':
         if not id in bam.notifications.keys():
