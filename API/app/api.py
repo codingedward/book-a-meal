@@ -135,7 +135,6 @@ def menus():
             'errors': ['Request should be JSON']}), 400
 
     fails, errors = bam.validate_menu_fails(request.json)
-    print(errors)
     if fails:
         return jsonify({'errors': errors}), 400
     return jsonify(bam.post_menu(request.json)), 201
