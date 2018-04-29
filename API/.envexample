@@ -10,7 +10,7 @@ SECRET='1aodfadfjo23erofoasdfuoaisdufadadfuo32'
 DEFAULT_ADMIN_USERNAME='admin'
 
 # first admin password
-DEFAULT_ADMIN_PASS='super-secret'
+DEFAULT_ADMIN_PASSWORD='super-secret'
 
 # first admin email
 DEFAULT_ADMIN_EMAIL='bam@admin.com'
