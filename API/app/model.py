@@ -46,6 +46,9 @@ class BAM:
         """
         The internal user has a password field
         """
+        print(email)
+        print('99999999999999999999999')
+        print(self._users)
         for u in self._users_internal.values():
             if u['email'] == email:
                 return u

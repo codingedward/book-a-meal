@@ -26,13 +26,17 @@ def register():
     fails, errors = bam.validate_user_fails(request.json)
     if fails:
         return jsonify({'errors': errors}), 400
-    else:
-        request.json['role'] = UserType.CUSTOMER
-        return jsonify(bam.post_user(request.json)), 201
+
+    request.json['role'] = UserType.CUSTOMER
+    return jsonify(bam.post_user(request.json)), 201
 
 
 @api.route('/api/v1/auth/login', methods=['POST'])
 def login():
+    """ Login with email and password
+    post:
+        summary: 
+    """
     if not request.is_json:
         return jsonify({'message': 'Request should be JSON'}), 400
 
@@ -42,8 +46,9 @@ def login():
         return jsonify({'errors': ['Password is required']}), 400
 
     user = bam.get_internal_user_by_email(request.json['email'])
-    if not user or not bcrypt.verify(request.password, user['password']):
+    if not user or not bcrypt.verify(request.json['password'], user['password']):
         return jsonify({'errors': ['Invalid credentials']}), 400
+
     access_token = create_access_token(identity=request.json['email'])
     return jsonify(access_token=access_token)
 
@@ -77,8 +82,7 @@ def meals():
     fails, errors = bam.validate_meal_fails(request.json)
     if fails:
         return jsonify({'errors': errors}), 400
-    else:
-        return jsonify(bam.post_meal(request.json)), 201
+    return jsonify(bam.post_meal(request.json)), 201
 
 
 @api.route('/api/v1/meals', methods=['GET'])
@@ -134,8 +138,7 @@ def menus():
     print(errors)
     if fails:
         return jsonify({'errors': errors}), 400
-    else:
-        return jsonify(bam.post_menu(request.json)), 201
+    return jsonify(bam.post_menu(request.json)), 201
 
 
 @api.route('/api/v1/menus', methods=['GET'])
@@ -191,8 +194,7 @@ def orders():
         fails, errors = bam.validate_order_fails(request.json)
         if fails:
             return jsonify({'errors': errors}), 400
-        else:
-            return jsonify(bam.post_order(request.json)), 201
+        return jsonify(bam.post_order(request.json)), 201
 
     elif request.method == 'GET':
         return jsonify({'num_results': len(bam.orders),
@@ -244,8 +246,7 @@ def notifications():
         fails, errors = bam.validate_notification_fails(request.json)
         if fails:
             return jsonify({'errors': errors}), 400
-        else:
-            return jsonify(bam.post_notification(request.json)), 201
+        return jsonify(bam.post_notification(request.json)), 201
 
     elif request.method == 'GET':
         return jsonify({'num_results': len(bam.notifications),

@@ -16,7 +16,7 @@ class BaseTest(unittest.TestCase):
             'password': 'secretservice'
         })
         res = self.client().post(
-            '/api/v1/auth/register',
+            '/api/v1/auth/signup',
             data=self.user,
             headers={'Content-Type': 'application/json'}
         )
@@ -28,7 +28,6 @@ class BaseTest(unittest.TestCase):
             }),
             headers={'Content-Type': 'application/json'}
         )
-
         json_result = json.loads(res.get_data(as_text=True))
         self.customer_headers = {
             'Content-Type': 'application/json',
@@ -420,7 +419,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 404)
 
 
-class AuthenticationTestCase(BaseTest):
+class AuthenticationTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
@@ -439,6 +438,11 @@ class AuthenticationTestCase(BaseTest):
         self.assertIn(b'Jane', res.data)
 
     def test_user_can_login(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user,
+                                 headers=self.headers)
+        self.assertEqual(res.status_code, 201)
+        self.assertIn(b'Jane', res.data)
         res = self.client().post('/api/v1/auth/login',
                                  data=self.user,
                                  headers=self.headers)
@@ -446,6 +450,11 @@ class AuthenticationTestCase(BaseTest):
         self.assertIn(b'token', res.data)
 
     def test_user_can_logout(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user,
+                                 headers=self.headers)
+        self.assertEqual(res.status_code, 201)
+        self.assertIn(b'Jane', res.data)
         res = self.client().post('/api/v1/auth/login',
                                  data=self.user,
                                  headers=self.headers)
@@ -458,8 +467,7 @@ class AuthenticationTestCase(BaseTest):
         self.assertEqual(res.status_code, 200)
 
     def tearDown(self):
-        with self.app.app_context():
-            bam.clear()
+        bam.clear()
 
 
 if __name__ == '__main__':
