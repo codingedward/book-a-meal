@@ -1,6 +1,7 @@
 # Book A Meal :pizza:
 [![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=feature%2Fapi)](https://travis-ci.org/codingedward/book-a-meal)
 [![Coverage Status](https://coveralls.io/repos/github/codingedward/book-a-meal/badge.svg?branch=feature%2Fapi)](https://coveralls.io/github/codingedward/book-a-meal?branch=feature%2Fapi)
+[![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 <a href="http://flask.pocoo.org/"><img
    src="http://flask.pocoo.org/static/badges/made-with-flask-s.png"
    border="0"
