@@ -16,7 +16,6 @@ def create_app(config_name):
     @jwt.token_in_blacklist_loader
     def check_token_in_blacklist(decrypted_token):
         """ Check if token is in blacklist """
-        jti = decrypted_token['jti']
-        return jti in blacklist
+        return decrypted_token['jti'] in blacklist
 
     return app
