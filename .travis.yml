@@ -21,5 +21,4 @@ script:
     - nosetests test_endpoints.py
 after_success: 
     - coverage run --source='.' test_endpoints.py
-    - pwd # show directory
     - coveralls
