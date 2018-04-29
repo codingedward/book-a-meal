@@ -19,6 +19,7 @@ install:
 # run tests
 script:
     - nosetests test_endpoints.py
+# run coverage tests
 after_success: 
     - coverage run --source='.' --omit='run.py','settings.py','openapi.py' test_endpoints.py
     - coveralls
