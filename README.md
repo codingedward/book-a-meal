@@ -10,6 +10,31 @@
 
 This is the Andela Book-A-Meal web project challenge. 
 
+## Content
+
+   * [Book A Meal <g-emoji class="g-emoji" alias="pizza" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f355.png">🍕</g-emoji>](#book-a-meal-pizza)
+      * [Content](#content)
+      * [Introduction](#introduction)
+      * [The Client Side](#the-client-side)
+         * [Color Palette](#color-palette)
+         * [Fonts](#fonts)
+         * [Images and Textures](#images-and-textures)
+         * [Pages](#pages)
+            * [Landing Page](#landing-page)
+            * [Sign Up Page](#sign-up-page)
+            * [Login Page](#login-page)
+            * [Caterer Meals Management Page](#caterer-meals-management-page)
+            * [Caterer Menu Management](#caterer-menu-management)
+            * [Caterer Orders](#caterer-orders)
+            * [Caterer Order History](#caterer-order-history)
+            * [Customer Menu](#customer-menu)
+            * [Customer Orders](#customer-orders)
+            * [Customer Notifications](#customer-notifications)
+            * [Customer Order History.](#customer-order-history)
+
+<!-- Added by: edward, at: 2018-04-29T23:50+03:00 -->
+
+
 **Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
 
 **Note**: The PivotalTracker project is
