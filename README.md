@@ -1,5 +1,6 @@
 # Book A Meal :pizza:
 [![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=feature%2Fapi)](https://travis-ci.org/codingedward/book-a-meal)
+[![Coverage Status](https://coveralls.io/repos/github/codingedward/book-a-meal/badge.svg)](https://coveralls.io/github/codingedward/book-a-meal)
 
 This is the Andela Book-A-Meal web project challenge. 
 
