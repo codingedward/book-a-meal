@@ -1,4 +1,5 @@
 # Book A Meal :pizza:
+[![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=feature%2Fapi)](https://travis-ci.org/codingedward/book-a-meal)
 This is the Andela Book-A-Meal web project challenge. 
 
 **Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
