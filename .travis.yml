@@ -19,4 +19,6 @@ install:
 # run tests
 script:
     - nosetests test_endpoints.py
-after_success: coveralls
+after_success: 
+    - coverage run test_endpoints.py
+    - coveralls
