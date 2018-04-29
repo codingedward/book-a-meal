@@ -26,7 +26,6 @@ bcrypt = "*"
 flask-restful = "*"
 flask-apispec = "*"
 flask-jwt-extended = "*"
-flask-dotenv = "*"
 
 [requires]
 python_version = "3.6"
