@@ -3,78 +3,69 @@ HOST: http://polls.apiblueprint.org/
 
 # Andela Book A Meal
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Book a meal is a web development challenge by Andela which allows caterer(s)
+to post menus of available meals and customers to book meals on the same
+platform. This is the RESTful API documentation for this project.
 
-## Questions Collection [/questions]
+Note that this API **expects** the data posted to it to be in JSON format. 
+Therefore the following header has to be included:
+```
+Content-Type: application/json
+```
+Also, for any of the protected endpoints the following header must be 
+included:
+```
+Authorization: Bearer + <token>
+```
+The `<token>` in this case is the `access_token` that will be received
+after the user has been successfully authenticated.
 
-### List All Questions [GET]
+# Group Authentication
 
-+ Response 200 (application/json)
+## Sign Up [/auth/signup]
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+### Create Account[POST]
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+Create a new user account. The new account will have the role of a
+customer until made a caterer by the default administrator.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "username": "John Doe",
+            "email": "john@doe.com",
+            "password": "jane-doe"
         }
 
 + Response 201 (application/json)
 
-    + Headers
+        {
+            "id": 1,
+            "username": "John Doe",
+            "email": "john@doe.com"
+        }
 
-            Location: /questions/2
+## Login [/auth/login]
 
-    + Body
+### Sign In [POST]
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+A user can sign in with their email and password. After signing in, the
+user is redirected to their home page depending on their role. This is 
+either as a CATERER or as a CUSTOMER.
+
+Authentication has been implemented using JWT and therefore for any 
+previleged routes, the `Authorization: Bearer + token` header is 
+required.
+
++ Request (application/json)
+
+        {
+            "email": "john@doe.com",
+            "password": "jane-doe"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "access_token": "<token-here>"
+        }
