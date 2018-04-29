@@ -1,10 +1,6 @@
 import json
 from flask import Flask
-from collections import namedtuple
-from flask_jwt_extended import (
-    JWTManager, jwt_optional, create_access_token,
-    get_jwt_identity
-)
+from flask_jwt_extended import JWTManager
 from app.api import api, bam, blacklist
 from instance.config import app_config
 
