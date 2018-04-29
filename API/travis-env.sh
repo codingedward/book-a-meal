@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 export FLASK_APP="run.py"
 export APP_MODE='testing'
 export SECRET='1aodfadfjo23erofoasdfuoaisdufadadfuo32'

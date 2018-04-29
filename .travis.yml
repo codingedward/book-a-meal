@@ -5,6 +5,7 @@ python:
 # install dependancies
 install:
     - cd API
+    - chmod +x travis-env.sh
     - ./travis-env.sh
     - pip install -r requirements.txt
 # run tests
