@@ -26,6 +26,7 @@ bcrypt = "*"
 flask-restful = "*"
 flask-apispec = "*"
 flask-jwt-extended = "*"
+coveralls = {extras = ["yaml"]}
 
 [requires]
 python_version = "3.6"

@@ -7,13 +7,13 @@ APP_MODE='testing'
 SECRET='1aodfadfjo23erofoasdfuoaisdufadadfuo32'
 
 # first admin username
-DEFAULT_ADMIN_USERNAME='admin'
+DEFAULT_ADMIN_USERNAME='protocal'
 
 # first admin password
-DEFAULT_ADMIN_PASSWORD='super-secret'
+DEFAULT_ADMIN_PASSWORD='sweet-bananas'
 
 # first admin email
-DEFAULT_ADMIN_EMAIL='bam@admin.com'
+DEFAULT_ADMIN_EMAIL='king@kong.com'
 
 # secret key for jwt
 JWT_SECRET_KEY='aoaudfouaeoru23432oiuriuiaudsfiadf'

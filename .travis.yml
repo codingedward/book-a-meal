@@ -19,3 +19,4 @@ install:
 # run tests
 script:
     - nosetests test_endpoints.py
+after_success: coveralls
