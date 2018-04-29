@@ -25,7 +25,7 @@ class BAM:
     def post_user(self, user):
         self._users_index += 1
         user['id'] = self._users_index
-        user['password'] = user['password']
+        user['password'] = bcrypt.encrypt(user['password'])
         self._users_internal[self._users_index] = {
             'id': self._users_index,
             'email': user['email'],

@@ -4,6 +4,7 @@ from flask_jwt_extended import (
     get_jwt_identity, get_raw_jwt
 )
 from flask import Blueprint, jsonify, request
+from passlib.hash import bcrypt
 
 
 api = Blueprint('api', __name__)
@@ -40,6 +41,9 @@ def login():
     if not request.json.get('password'):
         return jsonify({'errors': ['Password is required']}), 400
 
+    user = bam.get_internal_user_by_email(request.json['email'])
+    if not user or not bcrypt.verify(request.password, user['password']):
+        return jsonify({'errors': ['Invalid credentials']}), 400
     access_token = create_access_token(identity=request.json['email'])
     return jsonify(access_token=access_token)
 
