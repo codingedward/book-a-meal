@@ -43,7 +43,7 @@ there will be an id to the story being worked on.
      * [Installation](#installation)
      * [Configuration](#configuration)
      * [Running](#running)
-     * [Running](#testing)
+     * [Testing](#testing)
 
 
 ## Introduction
