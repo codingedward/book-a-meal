@@ -20,5 +20,5 @@ install:
 script:
     - nosetests test_endpoints.py
 after_success: 
-    - coverage run test_endpoints.py
+    - coverage run --source='.' test_endpoints.py
     - coveralls
