@@ -21,6 +21,7 @@ there will be an id to the story being worked on.
 [here](https://mealbooking.docs.apiary.io)
 
 ## Table of Content
+
   * [Introduction](#introduction)
   * [The Client Side](#the-client-side)
      * [Color Palette](#color-palette)
@@ -38,8 +39,10 @@ there will be an id to the story being worked on.
         * [Customer Orders](#customer-orders)
         * [Customer Notifications](#customer-notifications)
         * [Customer Order History.](#customer-order-history)
-
-<!-- Added by: edward, at: 2018-04-29T23:50+03:00 -->
+  * [The Server Side](#the-server-side)
+     * [Installation](#installation)
+     * [Configuration](#configuration)
+     * [Running](#running)
 
 
 ## Introduction
