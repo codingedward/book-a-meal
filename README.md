@@ -197,14 +197,11 @@ Then, ensure you **fill in the required values** in the configuration file.
 ### Running
 
 This part assumes you have already configured your application as described 
-above. 
-
-To access the virtual enviroment created by `pipenv`, run:
+above. To access the virtual enviroment created by `pipenv`, run:
 ```
 $ pipenv shell
 ```
-This will load the environment variables and create your virtual environment.
-
+This will load the environment variables and create your virtual environment.  
 To run your application, simply run:
 ```
 $ flask run
@@ -215,3 +212,10 @@ You should then have your application up and running:
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit) 
 ```
 
+### Testing
+
+The application was built using TDD pattern and therefore has tests that can
+be run using `nose` test runner. To run these tests, simply run `nosetests`:
+```
+$ nosetests test_endpoints.py
+```
