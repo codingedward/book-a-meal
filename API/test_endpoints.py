@@ -165,10 +165,10 @@ class NotificationTestCase(BaseTest):
     def test_can_get_all_notifications(self):
         res = self.client().post('/api/v1/notifications',
                                  data=self.notification,
-                                 headers=self.customer_headers)
+                                 headers=self.caterer_headers)
         self.assertEqual(res.status_code, 201)
         res = self.client().get('/api/v1/notifications',
-                                headers=self.customer_headers)
+                                headers=self.caterer_headers)
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['num_results'], 1)
@@ -177,9 +177,8 @@ class NotificationTestCase(BaseTest):
     def test_can_get_notification_by_id(self):
         res = self.client().post('/api/v1/notifications',
                                  data=self.notification,
-                                 headers=self.customer_headers)
+                                 headers=self.caterer_headers)
         self.assertEqual(res.status_code, 201)
-
         json_result = json.loads(res.get_data(as_text=True))
         res = self.client().get(
             '/api/v1/notifications/{}'.format(json_result['id']),
@@ -193,7 +192,7 @@ class NotificationTestCase(BaseTest):
     def test_notification_can_be_updated(self):
         res = self.client().post('/api/v1/notifications',
                                  data=self.notification,
-                                 headers=self.customer_headers)
+                                 headers=self.caterer_headers)
         self.assertEqual(res.status_code, 201)
 
         res = self.client().patch(
@@ -217,13 +216,11 @@ class NotificationTestCase(BaseTest):
     def test_notification_deletion(self):
         res = self.client().post('/api/v1/notifications',
                                  data=self.notification,
-                                 headers=self.customer_headers)
+                                 headers=self.caterer_headers)
         self.assertEqual(res.status_code, 201)
-
         res = self.client().delete('/api/v1/notifications/1',
                                    headers=self.customer_headers)
         self.assertEqual(res.status_code, 204)
-
         res = self.client().get('/api/v1/notifications/1',
                                 headers=self.customer_headers)
         self.assertEqual(res.status_code, 404)

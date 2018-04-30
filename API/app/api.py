@@ -17,6 +17,9 @@ Authentication Routes
 
 """
 
+def is_caterer():
+    current_user = bam.get_user_by_email(get_jwt_identity())
+    return current_user['role'] == UserType.CATERER
 
 @api.route('/api/v1/auth/signup', methods=['POST'])
 def register():
@@ -33,10 +36,6 @@ def register():
 
 @api.route('/api/v1/auth/login', methods=['POST'])
 def login():
-    """ Login with email and password
-    post:
-        summary: 
-    """
     if not request.is_json:
         return jsonify({'message': 'Request should be JSON'}), 400
 
@@ -50,7 +49,7 @@ def login():
         return jsonify({'errors': ['Invalid credentials']}), 400
 
     access_token = create_access_token(identity=request.json['email'])
-    return jsonify(access_token=access_token)
+    return jsonify(access_token=access_token), 200
 
 
 @api.route('/api/v1/auth/logout', methods=['DELETE'])
@@ -70,14 +69,13 @@ Meals Routes
 @api.route('/api/v1/meals', methods=['POST'])
 @jwt_required
 def meals():
+    if not is_caterer():
+        return jsonify({
+            'errors': ['Unauthorized access to non-caterer']}), 401
+
     if not request.is_json:
         return jsonify({
             'errors': ['Request should be JSON']}), 400
-
-    current_user = bam.get_user_by_email(get_jwt_identity())
-    if not current_user['role'] == UserType.CATERER:
-        return jsonify({
-            'errors': ['Unauthorized access to non-caterer']}), 401
 
     fails, errors = bam.validate_meal_fails(request.json)
     if fails:
@@ -94,11 +92,16 @@ def meals_get():
 @api.route('/api/v1/meals/<int:id>', methods=['DELETE', 'PATCH'])
 @jwt_required
 def meal_modify(id):
+    if not is_caterer():
+        return jsonify({
+            'errors': ['Unauthorized access to non-caterer']}), 401
+
     if request.method == 'DELETE':
         if id not in bam.meals.keys():
             return jsonify({'errors': ['Not Found']}), 404
         bam.delete_meal(id)
         return jsonify({'message': 'Successfully deleted'}), 204
+
 
     elif request.method == 'PATCH':
         if not request.is_json:
@@ -130,6 +133,10 @@ Menus Routes
 @api.route('/api/v1/menus', methods=['POST'])
 @jwt_required
 def menus():
+    if not is_caterer():
+        return jsonify({
+            'errors': ['Unauthorized access to non-caterer']}), 401
+
     if not request.is_json:
         return jsonify({
             'errors': ['Request should be JSON']}), 400
@@ -149,6 +156,10 @@ def menus_get():
 @api.route('/api/v1/menus/<int:id>', methods=['PATCH', 'DELETE'])
 @jwt_required
 def menu_modify(id):
+    if not is_caterer():
+        return jsonify({
+            'errors': ['Unauthorized access to non-caterer']}), 401
+
     if request.method == 'DELETE':
         if id not in bam.menus.keys():
             return jsonify({'errors': ['Not Found']}), 404
@@ -196,6 +207,10 @@ def orders():
         return jsonify(bam.post_order(request.json)), 201
 
     elif request.method == 'GET':
+        if not is_caterer():
+            return jsonify({
+                'errors': ['Unauthorized access to non-caterer']}), 401
+
         return jsonify({'num_results': len(bam.orders),
                         'objects': list(bam.get_orders().values())})
 
@@ -204,6 +219,9 @@ def orders():
 @jwt_required
 def order(id):
     if request.method == 'GET':
+        if not is_caterer():
+            return jsonify({
+                'errors': ['Unauthorized access to non-caterer']}), 401
         if id not in bam.orders.keys():
             return jsonify({'errors': ['Not Found']}), 404
         return jsonify(bam.get_order(id)), 200
@@ -237,6 +255,10 @@ Notifications Routes
 @api.route('/api/v1/notifications', methods=['POST', 'GET'])
 @jwt_required
 def notifications():
+    if not is_caterer():
+        return jsonify({
+            'errors': ['Unauthorized access to non-caterer']}), 401
+
     if request.method == 'POST':
         if not request.is_json:
             return jsonify({
@@ -268,6 +290,10 @@ def notification(id):
         return jsonify({'message': 'Successfully deleted'}), 204
 
     elif request.method == 'PATCH':
+        if not is_caterer():
+            return jsonify({
+                'errors': ['Unauthorized access to non-caterer']}), 401
+
         if not request.is_json:
             return jsonify({'errors': ['Request should be JSON']}), 400
 
@@ -279,3 +305,7 @@ def notification(id):
             return jsonify({'errors': errors}), 400
         bam.put_notification(request.json, id)
         return jsonify({'message': 'Successfully updated'}), 200
+
+@api.route('/*')
+def not_found():
+    return jsonify({'errors': ['Not Found']}), 404
