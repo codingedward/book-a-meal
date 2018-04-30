@@ -17,6 +17,7 @@ Authentication Routes
 
 """
 
+
 def is_caterer():
     current_user = bam.get_user_by_email(get_jwt_identity())
     return current_user['role'] == UserType.CATERER
@@ -57,7 +58,7 @@ def login():
 def logout():
     jti = get_raw_jwt()['jti']
     blacklist.add(jti)
-    return jsonify({'msg': 'Successfully logged out.'}), 200
+    return jsonify({'message': 'Successfully logged out.'}), 200
 
 
 """

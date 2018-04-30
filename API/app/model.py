@@ -1,6 +1,7 @@
 import os
 import re
 from passlib.hash import bcrypt
+from datetime import datetime
 
 
 class MealType:
@@ -14,6 +15,15 @@ class UserType:
     CUSTOMER = 2
 
 
+def created_at(item):
+    assert isinstance(item, dict)
+    item['created_at'] = datetime.now()
+
+def updated_at(item):
+    assert isinstance(item, dict)
+    item['udated_at'] = datetime.now()
+
+
 class BAM:
     def __init__(self):
         self.clear()
@@ -25,6 +35,8 @@ class BAM:
     def post_user(self, user):
         self._users_index += 1
         user['id'] = self._users_index
+        created_at(user)
+        updated_at(user)
         user['password'] = bcrypt.encrypt(user['password'])
         self._users_internal[self._users_index] = {
             'id': self._users_index,
@@ -37,6 +49,7 @@ class BAM:
         return user
 
     def put_user(self, user, id):
+        updated_at(user)
         self._users[id] = user
 
     def get_user(self, id):
@@ -91,10 +104,13 @@ class BAM:
     def post_meal(self, meal):
         self._meals_index += 1
         meal['id'] = self._meals_index
+        created_at(meal)
+        updated_at(meal)
         self._meals[self._meals_index] = meal
         return meal
 
     def put_meal(self, meal, id):
+        updated_at(meal)
         self._meals[id] = meal
 
     def get_meal(self, id):
@@ -130,10 +146,13 @@ class BAM:
     def post_menu(self, menu):
         self._menus_index += 1
         menu['id'] = self._menus_index
+        created_at(menu)
+        updated_at(menu)
         self._menus[self._menus_index] = menu
         return menu
 
     def put_menu(self, menu, id):
+        updated_at(menu)
         self._menus[id] = menu
 
     def get_menu(self, id):
@@ -167,10 +186,13 @@ class BAM:
     def post_order(self, order):
         self._orders_index += 1
         order['id'] = self._orders_index
+        created_at(order)
+        updated_at(order)
         self._orders[self._orders_index] = order
         return order
 
     def put_order(self, order, id):
+        updated_at(order)
         self._orders[id] = order
 
     def get_order(self, id):
@@ -204,10 +226,13 @@ class BAM:
     def post_notification(self, notification):
         self._notifications_index += 1
         notification['id'] = self._notifications_index
+        created_at(notification)
+        updated_at(notification)
         self._notifications[self._notifications_index] = notification
         return notification
 
     def put_notification(self, notification, id):
+        updated_at(notification)
         self._notifications[id] = notification
 
     def get_notification(self, id):
