@@ -27,6 +27,7 @@ flask-restful = "*"
 flask-apispec = "*"
 flask-jwt-extended = "*"
 coveralls = {extras = ["yaml"]}
+gunicorn = "*"
 
 [requires]
 python_version = "3.6"
