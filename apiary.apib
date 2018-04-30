@@ -42,7 +42,9 @@ customer until made a caterer by the default administrator.
         {
             "id": 1,
             "username": "John Doe",
-            "email": "john@doe.com"
+            "email": "john@doe.com",
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
         }
 
 ## Login [/auth/login]
@@ -68,4 +70,466 @@ required.
 
         {
             "access_token": "<token-here>"
+        }
+
+## Logout [/auth/logout]
+
+### Sign Out [POST]
+
+This will allow the user to logout of the application. 
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    
+        {
+            "message": "User successfully logged out"
+        }
+
+
+# Group Meals
+
+## Meals Endpoint [/meals]
+
+### Create Meal [POST]
+
+This will create a meal. 
+
+**Note**: The authentication header is required. The user logged in should also
+be a caterer.
+
++ Request (application/json)
+
+        {
+            "name": "ugali",
+            "cost": 30.0,
+        }
+
++ Response 201 (application/json)
+    
+        {
+            "id": 1,
+            "name": "ugali",
+            "cost": 30.0,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+### Get Meals [GET]
+
+This gets all the meals created by the caterer. 
+
+**Note**: The authentication header is required. The user logged in should also
+be a caterer.
+
++ Request (application/json)
+        
+
++ Response 200 (application/json)
+
+        {
+            "num_objects": 2,
+            "objects": [
+                {
+                    "id": 1,
+                    "name": "ugali",
+                    "cost": 30.0,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                },
+                {
+                    "id": 2,
+                    "name": "beef",
+                    "cost": 300.0,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                },
+            ]
+        }
+
+
+## Meal Endpoint [/meals/{id}]
+
+### Update Meal [PATCH]
+
+This will update the meal with the given id.
+
++ Request (application/json)
+
+        {
+            "name": "ugali",
+            "cost": 30.0,
+        }
+
++ Response 200 (application/json)
+    
+        {
+            "message": "Updated successfully"
+        }
+
+### Delete Meal [DELETE]
+
+This will delete the meal with the given id.
+
+
++ Request (application/json)
+
++ Response 204 (application/json)
+
+
+### Get Meal [GET]
+
+This will get and return the meal specified by the given id.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "name": "ugali",
+            "cost": 30.0,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+# Group Menus
+
+## Menus Endpoint [/menuls]
+
+### Create Menu [POST]
+
+This will create a menu. For a menu to be created, it will require a meal to be 
+available, and it's id passed.
+
+The valid categories include:
+
+| Category | Code |
+|----------|------|
+| Lunch | 1 |
+| Supper | 2 |
+| Breakfast | 3|
+
+
+
+**Note**: The authentication header is required. The user logged in should also
+be a caterer.
+
++ Request (application/json)
+
+        {
+            "meal_id": 1,
+            "category": 1
+        }
+
++ Response 201 (application/json)
+    
+        {
+            "id": 1,
+            "meal_id": 1,
+            "category": 1,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+### Get Meals [GET]
+
+This gets all the meals created by the caterer. 
+
+**Note**: The authentication header is required. The user logged in should also
+be a caterer.
+
++ Request (application/json)
+        
+
++ Response 200 (application/json)
+
+        {
+            "num_objects": 2,
+            "objects": [
+                {
+                    "id": 1,
+                    "meal_id": 1,
+                    "category": 1,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                },
+                {
+                    "id": 2,
+                    "meal_id": 1,
+                    "category": 1,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                }
+            ]
+        }
+
+
+## Menu Endpoint [/menus/{id}]
+
+### Update Menu [PATCH]
+
+This will update the menu with the given id.
+
++ Request (application/json)
+
+        {
+            "meal_id": 1,
+            "category": 2,
+        }
+
++ Response 200 (application/json)
+    
+        {
+            "message": "Updated successfully"
+        }
+
+### Delete Menu [DELETE]
+
+This will delete the menu with the given id.
+
+
++ Request (application/json)
+
++ Response 204 (application/json)
+
+
+### Get Menu [GET]
+
+This will get and return the menu specified by the given id.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "meal_id": 1,
+            "category": 2,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+# Group Orders
+
+## Orders Endpoint [/orderls]
+
+### Create Order [POST]
+
+This will create a order. For an order to be created, it will require a menu as 
+well as the id of the user creating the order.
+
+**Note**: The authentication header is required. 
+
++ Request (application/json)
+
+        {
+            "menu_id": 1,
+            "user_id": 1
+        }
+
++ Response 201 (application/json)
+    
+        {
+            "id": 1,
+            "menu_id": 1,
+            "user_id": 1,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+### Get Meals [GET]
+
+This gets all the meals created by the caterer. 
+
+**Note**: The authentication header is required. The user logged in should also
+be a caterer.
+
++ Request (application/json)
+        
+
++ Response 200 (application/json)
+
+        {
+            "num_objects": 2,
+            "objects": [
+                {
+                    "id": 1,
+                    "menu_id": 1,
+                    "user_id": 1,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                },
+                {
+                    "id": 2,
+                    "menu_id": 1,
+                    "user_id": 1,
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                }
+            ]
+        }
+
+
+## Order Endpoint [/orders/{id}]
+
+### Update Order [PATCH]
+
+This will update the order with the given id.
+
++ Request (application/json)
+
+        {
+            "menu_id": 1,
+            "user_id": 2,
+        }
+
++ Response 200 (application/json)
+    
+        {
+            "message": "Updated successfully"
+        }
+
+### Delete Order [DELETE]
+
+This will delete the order with the given id.
+
+
++ Request (application/json)
+
++ Response 204 (application/json)
+
+
+### Get Order [GET]
+
+This will get and return the order specified by the given id.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "menu_id": 1,
+            "user_id": 2,
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+# Group Notifications
+
+## Notifications Endpoint [/notifications]
+
+### Create Notification [POST]
+
+This will create a notificaiton. For a notification to be created, it requires a user 
+id.
+
+**Note**: The authentication header is required. The user will be required to be a
+caterer.
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "title": "Menu Updated",
+            "message": "Hello, the menu has now been updated",
+        }
+
++ Response 201 (application/json)
+    
+        {
+            "id": 1,
+            "user_id": 1,
+            "title": "Menu Updated",
+            "message": "Hello, the menu has now been updated",
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
+        }
+
+
+### Get Notifications [GET]
+
+This gets all the notifications created by the caterer.
+
+**Note**: The authentication header is required. 
+
++ Request (application/json)
+        
+
++ Response 200 (application/json)
+
+        {
+            "num_objects": 2,
+            "objects": [
+                {
+                    "id": 1,
+                    "user_id": 1,
+                    "title": "Menu Updated",
+                    "message": "Hello, the menu has now been updated",
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                },
+                {
+                    "id": 2,
+                    "user_id": 1,
+                    "title": "New Meal Created",
+                    "message": "This is to inform you of a new meal id: 53",
+                    "created_at": "2018-04-30 13:00:32.257303",
+                    "updated_at": "2018-04-30 13:00:32.257303"
+                }
+            ]
+        }
+
+
+## Notification Endpoint [/notifications/{id}]
+
+### Update Notification [PATCH]
+
+This will update the notification with the given id.
+
++ Request (application/json)
+
+        {
+            "user_id": 1,
+            "title": "Menu Updated",
+            "message": "Hello, the menu has now been updated",
+        }
+
++ Response 200 (application/json)
+    
+        {
+            "message": "Updated successfully"
+        }
+
+### Delete Notification [DELETE]
+
+This will delete the notification with the given id.
+
+
++ Request (application/json)
+
++ Response 204 (application/json)
+
+
+### Get Notification [GET]
+
+This will get and return the notification specified by the given id.
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+        {
+            "id": 1,
+            "user_id": 1,
+            "title": "Menu Updated",
+            "message": "Hello, the menu has now been updated",
+            "created_at": "2018-04-30 13:00:32.257303",
+            "updated_at": "2018-04-30 13:00:32.257303"
         }
