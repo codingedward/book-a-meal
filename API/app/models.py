@@ -8,6 +8,22 @@ class UserType:
     CUSTOMER = 2
 
 
+class Blacklist(db.Model):
+
+    __tablename__ = 'blacklist'
+
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(500))
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    def __init__(self, token):
+        self.token = token
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+
 class User(db.Model):
 
     __tablename__ = 'users'
