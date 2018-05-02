@@ -2,6 +2,7 @@
 *.swo
 *.swn
 .env
+.coverage
 API/venv/*
 API/migrations/*
 __pycache__
