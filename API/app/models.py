@@ -1,11 +1,19 @@
 import enum
 from app import db
+from datetime import date
 from passlib.hash import bcrypt
+from sqlalchemy import cast, DATE
 
 
 class UserType:
     CATERER = 1
     CUSTOMER = 2
+
+
+class MenuType:
+    BREAKFAST = 1
+    LUNCH = 2
+    SUPPER = 3
 
 
 class Blacklist(db.Model):
@@ -40,7 +48,6 @@ class User(db.Model):
         onupdate=db.func.current_timestamp()
     )
 
-
     def __init__(self, username, email, password, role = UserType.CUSTOMER):
         self.email = email
         self.role = role
@@ -66,14 +73,12 @@ class User(db.Model):
         return self.role == UserType.CATERER
 
 
-class Meal(db.Model):
+class Menu(db.Model):
 
-    __tablename__ = 'meals'
+    __tablename__ = 'menus'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), unique=True)
-    cost = db.Column(db.Float(2))
-    img_path = db.Column(db.String(1024))
+    category = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -81,6 +86,77 @@ class Meal(db.Model):
         onupdate=db.func.current_timestamp()
     )
 
+    def __init__(self, category):
+        self.category = category
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all(self):
+        return Menu.query.all()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class MenuItem(db.Model):
+
+    __tablename__ = 'menu_items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
+    meal_id = db.Column(db.Integer, db.ForeignKey('meals.id'))
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp(),
+        onupdate=db.func.current_timestamp()
+    )
+
+    menu = db.relationship(
+        'Menu',
+        backref=db.backref('menu_items', lazy='dynamic')
+    )
+
+    meal = db.relationship(
+        'Meal',
+        backref=db.backref('menu_items', lazy='dynamic')
+    )
+
+    def __init__(self, menu_id, meal_id):
+        self.menu_id = menu_id
+        self.meal_id = meal_id
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all(self):
+        return MenuItem.query.all()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Meal(db.Model):
+
+    __tablename__ = 'meals'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), unique=True)
+    cost = db.Column(db.Float(2))
+    img_path = db.Column(db.String(2048))
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp(),
+        onupdate=db.func.current_timestamp()
+    )
 
     def __init__(self, name, cost, img_path):
         self.name = name
@@ -100,55 +176,21 @@ class Meal(db.Model):
         db.session.commit()
 
 
-class MealType:
-    BREAKFAST = 1
-    LUNCH = 2
-    SUPPER = 3
-
-
-class Menu(db.Model):
-
-    __tablename__ = 'menus'
-
-    id = db.Column(db.Integer, primary_key=True)
-    meal_id = db.Column(db.Integer, db.ForeignKey('meals.id', ondelete='CASCADE'))
-    category = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(
-        db.DateTime,
-        default=db.func.current_timestamp(),
-        onupdate=db.func.current_timestamp()
-    )
-
-    meal = db.relationship(
-        'Meal',
-        backref=db.backref("menus", lazy="dynamic")
-    )
-
-    def __init__(self, meal_id, category):
-        self.meal_id = meal_id
-        self.category = category
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @staticmethod
-    def get_all(self):
-        return Menu.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
 class Order(db.Model):
 
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
-    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id', ondelete='CASCADE'))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    menu_item_id = db.Column(
+        db.Integer,
+        db.ForeignKey('menu_items.id',ondelete='CASCADE')
+    )
+    meal_id = db.Column(
+        db.Integer, 
+        db.ForeignKey('meals.id', ondelete='CASCADE')
+    )
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id', ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -156,8 +198,8 @@ class Order(db.Model):
         onupdate=db.func.current_timestamp()
     )
 
-    menu = db.relationship(
-        'Menu',
+    menu_item = db.relationship(
+        'MenuItem',
         backref=db.backref("orders", lazy="dynamic")
     )
 
@@ -166,9 +208,9 @@ class Order(db.Model):
         backref=db.backref("orders", lazy="dynamic")
     )
 
-    def __init__(self, menu_id, user_id):
-        self.menu_id = menu_id
+    def __init__(self, menu_item_id, user_id):
         self.user_id = user_id
+        self.menu_item_id = menu_item_id
 
     def save(self):
         db.session.add(self)
