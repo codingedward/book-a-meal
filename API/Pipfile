@@ -32,6 +32,7 @@ python-dotenv = "*"
 flask-jwt = "*"
 "psycopg2-binary" = "*"
 bcrypt = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_version = "3.6"
