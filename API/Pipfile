@@ -33,6 +33,7 @@ flask-jwt = "*"
 "psycopg2-binary" = "*"
 bcrypt = "*"
 flask-jwt-extended = "*"
+nose-cov = "*"
 
 [requires]
 python_version = "3.6"
