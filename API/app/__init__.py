@@ -14,7 +14,7 @@ from werkzeug.exceptions import default_exceptions
 db = SQLAlchemy()
 
 
-# these imports require db
+# these imports require the db
 from app.validators import (
     ValidationError, validate_meal, validate_menu,
     validate_notification, validate_order, validate_user,
@@ -35,10 +35,8 @@ def create_app(config_name):
 
     @jwt.token_in_blacklist_loader
     def check_token_in_blacklist(decrypted_token):
-        blacklist = Blacklist.query.filter_by(
-            token=get_raw_jwt()['jti']
-        ).first()
-        return blacklist is not None
+        return Blacklist.query.filter_by(
+                    token=get_raw_jwt()['jti']).first() is not None
 
     # jsonify http errors
     for code in default_exceptions.keys():
