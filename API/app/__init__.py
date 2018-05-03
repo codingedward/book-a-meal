@@ -30,7 +30,6 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     db.init_app(app)
     app.register_blueprint(auth)
-
     jwt = JWTManager(app)
 
     @jwt.token_in_blacklist_loader
