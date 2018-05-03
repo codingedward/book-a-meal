@@ -87,7 +87,6 @@ class MealTestCase(BaseTest):
         res = self.client().delete('/api/v1/meals/1',
                                    headers=caterer_header)
         self.assertEqual(res.status_code, 204)
-
         res = self.client().get('/api/v1/meals/1', headers=caterer_header)
         self.assertEqual(res.status_code, 404)
 

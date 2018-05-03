@@ -12,10 +12,10 @@ class AuthenticationTestCase(unittest.TestCase):
         self.user = json.dumps({
             'username': 'John',
             'email': 'john@doe.com', 
-            'password': 'secret'
+            'password': 'secret',
+            'confirm_password': 'secret'
         })
         self.headers = {'Content-Type' : 'application/json'} 
-
         with self.app.app_context():
             db.create_all()
 
@@ -56,6 +56,27 @@ class AuthenticationTestCase(unittest.TestCase):
             }
         )
         self.assertEqual(res.status_code, 200)
+
+    def test_can_get_user(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=self.user,
+            headers=self.headers
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        res = self.client().get(
+            '/api/v1/auth/get',
+            data=self.user,
+            headers={
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer {}'.format(json_result['access_token'])
+            }
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(json_result['user']['email'], 'john@doe.com')
 
     def tearDown(self):
         with self.app.app_context():

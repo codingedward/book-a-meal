@@ -22,7 +22,7 @@ class MenuTestCase(BaseTest):
     def test_menu_creation(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
-            '/api/v1/menus',
+            '/api/v1/menu',
             data=self.menu,
             headers=caterer_header
         )
@@ -33,14 +33,14 @@ class MenuTestCase(BaseTest):
     def test_can_get_all_menus(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
-            '/api/v1/menus',
+            '/api/v1/menu',
             data=self.menu,
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 201)
 
         customer_header, _ = self.loginCustomer()
-        res = self.client().get('/api/v1/menus', headers=customer_header)
+        res = self.client().get('/api/v1/menu', headers=customer_header)
 
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
@@ -50,7 +50,7 @@ class MenuTestCase(BaseTest):
     def test_can_get_menu_by_id(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
-            '/api/v1/menus',
+            '/api/v1/menu',
             data=self.menu,
             headers=caterer_header
         )
@@ -59,7 +59,7 @@ class MenuTestCase(BaseTest):
         customer_header, _ = self.loginCustomer()
         json_result = json.loads(res.get_data(as_text=True))
         res = self.client().get(
-            '/api/v1/menus/{}'.format(json_result['id']),
+            '/api/v1/menu/{}'.format(json_result['id']),
             headers=customer_header
         )
 
@@ -70,14 +70,14 @@ class MenuTestCase(BaseTest):
     def test_menu_can_be_updated(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
-            '/api/v1/menus',
+            '/api/v1/menu',
             data=self.menu,
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 201)
 
         res = self.client().put(
-            '/api/v1/menus/1',
+            '/api/v1/menu/1',
             data=json.dumps({
                 'category': MenuType.SUPPER
             }),
@@ -86,7 +86,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 200)
 
         customer_header, _ = self.loginCustomer()
-        res = self.client().get('/api/v1/menus/1', headers=customer_header)
+        res = self.client().get('/api/v1/menu/1', headers=customer_header)
         json_result = json.loads(res.get_data(as_text=True))
 
         self.assertEqual(res.status_code, 200)
@@ -95,14 +95,14 @@ class MenuTestCase(BaseTest):
     def test_menu_deletion(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
-            '/api/v1/menus',
+            '/api/v1/menu',
             data=self.menu,
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 201)
-        res = self.client().delete('/api/v1/menus/1',
+        res = self.client().delete('/api/v1/menu/1',
                                    headers=caterer_header)
         self.assertEqual(res.status_code, 204)
         customer_header, _ = self.loginCustomer()
-        res = self.client().get('/api/v1/menus/1', headers=customer_header)
+        res = self.client().get('/api/v1/menu/1', headers=customer_header)
         self.assertEqual(res.status_code, 404)

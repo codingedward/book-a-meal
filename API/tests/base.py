@@ -31,7 +31,6 @@ class BaseTest(unittest.TestCase):
 
             json_result = json.loads(res.get_data(as_text=True))
             return  {
-                'Accept': 'application/json',
                 'Content-Type' : 'application/json',
                 'Authorization': 'Bearer {}'.format(json_result['access_token'])
             }, user.id
