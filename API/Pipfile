@@ -34,6 +34,7 @@ flask-jwt = "*"
 bcrypt = "*"
 flask-jwt-extended = "*"
 nose-cov = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.6"
