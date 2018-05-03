@@ -4,6 +4,7 @@ import unittest
 from app import create_app, db
 from app.models import User, UserType
 
+
 class BaseTest(unittest.TestCase):
     """ 
     This will hold the basic methods required by other tests, for 

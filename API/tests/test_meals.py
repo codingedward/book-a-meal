@@ -21,7 +21,7 @@ class MealTestCase(BaseTest):
             db.create_all()
 
     def test_meal_creation(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, _ = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         json_result = json.loads(res.get_data(as_text=True))
