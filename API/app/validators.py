@@ -30,8 +30,18 @@ def validate_user(**kwargs):
     if not fields.get('password'):
         raise ValidationError('Password is required')
 
-    if len(fields.get('password')) < 6:
-        raise ValidationError('Password must be at least 6 characters')
+    if not fields.get('confirm_password'):
+        raise ValidationError('Password confirmation is required')
+
+    if fields.get('password').strip() !=  \
+            fields.get('confirm_password').strip():
+        raise ValidationError('Confirmation password does not match')
+
+    if len(fields.get('password').strip()) < 6:
+        raise ValidationError(
+            'Password must have at least 6 characters. Leading and' + \
+            ' trailing spaces and tabs are ignored.'
+        )
 
     if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
                     fields['email']):
