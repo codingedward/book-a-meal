@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, Blueprint, jsonify
+from flask import Flask, Blueprint, jsonify, send_from_directory
 from flask_restless import APIManager
 from flask_sqlalchemy import SQLAlchemy 
 from flask_jwt_extended import (
@@ -51,6 +51,11 @@ def create_app(config_name):
     @app.errorhandler(AuthorizationError)
     def handle_authorization_error(err):
         return jsonify({'errors': [str(err)]}), 401
+
+
+    @app.route('/')
+    def docs():
+        return send_from_directory('../docs', 'index.html')
 
     with app.app_context():
         """ we need to have our api routes while the app is running """
