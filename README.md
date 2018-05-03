@@ -1,14 +1,50 @@
 # Book A Meal :pizza:
-This is the Andela Book-A-Meal web project challenge. 
+[![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=feature%2Fapi)](https://travis-ci.org/codingedward/book-a-meal)
+[![Coverage Status](https://coveralls.io/repos/github/codingedward/book-a-meal/badge.svg?branch=feature%2Fapi)](https://coveralls.io/github/codingedward/book-a-meal?branch=feature%2Fapi)
+[![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
+<a href="http://flask.pocoo.org/"><img
+   src="http://flask.pocoo.org/static/badges/made-with-flask-s.png"
+   border="0"
+   alt="made with Flask"
+   title="made with Flask"></a>
+
+This is the Andela Book-A-Meal web project challenge.  This GitHub repository 
+has also been integrated with that PivotalTracker project and on every commit, 
+there will be an id to the story being worked on.
 
 **Note**: The UI template is [here](https://codingedward.github.io/book-a-meal).
 
 **Note**: The PivotalTracker project is
 [here](https://www.pivotaltracker.com/n/projects/2165567). 
 
+**Note**: The documentation for the API is 
+[here](https://mealbooking.docs.apiary.io)
 
-This GitHub repository has also been integrated with that PivotalTracker 
-project and on every commit, there will be an id to the story being worked on.
+## Table of Content
+
+  * [Introduction](#introduction)
+  * [The Client Side](#the-client-side)
+     * [Color Palette](#color-palette)
+     * [Fonts](#fonts)
+     * [Images and Textures](#images-and-textures)
+     * [Pages](#pages)
+        * [Landing Page](#landing-page)
+        * [Sign Up Page](#sign-up-page)
+        * [Login Page](#login-page)
+        * [Caterer Meals Management Page](#caterer-meals-management-page)
+        * [Caterer Menu Management](#caterer-menu-management)
+        * [Caterer Orders](#caterer-orders)
+        * [Caterer Order History](#caterer-order-history)
+        * [Customer Menu](#customer-menu)
+        * [Customer Orders](#customer-orders)
+        * [Customer Notifications](#customer-notifications)
+        * [Customer Order History.](#customer-order-history)
+  * [The Server Side](#the-server-side)
+     * [Installation](#installation)
+     * [Configuration](#configuration)
+     * [Running](#running)
+     * [Testing](#testing)
+
 
 ## Introduction
 The project entails having a caterer as the site administrator and can add 
@@ -120,3 +156,67 @@ menu.
 Here the customer can see their order history.
 
 ![User Order History](https://image.ibb.co/guyqBx/user_history.png)
+
+
+## The Server Side
+
+This application uses Flask Python web microframework to create a RESTful 
+API.
+
+**Note**: The documentation for the API is 
+[here](https://mealbooking.docs.apiary.io)
+
+### Installation
+
+To have the API running, you will have to have `pipenv` package manager. To 
+install this, run the following command:
+```
+$ pip install pipenv
+```
+Then, change directory to the `/API` where the application code is located.
+```
+$ cd API
+```
+Next, you have to install the applications dependancies.
+```
+$ pipenv install
+```
+
+### Configuration
+
+This application requires some configuration held in the `.env` file.
+For this, the `.envexample` file has already been provided and you simply have
+to copy paste it to `.env` file. That is:
+```
+$ cp .envexample .env
+```
+
+Then, ensure you **fill in the required values** in the configuration file.
+
+
+
+### Running
+
+This part assumes you have already configured your application as described 
+above. To access the virtual enviroment created by `pipenv`, run:
+```
+$ pipenv shell
+```
+This will load the environment variables and create your virtual environment.  
+To run your application, simply run:
+```
+$ flask run
+```
+You should then have your application up and running:
+```
+ * Serving Flask app "run" 
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit) 
+```
+
+### Testing
+
+The application was built using TDD pattern and therefore has tests that can
+be run using `nose` test runner. To run these tests, simply run `nosetests`:
+```
+$ nosetests test_endpoints.py
+```
