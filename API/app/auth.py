@@ -3,7 +3,7 @@ from app.models import Blacklist, User, UserType
 from app.validators import validate_user, AuthorizationError
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token,
+    jwt_required, create_access_token,
     get_jwt_identity, get_raw_jwt
 )
 
