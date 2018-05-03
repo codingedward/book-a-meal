@@ -232,7 +232,8 @@ class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     message = db.Column(db.String(1024))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id',ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
