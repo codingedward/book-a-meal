@@ -1,4 +1,3 @@
-import enum
 from app import db
 from datetime import date
 from passlib.hash import bcrypt
