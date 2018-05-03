@@ -76,6 +76,7 @@ def create_app(config_name):
             Menu,
             methods=['GET', 'POST', 'DELETE', 'PUT'],
             url_prefix='/api/v1',
+            collection_name='menu',
             preprocessors={
                 'POST': [caterer_auth, validate_menu],
                 'GET_SINGLE': [customer_auth],

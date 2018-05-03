@@ -1,6 +1,6 @@
 import json
 from app.models import Blacklist, User, UserType 
-from app.validators import validate_user, AuthorizationError
+from app.validators import validate_user, AuthorizationError, ValidationError
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -64,7 +64,29 @@ def login():
         return jsonify({'errors': ['Invalid credentials']}), 400
 
     access_token = create_access_token(identity=request.json['email'])
-    return jsonify(access_token=access_token), 200
+    return jsonify({
+        'access_token': access_token,
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email
+        }
+    }), 200
+
+@auth.route('/api/v1/auth/get', methods=['GET'])
+@jwt_required
+def get_user():
+    if not request.is_json:
+        return jsonify({'message': 'Request should be JSON'}), 400
+
+    user = User.query.filter_by(email=get_jwt_identity()).first()
+    return jsonify({
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email
+        }
+    }), 200
 
 
 @auth.route('/api/v1/auth/logout', methods=['DELETE'])
