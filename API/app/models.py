@@ -78,6 +78,7 @@ class Menu(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.Integer)
+    day = db.Column(db.Date, default=db.func.current_timestamp())
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,

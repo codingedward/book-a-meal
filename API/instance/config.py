@@ -9,7 +9,9 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-    JWT_EXPIRATION_DELTA = timedelta(seconds=3600)
+    PROPAGATE_ERRORS = True
+    PROPAGATE_EXCEPTIONS = True
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=48)
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 

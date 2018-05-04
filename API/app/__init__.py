@@ -1,6 +1,6 @@
 import sys
 from flask import Flask, Blueprint, jsonify, send_from_directory
-from flask_restless import APIManager
+from flask_restless import APIManager, ProcessingException
 from flask_sqlalchemy import SQLAlchemy 
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -16,7 +16,7 @@ db = SQLAlchemy()
 
 # these imports require the db
 from app.validators import (
-    ValidationError, validate_meal, validate_menu,
+    ValidationError, validate_post_meal, validate_put_meal, validate_menu,
     validate_notification, validate_order, validate_user,
     validate_menu_item, AuthorizationError
 )
@@ -41,16 +41,12 @@ def create_app(config_name):
     for code in default_exceptions.keys():
         @app.errorhandler(code)
         def handle_error(ex):
-            return jsonify({'errors': [str(ex)]}), code
+            return jsonify({'message': str(ex)}), code
 
-    # jsonify validation errors
-    @app.errorhandler(ValidationError)
-    def handle_validation_error(err):
-        return jsonify({'errors': [str(err)]}), 400
 
     @app.errorhandler(AuthorizationError)
     def handle_authorization_error(err):
-        return jsonify({'errors': [str(err)]}), 401
+        return jsonify({'message': str(err)}), 401
 
 
     @app.route('/')
@@ -66,10 +62,10 @@ def create_app(config_name):
             methods=['GET', 'POST', 'DELETE', 'PUT'],
             url_prefix='/api/v1',
             preprocessors={
-                'POST': [caterer_auth, validate_meal],
+                'POST': [caterer_auth, validate_post_meal],
                 'GET_MANY': [caterer_auth],
                 'GET_SINGLE': [caterer_auth],
-                'PUT_SINGLE': [caterer_auth, validate_meal],
+                'PUT_SINGLE': [caterer_auth, validate_put_meal],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
             },
