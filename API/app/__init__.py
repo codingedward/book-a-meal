@@ -16,9 +16,10 @@ db = SQLAlchemy()
 
 # these imports require the db
 from app.validators import (
-    ValidationError, validate_post_meal, validate_put_meal, validate_menu,
-    validate_notification, validate_order, validate_user,
-    validate_menu_item, AuthorizationError
+    validate_post_meal, validate_put_meal, validate_menu,
+    validate_notification, validate_user, 
+    validate_post_menu_item,  validate_post_order, validate_put_order,
+    validate_put_menu_item, AuthorizationError
 )
 from app.auth import auth, caterer_auth, customer_auth
 from app.models import Meal, User, Notification, Menu, Order, MenuItem
@@ -43,11 +44,9 @@ def create_app(config_name):
         def handle_error(ex):
             return jsonify({'message': str(ex)}), code
 
-
     @app.errorhandler(AuthorizationError)
     def handle_authorization_error(err):
         return jsonify({'message': str(err)}), 401
-
 
     @app.route('/')
     def docs():
@@ -68,8 +67,7 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_put_meal],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
-            },
-            validation_exceptions=[ValidationError]
+            }
         )
 
         manager.create_api(
@@ -84,8 +82,7 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_menu],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
-            },
-            validation_exceptions=[ValidationError]
+            }
         )
 
         manager.create_api(
@@ -93,14 +90,13 @@ def create_app(config_name):
             methods=['GET', 'POST', 'DELETE', 'PUT'],
             url_prefix='/api/v1',
             preprocessors={
-                'POST': [caterer_auth, validate_menu_item],
+                'POST': [caterer_auth, validate_post_menu_item],
                 'GET_SINGLE': [customer_auth],
                 'GET_MANY': [customer_auth],
-                'PUT_SINGLE': [caterer_auth, validate_menu_item],
+                'PUT_SINGLE': [caterer_auth, validate_put_menu_item],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
-            },
-            validation_exceptions=[ValidationError]
+            }
         )
 
         manager.create_api(
@@ -108,14 +104,13 @@ def create_app(config_name):
             methods=['GET', 'POST', 'DELETE', 'PUT'],
             url_prefix='/api/v1',
             preprocessors={
-                'POST': [customer_auth, validate_order],
+                'POST': [customer_auth, validate_post_order],
                 'GET_SINGLE': [customer_auth],
                 'GET_MANY': [caterer_auth],
-                'PUT_SINGLE': [customer_auth, validate_order],
+                'PUT_SINGLE': [customer_auth, validate_put_order],
                 'DELETE_SINGLE': [customer_auth],
                 'DELETE_MANY': [caterer_auth],
-            },
-            validation_exceptions=[ValidationError]
+            }
         )
 
         manager.create_api(
@@ -129,8 +124,7 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_notification],
                 'DELETE_SINGLE': [customer_auth],
                 'DELETE_MANY': [customer_auth],
-            },
-            validation_exceptions=[ValidationError]
+            }
         )
 
     return app

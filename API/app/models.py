@@ -1,3 +1,4 @@
+import json
 from app import db
 from datetime import date
 from passlib.hash import bcrypt
@@ -70,6 +71,13 @@ class User(db.Model):
 
     def is_caterer(self):
         return self.role == UserType.CATERER
+
+    def json_dumps(self):
+        return json.dumps({
+            'id': self.id,
+            'username': self.username,
+            'email': self.email
+        })
 
 
 class Menu(db.Model):
@@ -181,13 +189,10 @@ class Order(db.Model):
     __tablename__ = 'orders'
 
     id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, default=1)
     menu_item_id = db.Column(
         db.Integer,
-        db.ForeignKey('menu_items.id',ondelete='CASCADE')
-    )
-    meal_id = db.Column(
-        db.Integer, 
-        db.ForeignKey('meals.id', ondelete='CASCADE')
+        db.ForeignKey('menu_items.id', ondelete='CASCADE')
     )
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id', ondelete='CASCADE'))
@@ -203,13 +208,9 @@ class Order(db.Model):
         backref=db.backref("orders", lazy="dynamic")
     )
 
-    user = db.relationship(
-        'User',
-        backref=db.backref("orders", lazy="dynamic")
-    )
-
-    def __init__(self, menu_item_id, user_id):
+    def __init__(self, menu_item_id, user_id, quantity):
         self.user_id = user_id
+        self.quantity = quantity
         self.menu_item_id = menu_item_id
 
     def save(self):

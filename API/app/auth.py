@@ -1,6 +1,7 @@
 import json
 from app.models import Blacklist, User, UserType 
-from app.validators import validate_user, AuthorizationError, ValidationError
+from flask_restless import ProcessingException
+from app.validators import validate_user, AuthorizationError
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -38,8 +39,8 @@ def register():
 
     try:
         validate_user()
-    except ValidationError as err:
-        return jsonify({'errors': [str(err)]}), 400
+    except ProcessingException as err:
+        return jsonify({'message': err.description}), 400
 
     user = User(
         username=request.json['username'],
@@ -47,7 +48,7 @@ def register():
         password=request.json['password']
     )
     user.save()
-    return jsonify({'message': 'Successfully registered'}), 201
+    return jsonify(user.json_dumps()), 201
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():

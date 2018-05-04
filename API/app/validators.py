@@ -1,4 +1,5 @@
 import re
+from datetime import date
 from flask import request
 from flask_restless import ProcessingException
 from app.models import (
@@ -6,15 +7,6 @@ from app.models import (
     Menu, MenuItem, Notification, Order
 )
 
-
-class ValidationError(Exception):
-    """ Base class is enough """
-    errors = []
-    def __init__(self, error):
-        self.errors.append(error)
-
-    def __str__(self):
-        return str(self.errors[0])
 
 class AuthorizationError(ProcessingException):
     """ Base class is enough """
@@ -25,6 +17,14 @@ def validate_user(**kwargs):
     if not fields.get('username'):
         raise ProcessingException(
             description='Username is required', 
+            code=400
+        )
+
+    if len(fields.get('username').strip()) < 3:
+        raise ProcessingException(
+            description=
+            'Username must have at least 3 characters. Leading and' + \
+            ' trailing spaces and tabs are ignored.',
             code=400
         )
 
@@ -71,7 +71,7 @@ def validate_user(**kwargs):
     user = User.query.filter_by(email=fields['email']).first()
     if user:
         raise ProcessingException(
-            description='Email must be unique', 
+            description='This email has already been used', 
             code=400
         )
 
@@ -149,9 +149,8 @@ def validate_menu(**kwargs):
         )
 
 
-def validate_menu_item(**kwargs):
+def validate_post_menu_item(**kwargs):
     fields = request.json
-    print(fields)
     if fields.get('meal_id') is None:
         raise ProcessingException(
             description='Meal id is required', 
@@ -178,15 +177,61 @@ def validate_menu_item(**kwargs):
             code=400
         )
 
+    menu_item = MenuItem.query.filter_by(menu_id=menu.id, 
+                                         meal_id=meal.id).first()
+    if menu_item:
+        raise ProcessingException(
+            description='This menu item already exists', 
+            code=400
+        )
 
-def validate_order(**kwargs):
+def validate_put_menu_item(**kwargs):
     fields = request.json
-    print(request.json)
+    if fields.get('meal_id') is None:
+        raise ProcessingException(
+            description='Meal id is required', 
+            code=400
+        )
+
+    if fields.get('menu_id') is None:
+        raise ProcessingException(
+            description='Menu id is required', 
+            code=400
+        )
+
+    meal = Meal.query.get(fields['meal_id'])
+    if not meal:
+        raise ProcessingException(
+            description='No meal found for that meal_id', 
+            code=400
+        )
+
+    menu = Menu.query.get(fields['menu_id'])
+    if not menu:
+        raise ProcessingException(
+            description='No menu found for that menu_id', 
+            code=400
+        )
+
+    menu_item = MenuItem.query.filter_by(menu_id=menu.id, 
+                                         meal_id=meal.id).first()
+    if menu_item:
+        raise ProcessingException(
+            description='This menu item already exists', 
+            code=400
+        )
+
+def validate_post_order(**kwargs):
+    fields = request.json
     if fields.get('menu_item_id') is None:
         raise ProcessingException(
             description='Menu item id is required', 
             code=400
         )
+
+    # set a default quantity
+    if fields.get('quantity') is None:
+        request.json['quantity'] = 1
 
     if fields.get('user_id') is None:
         raise ProcessingException(
@@ -208,6 +253,37 @@ def validate_order(**kwargs):
             code=400
         )
 
+def validate_put_order(**kwargs):
+    fields = request.json
+    if fields.get('menu_item_id') is None:
+        raise ProcessingException(
+            description='Menu item id is required', 
+            code=400
+        )
+
+    # set a default quantity
+    if fields.get('quantity') is None:
+        request.json['quantity'] = 1
+
+    if fields.get('user_id') is None:
+        raise ProcessingException(
+            description='User id is required', 
+            code=400
+        )
+
+    menu_item = MenuItem.query.get(fields['menu_item_id'])
+    if menu_item is None:
+        raise ProcessingException(
+            description='No menu item found for that menu_item_id', 
+            code=400
+        )
+
+    user = User.query.get(fields['user_id'])
+    if user is None:
+        raise ProcessingException(
+            description='No user found for that user_id', 
+            code=400
+        )
 
 def validate_notification(**kwargs):
     fields = request.json
