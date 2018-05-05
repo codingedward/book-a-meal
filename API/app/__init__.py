@@ -7,8 +7,7 @@ from flask_jwt_extended import (
     get_jwt_identity, get_raw_jwt
 )
 from instance.config import app_config
-from werkzeug.exceptions import HTTPException
-from werkzeug.exceptions import default_exceptions
+from werkzeug.exceptions import HTTPException, default_exceptions
 
 
 db = SQLAlchemy()

@@ -84,6 +84,12 @@ def validate_post_meal(**kwargs):
             code=400
         )
 
+    if len(fields.get('name').strip()) == 0:
+        raise ProcessingException(
+            description='Invalid meal name', 
+            code=400
+        )
+
     if fields.get('cost') is None:
         raise ProcessingException(
             description='Cost is required', 
@@ -113,6 +119,12 @@ def validate_put_meal(**kwargs):
     if fields.get('name') is None:
         raise ProcessingException(
             description='Name is required', 
+            code=400
+        )
+
+    if len(fields.get('name').strip()) == 0:
+        raise ProcessingException(
+            description='Invalid meal name', 
             code=400
         )
 

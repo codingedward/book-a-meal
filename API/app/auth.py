@@ -48,7 +48,7 @@ def register():
         password=request.json['password']
     )
     user.save()
-    return jsonify(user.json_dumps()), 201
+    return user.json_dumps(), 201
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():
