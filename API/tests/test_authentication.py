@@ -24,6 +24,130 @@ class AuthenticationTestCase(unittest.TestCase):
                                  data=self.user, headers=self.headers)
         self.assertEqual(res.status_code, 201)
 
+    def test_cannot_signup_without_username(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'email': 'john@doe.com', 
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_without_email(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_without_password(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_without_password_confirmation(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'password': 'secret',
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_without_password_matching(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'password': 'secret',
+                'confirm_password': 'secre'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_with_wrong_email(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'johndoe.com', 
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_with_short_username(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'Jo',
+                'email': 'john@doe.com', 
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_signup_with_short_password(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'password': 'sec',
+                'confirm_password': 'sec'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_user_cannot_login_without_email(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=json.dumps({
+                'password': 'secret',
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_user_cannot_login_without_password(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=json.dumps({
+                'email': 'john@doe.com', 
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+
     def test_user_can_login(self):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)

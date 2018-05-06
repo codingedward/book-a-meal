@@ -31,6 +31,68 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json_result['menu_id'], 1)
 
+    def test_cannot_create_menu_item_without_meal_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=json.dumps({
+                'menu_id': self.createMenu(),
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_menu_item_without_menu_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=json.dumps({
+                'meal_id': self.createMeal(),
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_menu_item_with_wrong_meal_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=json.dumps({
+                'meal_id': 40,
+                'menu_id': self.createMenu(),
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_menu_item_with_wrong_menu_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=json.dumps({
+                'menu_id': 50,
+                'meal_id': self.createMeal(),
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_existing_menu_item(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
     def test_can_get_all_menu_items(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
@@ -93,6 +155,60 @@ class MenuItemTestCase(BaseTest):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['meal_id'], 2)
+
+    def test_cannot_update_menu_item_without_data(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().put(
+            '/api/v1/menu_items/1',
+            data=json.dumps({}),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_update_menu_item_with_non_existing_menu_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().put(
+            '/api/v1/menu_items/1',
+            data=json.dumps({
+                'meal_id': self.createMeal(id=2),
+                'menu_id': 48
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_update_menu_item_with_non_existing_meal_id(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().put(
+            '/api/v1/menu_items/1',
+            data=json.dumps({
+                'meal_id': 50,
+                'menu_id': self.createMenu(),
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
 
     def test_menu_item_deletion(self):
         caterer_header, _ = self.loginCaterer()

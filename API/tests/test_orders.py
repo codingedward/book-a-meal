@@ -31,6 +31,27 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json_result['user_id'], id)
 
+    def test_cannot_create_order_without_menu_item_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({}),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_order_with_non_existing_menu_item_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({'menu_item_id': 40}),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+
+
     def test_can_get_all_orders(self):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()

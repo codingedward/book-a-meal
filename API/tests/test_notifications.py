@@ -31,6 +31,45 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json_result['title'], 'Hello there')
 
+    def test_cannot_create_notification_without_title(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/notifications', 
+            data=json.dumps({
+                'user_id': id,
+                'message': 'I have a message for you',
+            }),
+            headers=caterer_header)
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_notification_without_message(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/notifications', 
+            data=json.dumps({
+                'user_id': id,
+                'title': 'Hello there',
+            }),
+            headers=caterer_header)
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_notification_without_user_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/notifications', 
+            data=json.dumps({
+                'title': 'Hello there',
+                'message': 'I have a message for you',
+            }),
+            headers=caterer_header)
+
+        self.assertEqual(res.status_code, 400)
+
     def test_can_get_all_notifications(self):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
