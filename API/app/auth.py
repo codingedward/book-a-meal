@@ -2,7 +2,7 @@ import json
 from app.models import Blacklist, User, UserType 
 from flask_restless import ProcessingException
 from app.validators import Valid, AuthorizationError
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Response
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity, get_raw_jwt
@@ -48,7 +48,15 @@ def register():
         password=request.json['password']
     )
     user.save()
-    return user.json_dumps(), 201
+    return jsonify({
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email
+        }
+    }), 201
+    return res
+
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():

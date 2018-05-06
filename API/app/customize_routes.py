@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import datetime
 from flask_jwt_extended import get_jwt_identity
 from flask import abort, make_response, jsonify
 from app.models import Blacklist, User
@@ -53,10 +53,11 @@ def todays(search_params=None, **kwargs):
 
     This assumes the model has a day column.
     """
+    print(datetime.utcnow().date())
     search_params['filters'] = [{
         'name': 'day',
         'op': 'eq',
-        'val': str(date.today())
+        'val': str(datetime.utcnow().date())
     }] 
 
 

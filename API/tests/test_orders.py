@@ -23,7 +23,6 @@ class OrderTestCase(BaseTest):
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
             }),
             headers=customer_header
         )
@@ -39,7 +38,6 @@ class OrderTestCase(BaseTest):
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
             }),
             headers=caterer_header
         )
@@ -57,9 +55,8 @@ class OrderTestCase(BaseTest):
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
             }),
-            headers=caterer_header
+            headers=customer_header
         )
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 201)

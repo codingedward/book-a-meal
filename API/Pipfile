@@ -36,6 +36,7 @@ flask-jwt-extended = "*"
 nose-cov = "*"
 coveralls = "*"
 gunicorn = "*"
+flask-babel = "*"
 
 [requires]
 python_version = "3.6"
