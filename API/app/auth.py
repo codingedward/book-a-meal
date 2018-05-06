@@ -1,7 +1,7 @@
 import json
 from app.models import Blacklist, User, UserType 
 from flask_restless import ProcessingException
-from app.validators import validate_user, AuthorizationError
+from app.validators import Valid, AuthorizationError
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 
 
 @jwt_required
-def customer_auth(**kwargs):
+def default_auth(**kwargs):
     """ 
     We use this empty function to as a preprocessor in JWT restless
     in order to include the @jwt_required decorator. That way, we
@@ -38,7 +38,7 @@ def register():
         return jsonify({'message': 'Request should be JSON'}), 400
 
     try:
-        validate_user()
+        Valid.user()
     except ProcessingException as err:
         return jsonify({'message': err.description}), 400
 
