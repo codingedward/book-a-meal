@@ -311,7 +311,13 @@ class Valid:
                 description='Order could not be processed', 
                 code=500
             )
-        request.json['user_id'] = current_user.id
+
+        order = Order.query.get(instance_id)
+        if order.user_id != current_user.id:
+            raise ProcessingException(
+                description='This user cannot edit this order', 
+                code=401
+            )
 
         clean_unexpected(request, ['menu_item_id', 'quantity'])
         fields = request.json
