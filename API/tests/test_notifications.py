@@ -102,7 +102,7 @@ class NotificationTestCase(BaseTest):
         customer_header, _ = self.loginCustomer()
         res = self.client().delete('/api/v1/notifications/1',
                                    headers=customer_header)
-        self.assertEqual(res.status_code, 204)
+        self.assertEqual(res.status_code, 200)
 
         res = self.client().get('/api/v1/notifications/1',
                                 headers=caterer_header)

@@ -1,5 +1,7 @@
 import sys
-from flask import Flask, Blueprint, jsonify, send_from_directory
+from flask import (
+    Flask, Blueprint, jsonify, send_from_directory, abort, make_response
+)
 from flask_restless import APIManager, ProcessingException
 from flask_sqlalchemy import SQLAlchemy 
 from flask_jwt_extended import (
@@ -20,6 +22,7 @@ from app.validators import (
     validate_post_menu_item,  validate_post_order, validate_put_order,
     validate_put_menu_item, AuthorizationError
 )
+from app.error_handlers import post_get, post_delete
 from app.auth import auth, caterer_auth, customer_auth
 from app.models import Meal, User, Notification, Menu, Order, MenuItem
 
@@ -66,6 +69,11 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_put_meal],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
+            },
+            postprocessors={
+                'DELETE_SINGLE': [post_delete],
+                'DELETE_MANY': [post_delete],
+                'GET_SINGLE': [post_get]
             }
         )
 
@@ -81,6 +89,10 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_menu],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
+            },
+            postprocessors={
+                'DELETE_SINGLE': [post_delete],
+                'DELETE_MANY': [post_delete]
             }
         )
 
@@ -95,6 +107,10 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_put_menu_item],
                 'DELETE_SINGLE': [caterer_auth],
                 'DELETE_MANY': [caterer_auth],
+            },
+            postprocessors={
+                'DELETE_SINGLE': [post_delete],
+                'DELETE_MANY': [post_delete]
             }
         )
 
@@ -109,6 +125,10 @@ def create_app(config_name):
                 'PUT_SINGLE': [customer_auth, validate_put_order],
                 'DELETE_SINGLE': [customer_auth],
                 'DELETE_MANY': [caterer_auth],
+            },
+            postprocessors={
+                'DELETE_SINGLE': [post_delete],
+                'DELETE_MANY': [post_delete]
             }
         )
 
@@ -123,6 +143,10 @@ def create_app(config_name):
                 'PUT_SINGLE': [caterer_auth, validate_notification],
                 'DELETE_SINGLE': [customer_auth],
                 'DELETE_MANY': [customer_auth],
+            },
+            postprocessors={
+                'DELETE_SINGLE': [post_delete],
+                'DELETE_MANY': [post_delete]
             }
         )
 

@@ -102,7 +102,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         res = self.client().delete('/api/v1/menu/1',
                                    headers=caterer_header)
-        self.assertEqual(res.status_code, 204)
+        self.assertEqual(res.status_code, 200)
         customer_header, _ = self.loginCustomer()
         res = self.client().get('/api/v1/menu/1', headers=customer_header)
         self.assertEqual(res.status_code, 404)
