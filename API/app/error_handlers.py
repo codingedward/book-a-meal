@@ -1,15 +1,24 @@
-from flask import abort, make_response, jsonify
+from flask_jwt_extended import get_raw_jwt
+from werkzeug.exceptions import HTTPException, default_exceptions
+from app.validators import AuthorizationError
 
 
-def post_delete(was_deleted=None, **kwargs):
-    if was_deleted:
-        abort(jsonify({'message': 'Successfully deleted'}))
-    else:
-        abort(make_response(jsonify({'message': 'Not found'}), 404))
 
-def post_get(result=None, **kwargs):
-    print(result) 
-    print(kwargs)
-    if not result or len(result) == 0:
-        abort(make_response(jsonify({'message': 'Not found'}), 400))
+def errors_handler(app):
+    # jsonify http errors
+    for code in default_exceptions.keys():
+        @app.errorhandler(code)
+        def handle_error(ex):
+            return jsonify({'message': str(ex)}), code
 
+    # jsonify authorization error
+    @app.errorhandler(AuthorizationError)
+    def handle_authorization_error(err):
+        return jsonify({'message': str(err)}), 401
+
+
+def blacklist_handler(jwt):
+    @jwt.token_in_blacklist_loader
+    def check_token_in_blacklist(decrypted_token):
+        return Blacklist.query.filter_by(
+                    token=get_raw_jwt()['jti']).first() is not None
