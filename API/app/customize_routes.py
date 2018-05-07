@@ -53,7 +53,6 @@ def todays(search_params=None, **kwargs):
 
     This assumes the model has a day column.
     """
-    print(datetime.utcnow().date())
     search_params['filters'] = [{
         'name': 'day',
         'op': 'eq',
