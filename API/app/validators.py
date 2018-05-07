@@ -1,5 +1,5 @@
 import re
-from datetime import date
+from datetime import datetime, date
 from flask import request
 from flask_restless import ProcessingException
 from app.models import (
@@ -303,6 +303,14 @@ class Valid:
                 code=400
             )
 
+        menu = Menu.query.get(menu_item.menu_id)
+        if menu.day != datetime.utcnow().date():
+            raise ProcessingException(
+                description='This menu is expired', 
+                code=400
+            )
+
+
     @staticmethod
     def put_order(instance_id=None, **kwargs):
         current_user = User.query.filter_by(email=get_jwt_identity()).first()
@@ -329,6 +337,14 @@ class Valid:
                     description='No menu item found for that menu_item_id', 
                     code=400
                 )
+
+            menu = Menu.query.get(menu_item.menu_id)
+            if menu.day != datetime.utcnow().date():
+                raise ProcessingException(
+                    description='This menu is expired', 
+                    code=400
+                )
+
 
     @staticmethod
     def post_notification(**kwargs):
