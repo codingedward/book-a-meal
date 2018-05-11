@@ -1,0 +1,287 @@
+/**
+ * Book A Meal Project (Responsive Client Side CSS)
+ *
+ * This will attempt to provide utility classes for responsiveness. This will
+ * be based on popular frontend frameworks.
+ *
+ * Reference: https://www.w3schools.com/css/css_rwd_grid.asp
+ */ 
+
+/**
+ * Here we implement responsive classes with a 12 columns grid system and
+ * other utility classes
+ *
+ * Note that this will be mobile first in that we only make media queries
+ * for larger devices
+ *
+ */ 
+
+html {
+    height: 100%;
+}
+
+
+/* float utilities */
+.float-r { float: right; }
+.float-l { float: left; }
+
+/* text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-middle { vertical-align: middle; }
+.text-bottom { vertical-align: bottom; }
+.text-top { vertical-align: top; }
+
+/* make all the columns float left and have a defualt padding */ 
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+
+/* this will act as a container */
+.wrapper {
+    padding: 10px;
+    width: 100%;
+}
+
+/* since the columns are displayed using float-left, we need to clear a row */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+/* ensure padding and border are included in the total height and width */
+* { box-sizing: border-box; }
+
+/* for mobile (this will ensure we are mobile first) */
+.col-1 { width: 8.33%; }
+.col-2 { width: 16.66%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.33%; }
+.col-5 { width: 41.66%; }
+.col-6 { width: 50%; }
+.col-7 { width: 58.33%; }
+.col-8 { width: 66.66%; }
+.col-9 { width: 75%; }
+.col-10 { width: 83.33%; }
+.col-11 { width: 91.66%; }
+.col-12 { width: 100%; }
+
+/* offset utilities for mobile */
+/* offset right */
+.off-r-1 { margin-right: 8.33%; }
+.off-r-2 { margin-right: 16.66%; }
+.off-r-3 { margin-right: 25%; }
+.off-r-4 { margin-right: 33.33%; }
+.off-r-5 { margin-right: 41.66%; }
+.off-r-6 { margin-right: 50%; }
+
+/* offset left */
+.off-l-1 { margin-left: 8.33%; }
+.off-l-2 { margin-left: 16.66%; }
+.off-l-3 { margin-left: 25%; }
+.off-l-4 { margin-left: 33.33%; }
+.off-l-5 { margin-left: 41.66%; }
+.off-l-6 { margin-left: 50%; }
+
+/**
+ * Margin size utilities
+ */
+/* margin */
+.m-0 { margin: 0; }
+.m-1 { margin: 5px; }
+.m-2 { margin: 10px; }
+.m-3 { margin: 15px; }
+.m-4 { margin: 20px; }
+.m-5 { margin: 25px; }
+
+/* margin-top */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; }
+.mt-5 { margin-top: 25px; }
+
+/* margin-left */
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: 5px; }
+.ml-2 { margin-left: 10px; }
+.ml-3 { margin-left: 15px; }
+.ml-4 { margin-left: 20px; }
+.ml-5 { margin-left: 25px; }
+
+/* margin-bottom */
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
+.mb-4 { margin-bottom: 20px; }
+.mb-5 { margin-bottom: 25px; }
+
+.m-auto {
+    display: block;
+    margin: auto;
+}
+
+
+/* margin-right */
+.mr-0 { margin-right: 0; }
+.mr-0 { margin-right: 0; }
+.mr-1 { margin-right: 5px; }
+.mr-2 { margin-right: 10px; }
+.mr-3 { margin-right: 15px; }
+.mr-4 { margin-right: 20px; }
+.mr-5 { margin-right: 25px; }
+
+/* padding */
+.p-0 { padding: 0; }
+.p-1 { padding: 5px; }
+.p-2 { padding: 15px; }
+.p-3 { padding: 25px; }
+.p-4 { padding: 30px; }
+.p-5 { padding: 45px; }
+
+/* padding-top */
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: 5px; }
+.pt-2 { padding-top: 15px; }
+.pt-3 { padding-top: 25px; }
+.pt-4 { padding-top: 30px; }
+.pt-5 { padding-top: 45px; }
+
+/* padding-left */
+.pl-0 { padding-left: 0; }
+.pl-1 { padding-left: 5px; }
+.pl-2 { padding-left: 15px; }
+.pl-3 { padding-left: 25px; }
+.pl-4 { padding-left: 30px; }
+.pl-5 { padding-left: 45px; }
+
+/* padding-bottom */
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: 5px; }
+.pb-2 { padding-bottom: 15px; }
+.pb-3 { padding-bottom: 25px; }
+.pb-4 { padding-bottom: 30px; }
+.pb-5 { padding-bottom: 45px; }
+
+/* padding-right */
+.pr-0 { padding-right: 0; }
+.pr-1 { padding-right: 5px; }
+.pr-2 { padding-right: 15px; }
+.pr-3 { padding-right: 25px; }
+.pr-4 { padding-right: 30px; }
+.pr-5 { padding-right: 45px; }
+
+
+
+/* for tablet (allow the tablet to override that of mobile) */
+@media only screen and (min-width: 600px) {
+    .col-t-1 { width: 8.33%; }
+    .col-t-2 { width: 16.66%; }
+    .col-t-3 { width: 25%; }
+    .col-t-4 { width: 33.33%; }
+    .col-t-5 { width: 41.66%; }
+    .col-t-6 { width: 50%; }
+    .col-t-7 { width: 58.33%; }
+    .col-t-8 { width: 66.66%; }
+    .col-t-9 { width: 75%; }
+    .col-t-10 { width: 83.33%; }
+    .col-t-11 { width: 91.66%; }
+    .col-t-12 { width: 100%; }
+
+    /* offsets for tablet */
+    /* offset right */
+    .off-r-t-1 { margin-right: 8.33%; }
+    .off-r-t-2 { margin-right: 16.66%; }
+    .off-r-t-3 { margin-right: 25%; }
+    .off-r-t-4 { margin-right: 33.33%; }
+    .off-r-t-5 { margin-right: 41.66%; }
+    .off-r-t-6 { margin-right: 50%; }
+
+    /* offset left */
+    .off-l-t-1 { margin-left: 8.33%; }
+    .off-l-t-2 { margin-left: 16.66%; }
+    .off-l-t-3 { margin-left: 25%; }
+    .off-l-t-4 { margin-left: 33.33%; }
+    .off-l-t-5 { margin-left: 41.66%; }
+    .off-l-t-6 { margin-left: 50%; }
+
+    .hidden-t { display: none; }
+
+}
+
+/* for desktop (allow desktop to override that of tablet)  */
+@media only screen and (min-width: 768px) {
+    .col-d-1 { width: 8.33%; }
+    .col-d-2 { width: 16.66%; }
+    .col-d-3 { width: 25%; }
+    .col-d-4 { width: 33.33%; }
+    .col-d-5 { width: 41.66%; }
+    .col-d-6 { width: 50%; }
+    .col-d-7 { width: 58.33%; }
+    .col-d-8 { width: 66.66%; }
+    .col-d-9 { width: 75%; }
+    .col-d-10 { width: 83.33%; }
+    .col-d-11 { width: 91.66%; }
+    .col-d-12 { width: 100%; }
+
+    /* offsets for tablet */
+    /* offset right */
+    .off-r-d-1 { margin-right: 8.33%; }
+    .off-r-d-2 { margin-right: 16.66%; }
+    .off-r-d-3 { margin-right: 25%; }
+    .off-r-d-4 { margin-right: 33.33%; }
+    .off-r-d-5 { margin-right: 41.66%; }
+    .off-r-d-6 { margin-right: 50%; }
+
+    /* offset left */
+    .off-l-d-1 { margin-left: 8.33%; }
+    .off-l-d-2 { margin-left: 16.66%; }
+    .off-l-d-3 { margin-left: 25%; }
+    .off-l-d-4 { margin-left: 33.33%; }
+    .off-l-d-5 { margin-left: 41.66%; }
+    .off-l-d-6 { margin-left: 50%; }
+
+
+    /* hidden utilities */
+    .hidden-d { display: none; }
+
+    /* margin auto on desktop */
+    .m-auto-d {
+        display: block;
+        margin: auto;
+    }
+}
+
+/* table responsiveness */
+table {
+    width: 100%;
+}
+
+.table-holder {
+    width: 100%;
+    overflow-x: scroll;
+    padding: 0;
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    /* margin auto on tablet */
+    .m-auto-t {
+        display: block;
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* margin auto on mobile */
+    .m-auto-m {
+        display: block;
+        margin: auto;
+    }
+    /* hidden utilities */
+    .hidden-m { display: none; }
+}

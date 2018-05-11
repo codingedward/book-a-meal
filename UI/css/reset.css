@@ -1,0 +1,37 @@
+/**
+ * Resets default styling...
+ *
+ * Reference: https://stackoverflow.com/questions/2489070/how-do-i-remove-the-top-margin-in-a-web-page
+ */
+
+/* reset default margin and padding */
+html, body, div, h1, h2, h3, h4, h5, h6, header, main,
+nav, ul, ol, li, textarea, input, p, form, img {
+    margin: 0;
+    padding: 0;
+}
+/* reset box sizing to border-box */
+* { box-sizing: border-box; }
+
+/* reset the font weight for headers */
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px;
+    line-height: 1;
+    font-weight: normal;
+}
+/* reset table */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* reset input */
+input {
+    border: 1px solid #444;    
+    padding: 5px;
+}
+/* reset lists */ 
+ol, ul {
+    list-style: none;
+}
+

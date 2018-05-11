@@ -1,0 +1,223 @@
+/**
+ * This will handle styling of the site.
+ */
+
+/**
+ * Fonts.
+ *
+ * Here we will use Google fonts...
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Leckerli+One');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+* { font-family: 'Nunito', sans-serif; }
+
+/**
+ * Colors.
+ * This uses a colorscheme obtained from coolors.co
+ * Reference: https://coolors.co/2d728f-3b8ea5-f5ee9e-f49e4c-ab3428
+ */
+
+/* backgrounds */
+.bg-teal { background-color: #2d728f; }
+.bg-blue { background-color: #3b83a5; }
+.bg-flav { background-color: #f5ee9e; }
+.bg-carrot { background-color: #f49e5c; }
+.bg-brown { background-color: #ab3428; }
+
+/* text color */
+* { color: #555; } /* better for contrast */
+.text-white { color: #fff; }
+.text-teal { color: #2d728f; }
+.text-blue { color: #3b83a5; }
+.text-flav { color: #f5ee9e; }
+.text-carrot { color: #f49e5c; }
+.text-brown { color: #ab3428; }
+.text-orange { color: orange; }
+.text-black { color: #000; }
+.text-underline { text-decoration: underline; }
+.text-bold { font-weight: bold; }
+.text-italic { font-style: italic; }
+
+/**
+ * Font sizing utilities
+ */
+* { font-size: 16px; }
+.text-small { font-size: 14px; }
+.text-large { font-size: 30px; }
+
+/* header sizes */ 
+h1 { font-size: 45px; }
+h2 { font-size: 40px; }
+h3 { font-size: 35px; }
+h4 { font-size: 30px; }
+h5 { font-size: 23px; }
+h6 { font-size: 20px; }
+
+p { padding: 4px; }
+a { 
+    color: #2d728f; 
+    font-style: italic;
+}
+
+/* buttons */
+button:active {
+    outline: none;
+}
+
+a.bt {
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.bt,
+input[type="button"].bt, 
+input[type="submit"].bt, 
+button.bt {
+    color: black;
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #f5ee9e;
+    border: 5px solid #f5ee9e;
+    cursor: pointer;
+    transition: .2s all;
+}
+a.bt.bt-red,
+input[type="button"].bt-red, 
+input[type="submit"].bt-red, 
+button.bt-red {
+    color: white;
+    font-weight: bold;
+    background-color: #cc0000;
+    border-color: #cc0000;
+}
+
+a.bt.bt-orange,
+input[type="button"].bt-orange, 
+input[type="submit"].bt-orange, 
+button.bt-orange {
+    color: black;
+    background-color: orange;
+    border-color: orange;
+}
+
+a.bt.bt-teal,
+input[type="button"].bt-teal, 
+input[type="submit"].bt-teal, 
+button.bt-teal {
+    color: white;
+    background-color: #2d728f;
+    border-color: #2d728f;
+}
+
+/* cards */
+.card {
+    padding: 30px;
+    background-color: #ddd;
+}
+
+
+/* input */
+select,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    border: 1px solid #999;
+    background-color: #f4f1d6;
+    margin-bottom: 15px;
+}
+
+select {
+    padding: 4px;
+}
+
+label {
+    vertical-align: middle;
+}
+
+/* display utility */
+.d-none { display: none; }
+.d-inline { display: inline; }
+.d-block { display: block; }
+.d-table { display: table; }
+.d-inline-block { display: inline-block; }
+
+/* table design */
+table, th, td {
+    border: 2px dashed #2d728f;
+}
+
+th, td {
+    text-align: center;
+    padding: 4px;
+}
+
+/**
+ * Modal 
+ *
+ * Reference: https://www.w3schools.com/howto/howto_css_modals.asp 
+ */
+
+.modal {
+    left; 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    z-index: 1000;
+    overflow: auto;
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-content {
+    width: 90%;
+    padding: 10px;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    background-color: #eee;
+}
+
+.modal-content .row {
+    margin-top: 20px;
+}
+
+.modal .close {
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+/* for tablet (allow tablet to override that of mobile)  */
+@media only screen and (min-width: 768px) {
+    .modal-content {
+        width: 80%;
+    }
+    .modal-small .modal-content {
+        width: 60%;
+    }
+}
+
+/* for desktop (allow desktop to override that of tablet)  */
+@media only screen and (min-width: 768px) {
+    .modal-content {
+        width: 70%;
+    }
+    .modal-small .modal-content {
+        width: 40%;
+    }
+}
+

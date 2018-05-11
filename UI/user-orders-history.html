@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Customer | Order History</title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/layout.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/responsive.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8">
+    </head>
+    <body>
+        <main class="wrapper m-0 p-0">
+            <section class="row">
+                <nav class="hidden-m col-t-4 col-d-3 controls sidebar bg-teal patterns"> 
+                    <h1 class="logo text-flav">BAM!</h1> 
+                    <hr/>
+                    <a href="user-home.html" class="bt">Today's Menu</a>
+                    <a href="user-orders.html" class="bt">My Orders</a>
+                    <a href="user-notifications.html" class="bt">Notifications (4)</a>
+                    <a href="#" class="bt active">Order History</a>
+                    <hr class="last"/>
+                    <a href="../index.html" class="bt bt-logout">Logout</a>
+                </nav>
+
+                <div class="col-12 off-l-t-4 col-t-8 off-l-d-3 col-d-9 p-1 content">
+                    <div class="row">
+                        <div class="col-12 pb-0">
+                            <img class="hidden-t hidden-d controls-icon" src="imgs/menu.png" alt=""/>
+                        </div>
+                        <div class="col-12 pt-1 pb-0 pl-0">
+                            <h5 class="">Order History</h5>
+                        </div>
+                    </div>
+
+                    <div class="row m-0 p-0">
+                        <div class="col-d-4 col-12 table-control m-0 pb-0">
+                           <label>Text:&nbsp;</label>
+                           <input type="text" value="" name=""  placeholder=" Search text..."/>
+                        </div>
+                        <div class="col-d-4 col-12 table-control  m-0 pb-0">
+                           <label>Date:</label>
+                           <input type="date" value="" name=""  placeholder=" Type to filter..."/>
+                        </div>
+                        <div class="col-d-4 col-12 table-control m-0 pb-0">
+                            <button class="bt bt-teal m-auto-m m-auto-t">Filter </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-holder">
+                                <table id="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#Id</th>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Cost</th>
+                                            <th>Order Date</th>
+                                            <th>Last State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12</td>
+                                            <td> <img src="imgs/food4.jpg" /></td>
+                                            <td>Weird Stuff</td>
+                                            <td>Supper</td>
+                                            <td>Ksh. 250</td>
+                                            <td>13/04/2016</td>
+                                            <td> <a class="accepted-state" href="#">Accepted</a></td>
+                                        </tr> 
+                                        <tr>
+                                            <td>11</td>
+                                            <td> <img src="imgs/food3.jpg" /></td>
+                                            <td>Eggs!</td>
+                                            <td>Breakfast</td>
+                                            <td>Ksh. 50</td>
+                                            <td>13/04/2016</td>
+                                            <td> <a class="revoked-state" href="#">Revoked</a></td>
+                                        </tr> 
+                                        <tr>
+                                            <td>10</td>
+                                            <td> <img src="imgs/food2.jpg" /></td>
+                                            <td>Pudding</td>
+                                            <td>Supper</td>
+                                            <td>Ksh. 500</td>
+                                            <td>13/04/2016</td>
+                                            <td> <a class="accepted-state" href="#">Accepted</a></td>
+                                        </tr> 
+                                        <tr>
+                                            <td>9</td>
+                                            <td> <img src="imgs/food1.jpg" /></td>
+                                            <td>Spaghetti</td>
+                                            <td>Lunch</td>
+                                            <td>Ksh. 200</td>
+                                            <td>12/03/2015</td>
+                                            <td> <a class="revoked-state" href="#">Revoked</a></td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="text-center pt-0 mt-0 text-bottom">Showing page 1 of 1</p>
+                            <div class="pt-1">
+                                <button class="bt bt-teal float-r">Next </button>
+                                <button class="bt bt-teal ">  Previous</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <section id="controls-modal" class="modal modal-small hidden-t hidden-d">
+            <div class="modal-content bg-teal p-0">
+                <span class="close">&times;</span>
+                <nav class="row controls bg-teal patterns"> 
+                    <div class="col-12">
+                        <h1 class="logo text-flav">BAM!</h1> 
+                        <hr/>
+                        <a href="user-home.html" class="bt">Today's Menu</a>
+                        <a href="user-orders.html" class="bt">My Orders</a>
+                        <a href="user-notifications.html" class="bt">Notifications (4)</a>
+                        <a href="#" class="bt active">Order History</a>
+                        <hr class="last"/>
+                        <a href="../index.html" class="bt bt-logout">Logout</a>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="js/app.js" charset="utf-8"></script>
+        <script>
+            initModal('.controls-icon', '#controls-modal');
+            initModal('.bt-order', '#order-modal');
+        </script>
+    </body>
+</html>

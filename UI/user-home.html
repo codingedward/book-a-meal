@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Customer | Menu</title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/layout.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/responsive.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8">
+    </head>
+    <body>
+        <main class="wrapper m-0 p-0">
+            <section class="row">
+                <nav class="hidden-m col-t-4 col-d-3 controls sidebar bg-teal patterns"> 
+                    <h1 class="logo text-flav">BAM!</h1> 
+                    <hr/>
+                    <a href="#" class="bt active">Today's Menu</a>
+                    <a href="user-orders.html" class="bt">My Orders</a>
+                    <a href="user-notifications.html" class="bt">Notifications (4)</a>
+                    <a href="user-orders-history.html" class="bt">Order History</a>
+                    <hr class="last"/>
+                    <a href="../index.html" class="bt bt-logout">Logout</a>
+                </nav>
+
+                <div class="col-12 off-l-t-4  col-t-8 off-l-d-3 col-d-9 p-1 content">
+                    <div class="row">
+                        <div class="col-12 pb-0">
+                            <img class="hidden-t hidden-d controls-icon" src="imgs/menu.png" alt=""/>
+                        </div>
+                        <div class="col-12 pt-1 pb-0 pl-0">
+                            <h5 class="">Today's Menu</h5>
+                        </div>
+                    </div>
+
+                    <div class="row m-0 p-0">
+                        <div class="col-d-4 col-12 table-control m-0 pb-0">
+                           <label>Text:&nbsp;&nbsp;</label>
+                           <input type="text" value="" name=""  placeholder=" Search text..."/>
+                        </div>
+
+                        <div class="col-d-4 col-12 table-control  m-0 pb-0">
+                           <label>Menu:</label>
+                           <select name="menu" id="role">
+                              <option value="">All</option> 
+                              <option value="">Breakfast</option> 
+                              <option value="">Lunch</option> 
+                              <option value="">Supper</option> 
+                           </select>
+                        </div>
+                        <div class="col-d-4 col-12 table-control m-0 pb-0">
+                            <button class="bt bt-teal m-auto-m m-auto-t">Filter </button>
+                        </div>
+                    </div>
+
+                    <div class="row menu">
+                        <h6>Breakfast</h6>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food1.jpg" alt="Food Image">
+                            <p>Ksh. 800</p>
+                            <p>Spaghetti</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food2.jpg" alt="Yummy Stuff">
+                            <p>Ksh. 400</p>
+                            <p>Pudding</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food3.jpg" alt="Food! Forever!">
+                            <p>Ksh. 50</p>
+                            <p>Eggs!</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food4.jpg" alt="I'm Hungry">
+                            <p>Ksh. 300</p>
+                            <p>Weird Stuff</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="row menu">
+                        <h6 class="pt-2">Lunch</h6>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food1.jpg" alt="Food Image">
+                            <p>Ksh. 800</p>
+                            <p>Spaghetti</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food2.jpg" alt="Yummy Stuff">
+                            <p>Ksh. 400</p>
+                            <p>Pudding</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food3.jpg" alt="Food! Forever!">
+                            <p>Ksh. 50</p>
+                            <p>Eggs!</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food4.jpg" alt="I'm Hungry">
+                            <p>Ksh. 300</p>
+                            <p>Weird Stuff</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="row menu">
+                        <h6 class="pt-2">Supper</h6>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food1.jpg" alt="Food Image">
+                            <p>Ksh. 800</p>
+                            <p>Spaghetti</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food2.jpg" alt="Yummy Stuff">
+                            <p>Ksh. 400</p>
+                            <p>Pudding</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food3.jpg" alt="Food! Forever!">
+                            <p>Ksh. 50</p>
+                            <p>Eggs!</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                        <div class="menu-item col-12 col-t-6 col-d-3 text-center">
+                            <img src="imgs/food4.jpg" alt="I'm Hungry">
+                            <p>Ksh. 300</p>
+                            <p>Weird Stuff</p>
+                            <button class="bt bt-orange bt-order">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <section id="order-modal" class="modal modal-small">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form action="#" class="row">
+                    <h5 class="text-center">Order This Meal?</h5>
+                    <div class="off-l-d-1 col-d-10 off-l-t-1 col-t-10 col-12 text-center">
+                        <p><b>Eggs!</b></p>
+                        <p class="pb-4">
+                            Please confirm this order...
+                        </p>
+                        <button class="bt bt-orange m-auto">Order</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="controls-modal" class="modal modal-small hidden-t hidden-d">
+            <div class="modal-content bg-teal p-0">
+                <span class="close">&times;</span>
+                <nav class="row controls bg-teal patterns"> 
+                    <div class="col-12">
+                        <h1 class="logo text-flav">BAM!</h1> 
+                        <hr/>
+                        <a href="#" class="bt active">Today's Menu</a>
+                        <a href="user-orders.html" class="bt">My Orders</a>
+                        <a href="user-notifications.html" class="bt">Notifications (4)</a>
+                        <a href="user-orders-history.html" class="bt">Order History</a>
+                        <hr class="last"/>
+                        <a href="../index.html" class="bt bt-logout">Logout</a>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="js/app.js" charset="utf-8"></script>
+        <script>
+            initModal('.controls-icon', '#controls-modal');
+            initModal('.bt-order', '#order-modal');
+        </script>
+    </body>
+</html>
