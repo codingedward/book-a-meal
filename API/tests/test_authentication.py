@@ -212,6 +212,12 @@ class AuthenticationTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['user']['email'], 'john@doe.com')
 
+    def test_cannot_access_protected_endpoint_without_authentication(self):
+        res = self.client().get('/api/v1/auth/get')
+        self.assertEqual(res.status_code, 401)
+        self.assertIn(b'Missing Authorization Header', res.data)
+
+
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
