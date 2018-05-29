@@ -38,9 +38,6 @@ def caterer_auth(**kwargs):
 
 @auth.route('/api/v1/auth/signup', methods=['POST'])
 def register():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     try:
         Valid.user()
     except ProcessingException as err:
@@ -63,9 +60,6 @@ def register():
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     if not request.json.get('email'):
         return jsonify({'errors': ['Email is required']}), 400
     if not request.json.get('password'):
@@ -88,9 +82,6 @@ def login():
 @auth.route('/api/v1/auth/get', methods=['GET'])
 @jwt_required
 def get_user():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     user = User.query.filter_by(email=get_jwt_identity()).first()
     return jsonify({
         'user': {
