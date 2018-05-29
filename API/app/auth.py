@@ -2,7 +2,7 @@ import json
 from app.models import Blacklist, User, UserType 
 from flask_restless import ProcessingException
 from app.validators import Valid, AuthorizationError
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify, Response, abort, make_response
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity, get_raw_jwt
@@ -29,8 +29,12 @@ def caterer_auth(**kwargs):
     """
     current_user = User.query.filter_by(email=get_jwt_identity()).first()
     if not current_user.is_caterer():
-        raise AuthorizationError('Unauthorized access to a non-caterer')
-
+        abort(
+            make_response( 
+                jsonify({'message': 'Unauthorized access to a non-caterer'}), 
+                401
+            )
+        )
 
 @auth.route('/api/v1/auth/signup', methods=['POST'])
 def register():

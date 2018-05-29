@@ -246,7 +246,7 @@ class AuthenticationTestCase(unittest.TestCase):
                 'Authorization': 'Bearer {}'.format(json_result['access_token'])
             }
         )
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 401)
         self.assertIn(b'Unauthorized access', res.data)
 
     def test_cannot_access_protected_endpoint_without_authentication(self):
