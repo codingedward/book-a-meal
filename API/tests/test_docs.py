@@ -14,3 +14,7 @@ class DocsTest(unittest.TestCase):
         res = self.client().get('/')
         self.assertEqual(res.status_code, 200)
         self.assertIn(b'Andela Book A Meal', res.data)
+
+    def test_can_handle_http_error(self):
+        res = self.client().get('/non-existent')
+        self.assertIn(b'Not Found', res.data)
