@@ -157,6 +157,20 @@ class AuthenticationTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'Password is required', res.data)
 
+    def test_user_cannot_login_with_wrong_credentials(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=json.dumps({
+                'email': 'john@doe.com', 
+                'password': 'pass', 
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Invalid credentials', res.data)
+
     def test_user_can_login(self):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
@@ -211,6 +225,29 @@ class AuthenticationTestCase(unittest.TestCase):
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['user']['email'], 'john@doe.com')
+
+    def test_cannot_access_unauthorized_endpoint(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=self.user,
+            headers=self.headers
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        res = self.client().post(
+            '/api/v1/notifications',
+            data=json.dumps({
+                'title': 'Title',
+                'message': 'Message'
+            }),
+            headers={
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer {}'.format(json_result['access_token'])
+            }
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Unauthorized access', res.data)
 
     def test_cannot_access_protected_endpoint_without_authentication(self):
         res = self.client().get('/api/v1/auth/get')
