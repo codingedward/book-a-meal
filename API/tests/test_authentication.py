@@ -35,6 +35,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Username', res.data)
 
     def test_cannot_signup_without_email(self):
         res = self.client().post(
@@ -47,6 +48,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Email', res.data)
 
     def test_cannot_signup_without_password(self):
         res = self.client().post(
@@ -59,6 +61,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password', res.data)
 
     def test_cannot_signup_without_password_confirmation(self):
         res = self.client().post(
@@ -71,6 +74,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password confirmation', res.data)
 
     def test_cannot_signup_without_password_matching(self):
         res = self.client().post(
@@ -97,6 +101,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'provide a valid email', res.data)
 
     def test_cannot_signup_with_short_username(self):
         res = self.client().post(
@@ -110,6 +115,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Username', res.data)
 
     def test_cannot_signup_with_short_password(self):
         res = self.client().post(
@@ -123,6 +129,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'least 6 characters', res.data)
 
     def test_user_cannot_login_without_email(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -135,6 +142,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Email is required', res.data)
 
     def test_user_cannot_login_without_password(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -147,6 +155,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password is required', res.data)
 
     def test_user_can_login(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -180,6 +189,7 @@ class AuthenticationTestCase(unittest.TestCase):
             }
         )
         self.assertEqual(res.status_code, 200)
+        self.assertIn(b'logged out', res.data)
 
     def test_can_get_user(self):
         res = self.client().post('/api/v1/auth/signup',
