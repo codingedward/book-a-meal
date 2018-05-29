@@ -55,7 +55,6 @@ def register():
             'email': user.email
         }
     }), 201
-    return res
 
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
