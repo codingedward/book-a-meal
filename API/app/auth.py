@@ -99,3 +99,4 @@ def logout():
     blacklist = Blacklist(token=jti)
     blacklist.save()
     return jsonify({'message': 'Successfully logged out.'}), 200
+
