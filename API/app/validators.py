@@ -9,10 +9,6 @@ from app.models import (
 from flask_jwt_extended import get_jwt_identity
 
 
-class AuthorizationError(ProcessingException):
-    """ Base class is enough """
-    pass
-
 def clean_unexpected(request, expected):
     remove = [key for key in request.json if key not in expected]
     for key in remove:
