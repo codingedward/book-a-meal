@@ -1,5 +1,6 @@
 import json
 import unittest
+from datetime import datetime, timedelta
 from app import create_app, db
 from tests.base import BaseTest
 from app.models import MenuType, MenuItem, Menu, Meal
@@ -112,6 +113,20 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 401)
         self.assertIn(b'Unauthorized access', res.data)
 
+    def test_cannot_create_order_with_expired_menu(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(yesterdays=True),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'This menu is expired', res.data)
+
     def test_order_can_be_updated(self):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
@@ -141,6 +156,76 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['menu_item_id'], 2)
 
+    def test_cannot_update_order_with_wrong_menu_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/orders/1',
+            data=json.dumps({
+                'menu_item_id': 100,
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'No menu item found for that', res.data)
+
+    def test_cannot_update_order_with_expired_menu(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/orders/1',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(yesterdays=True),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'This menu is expired', res.data)
+
+    def test_cannot_edit_another_users_order(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        customer_header, id = self.loginCustomer(email='hacker@mail.com')
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/orders/1',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(id=2),
+                'user_id': id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 401)
+        self.assertIn(b'This user cannot edit this order', res.data)
+
     def test_order_deletion(self):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
@@ -160,13 +245,15 @@ class OrderTestCase(BaseTest):
         res = self.client().get('/api/v1/orders/1', headers=customer_header)
         self.assertEqual(res.status_code, 404)
 
-    def createMenuItem(self, id = 1):
+    def createMenuItem(self, id=1, yesterdays=False):
         with self.app.app_context():
             menu_item = MenuItem.query.get(id)
-            if not menu_item:
+            if not menu_item or yesterdays:
                 menu = Menu.query.get(1)
-                if not menu:
+                if not menu or yesterdays:
                     menu = Menu(category=MenuType.BREAKFAST)
+                    if yesterdays:
+                        menu.day = datetime.utcnow().date() - timedelta(1)
                     menu.save()
                 meal_name = 'ugali'
                 meal = Meal.query.filter_by(name=meal_name).first()

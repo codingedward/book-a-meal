@@ -66,9 +66,26 @@ class NotificationTestCase(BaseTest):
                 'title': 'Hello there',
                 'message': 'I have a message for you',
             }),
-            headers=caterer_header)
+            headers=caterer_header
+        )
 
         self.assertEqual(res.status_code, 400)
+
+    def test_cannot_create_notification_with_wrong_user_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/notifications', 
+            data=json.dumps({
+                'title': 'Hello there',
+                'message': 'I have a message for you',
+                'user_id': 300
+            }),
+            headers=caterer_header
+        )
+
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'No user found for that user_id', res.data)
 
     def test_can_get_all_notifications(self):
         caterer_header, _ = self.loginCaterer()
@@ -128,6 +145,68 @@ class NotificationTestCase(BaseTest):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['title'], 'Hi')
+
+    def test_cannot_update_notification_with_wrong_user_id(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        self.notification['user_id'] = id
+        res = self.client().post('/api/v1/notifications',
+                                 data=json.dumps(self.notification), 
+                                 headers=caterer_header)
+        self.assertEqual(res.status_code, 201)
+
+        self.notification['title'] = 'Hi'
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/notifications/1',
+            data=json.dumps({
+                'user_id': 300
+            }), 
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'No user found for that user_id', res.data)
+        
+    def test_cannot_update_notification_with_empty_title(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        self.notification['user_id'] = id
+        res = self.client().post('/api/v1/notifications',
+                                 data=json.dumps(self.notification), 
+                                 headers=caterer_header)
+        self.assertEqual(res.status_code, 201)
+
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/notifications/1',
+            data=json.dumps({
+                'title': ''
+            }), 
+            headers=caterer_header
+        )
+        print(res.data)
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Title is required', res.data)
+
+    def test_cannot_update_notification_with_empty_message(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        self.notification['user_id'] = id
+        res = self.client().post('/api/v1/notifications',
+                                 data=json.dumps(self.notification), 
+                                 headers=caterer_header)
+        self.assertEqual(res.status_code, 201)
+
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/notifications/1',
+            data=json.dumps({
+                'message': ''
+            }), 
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Message is required', res.data)
 
     def test_notification_deletion(self):
         caterer_header, _ = self.loginCaterer()

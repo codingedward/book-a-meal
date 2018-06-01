@@ -31,6 +31,24 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json_result['menu_id'], 1)
 
+    def test_cannot_create_same_menu_item(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(json_result['menu_id'], 1)
+        res = self.client().post(
+            '/api/v1/menu_items',
+            data=self.menu_item,
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'This menu item already exists', res.data)
+
     def test_cannot_create_menu_item_without_meal_id(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(

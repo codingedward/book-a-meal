@@ -272,11 +272,6 @@ class Valid:
     @staticmethod
     def post_order(**kwargs):
         current_user = User.query.filter_by(email=get_jwt_identity()).first()
-        if not current_user:
-            raise ProcessingException(
-                description='Order could not be processed', 
-                code=500
-            )
         request.json['user_id'] = current_user.id
 
         clean_unexpected(request, ['menu_item_id', 'user_id', 'quantity'])
@@ -310,12 +305,6 @@ class Valid:
     @staticmethod
     def put_order(instance_id=None, **kwargs):
         current_user = User.query.filter_by(email=get_jwt_identity()).first()
-        if not current_user:
-            raise ProcessingException(
-                description='Order could not be processed', 
-                code=500
-            )
-
         order = Order.query.get(instance_id)
         if order.user_id != current_user.id:
             raise ProcessingException(
