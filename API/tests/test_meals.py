@@ -28,6 +28,47 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(json_result['name'], 'Ugali')
         self.assertEqual(json_result['cost'], 200)
+
+    def test_meal_creation_without_img(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/meals',
+            data=json.dumps({
+                'name': 'Beef',
+                'cost': 200.0
+            }),
+            headers=caterer_header
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(json_result['name'], 'Beef')
+        self.assertEqual(json_result['cost'], 200)
+
+    def test_cannot_create_meal_without_unique_name(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/meals',
+            data=json.dumps({
+                'name': 'Beef',
+                'cost': 200.0
+            }),
+            headers=caterer_header
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(json_result['name'], 'Beef')
+        self.assertEqual(json_result['cost'], 200)
+
+        res = self.client().post(
+            '/api/v1/meals',
+            data=json.dumps({
+                'name': 'Beef',
+                'cost': 200.0
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Meal name must be unique', res.data)
         
     def test_cannot_create_meal_without_name(self):
         caterer_header, _ = self.loginCaterer()
@@ -40,6 +81,21 @@ class MealTestCase(BaseTest):
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Name is required', res.data)
+
+    def test_cannot_create_meal_with_empty_name(self):
+        caterer_header, _ = self.loginCaterer()
+        res = self.client().post(
+            '/api/v1/meals',
+            data=json.dumps({
+                'img_path': '#',
+                'name': '',
+                'cost': 200.0
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Invalid meal name', res.data)
 
     def test_cannot_create_meal_without_cost(self):
         caterer_header, _ = self.loginCaterer()
