@@ -15,8 +15,18 @@ class MenuType:
     LUNCH = 2
     SUPPER = 3
 
+class BaseModel:
 
-class Blacklist(db.Model):
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Blacklist(db.Model, BaseModel):
 
     __tablename__ = 'blacklist'
 
@@ -27,12 +37,8 @@ class Blacklist(db.Model):
     def __init__(self, token):
         self.token = token
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-
-class User(db.Model):
+class User(db.Model, BaseModel):
 
     __tablename__ = 'users'
 
@@ -54,33 +60,14 @@ class User(db.Model):
         self.username = username
         self.password_hash = bcrypt.encrypt(password)
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @staticmethod
-    def get_all(self):
-        return User.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
     def validate_password(self, password):
         return bcrypt.verify(password, self.password_hash)
 
     def is_caterer(self):
         return self.role == UserType.CATERER
 
-    def json_dumps(self):
-        return json.dumps({
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
-        })
 
-
-class Menu(db.Model):
+class Menu(db.Model, BaseModel):
 
     __tablename__ = 'menus'
 
@@ -97,20 +84,8 @@ class Menu(db.Model):
     def __init__(self, category):
         self.category = category
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-    @staticmethod
-    def get_all(self):
-        return Menu.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class MenuItem(db.Model):
+class MenuItem(db.Model, BaseModel):
 
     __tablename__ = 'menu_items'
 
@@ -138,20 +113,8 @@ class MenuItem(db.Model):
         self.menu_id = menu_id
         self.meal_id = meal_id
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-    @staticmethod
-    def get_all(self):
-        return MenuItem.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Meal(db.Model):
+class Meal(db.Model, BaseModel):
 
     __tablename__ = 'meals'
 
@@ -171,20 +134,8 @@ class Meal(db.Model):
         self.cost = cost
         self.img_path = img_path
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-    @staticmethod
-    def get_all(self):
-        return Meal.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Order(db.Model):
+class Order(db.Model, BaseModel):
 
     __tablename__ = 'orders'
 
@@ -213,20 +164,8 @@ class Order(db.Model):
         self.quantity = quantity
         self.menu_item_id = menu_item_id
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-    @staticmethod
-    def get_all(self):
-        return Order.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Notification(db.Model):
+class Notification(db.Model, BaseModel):
 
     __tablename__ = 'notifications'
 
@@ -251,15 +190,3 @@ class Notification(db.Model):
         self.title = title
         self.message = message
         self.user_id = user_id
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @staticmethod
-    def get_all(self):
-        return Notification.query.all()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
