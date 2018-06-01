@@ -2,7 +2,7 @@ import json
 from app.models import Blacklist, User, UserType 
 from flask_restless import ProcessingException
 from app.validators import Valid, AuthorizationError
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify, Response, abort, make_response
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity, get_raw_jwt
@@ -29,14 +29,15 @@ def caterer_auth(**kwargs):
     """
     current_user = User.query.filter_by(email=get_jwt_identity()).first()
     if not current_user.is_caterer():
-        raise AuthorizationError('Unauthorized access to a non-caterer')
-
+        abort(
+            make_response( 
+                jsonify({'message': 'Unauthorized access to a non-caterer'}), 
+                401
+            )
+        )
 
 @auth.route('/api/v1/auth/signup', methods=['POST'])
 def register():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     try:
         Valid.user()
     except ProcessingException as err:
@@ -55,14 +56,10 @@ def register():
             'email': user.email
         }
     }), 201
-    return res
 
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     if not request.json.get('email'):
         return jsonify({'errors': ['Email is required']}), 400
     if not request.json.get('password'):
@@ -85,9 +82,6 @@ def login():
 @auth.route('/api/v1/auth/get', methods=['GET'])
 @jwt_required
 def get_user():
-    if not request.is_json:
-        return jsonify({'message': 'Request should be JSON'}), 400
-
     user = User.query.filter_by(email=get_jwt_identity()).first()
     return jsonify({
         'user': {
@@ -105,3 +99,4 @@ def logout():
     blacklist = Blacklist(token=jti)
     blacklist.save()
     return jsonify({'message': 'Successfully logged out.'}), 200
+

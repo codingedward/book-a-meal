@@ -13,14 +13,8 @@ def errors_handler(app):
         def handle_error(ex):
             return jsonify({'message': str(ex)}), code
 
-    # jsonify authorization error
-    @app.errorhandler(AuthorizationError)
-    def handle_authorization_error(err):
-        return jsonify({'message': str(err)}), 401
-
-
 def blacklist_handler(jwt):
     @jwt.token_in_blacklist_loader
     def check_token_in_blacklist(decrypted_token):
         return Blacklist.query.filter_by(
-                    token=get_raw_jwt()['jti']).first() is not None
+                    token=decrypted_token['jti']).first() is not None

@@ -35,6 +35,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Username', res.data)
 
     def test_cannot_signup_without_email(self):
         res = self.client().post(
@@ -47,6 +48,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Email', res.data)
 
     def test_cannot_signup_without_password(self):
         res = self.client().post(
@@ -59,6 +61,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password', res.data)
 
     def test_cannot_signup_without_password_confirmation(self):
         res = self.client().post(
@@ -71,6 +74,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password confirmation', res.data)
 
     def test_cannot_signup_without_password_matching(self):
         res = self.client().post(
@@ -97,6 +101,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'provide a valid email', res.data)
 
     def test_cannot_signup_with_short_username(self):
         res = self.client().post(
@@ -110,6 +115,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Username', res.data)
 
     def test_cannot_signup_with_short_password(self):
         res = self.client().post(
@@ -123,6 +129,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'least 6 characters', res.data)
 
     def test_user_cannot_login_without_email(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -135,6 +142,7 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Email is required', res.data)
 
     def test_user_cannot_login_without_password(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -147,6 +155,21 @@ class AuthenticationTestCase(unittest.TestCase):
             headers=self.headers
         )
         self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Password is required', res.data)
+
+    def test_user_cannot_login_with_wrong_credentials(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=json.dumps({
+                'email': 'john@doe.com', 
+                'password': 'pass', 
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Invalid credentials', res.data)
 
     def test_user_can_login(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -180,6 +203,7 @@ class AuthenticationTestCase(unittest.TestCase):
             }
         )
         self.assertEqual(res.status_code, 200)
+        self.assertIn(b'logged out', res.data)
 
     def test_can_get_user(self):
         res = self.client().post('/api/v1/auth/signup',
@@ -201,6 +225,35 @@ class AuthenticationTestCase(unittest.TestCase):
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['user']['email'], 'john@doe.com')
+
+    def test_cannot_access_unauthorized_endpoint(self):
+        res = self.client().post('/api/v1/auth/signup',
+                                 data=self.user, headers=self.headers)
+        res = self.client().post(
+            '/api/v1/auth/login', 
+            data=self.user,
+            headers=self.headers
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        res = self.client().post(
+            '/api/v1/notifications',
+            data=json.dumps({
+                'title': 'Title',
+                'message': 'Message'
+            }),
+            headers={
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer {}'.format(json_result['access_token'])
+            }
+        )
+        self.assertEqual(res.status_code, 401)
+        self.assertIn(b'Unauthorized access', res.data)
+
+    def test_cannot_access_protected_endpoint_without_authentication(self):
+        res = self.client().get('/api/v1/auth/get')
+        self.assertEqual(res.status_code, 401)
+        self.assertIn(b'Missing Authorization Header', res.data)
+
 
     def tearDown(self):
         with self.app.app_context():

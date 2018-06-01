@@ -25,7 +25,7 @@ def single_for_user(model):
             model_instance = model.query.get(instance_id)
             if current_user.id != model_instance.user_id:
                 abort(make_response(
-                    jsonify({'message': 'Unauthorized access to this order'}), 
+                    jsonify({'message': 'Unauthorized access'}), 
                             401))
     return get_single_for_user
 

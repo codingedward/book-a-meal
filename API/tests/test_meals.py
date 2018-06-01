@@ -119,6 +119,16 @@ class MealTestCase(BaseTest):
         self.assertEqual(json_result['name'], 'Ugali')
         self.assertEqual(json_result['cost'], 200)
 
+    def test_cannnot_get_meal_with_wrong_index(self):
+        caterer_header, id = self.loginCaterer()
+        res = self.client().get(
+            '/api/v1/meals/x',
+            headers=caterer_header
+        )
+
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Id must be an integer', res.data)
+
     def test_meal_can_be_updated(self):
         caterer_header, id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
@@ -195,6 +205,16 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 200)
         res = self.client().get('/api/v1/meals/1', headers=caterer_header)
         self.assertEqual(res.status_code, 404)
+
+    def test_cannot_delete_nonexistent_meal(self):
+        caterer_header, id = self.loginCaterer()
+        res = self.client().post('/api/v1/meals',
+                                 data=self.meal, headers=caterer_header)
+        self.assertEqual(res.status_code, 201)
+        res = self.client().delete('/api/v1/meals/100',
+                                   headers=caterer_header)
+        self.assertEqual(res.status_code, 404)
+        self.assertIn(b'Not found', res.data)
 
 
 if __name__ == '__main__':
