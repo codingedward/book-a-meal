@@ -83,12 +83,34 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 201)
         res = self.client().get(
             '/api/v1/orders/{}'.format(json_result['id']),
-            headers=caterer_header
+            headers=customer_header
         )
 
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(json_result['user_id'], id)
+
+    def test_cannot_get_other_users_order(self):
+        caterer_header, _ = self.loginCaterer()
+        customer_header, id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+            }),
+            headers=customer_header
+        )
+        json_result = json.loads(res.get_data(as_text=True))
+        self.assertEqual(res.status_code, 201)
+
+        customer_header, id = self.loginCustomer('hacker@mail.com')
+        res = self.client().get(
+            '/api/v1/orders/{}'.format(json_result['id']),
+            headers=customer_header
+        )
+
+        self.assertEqual(res.status_code, 401)
+        self.assertIn(b'Unauthorized access', res.data)
 
     def test_order_can_be_updated(self):
         caterer_header, _ = self.loginCaterer()

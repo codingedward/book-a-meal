@@ -10,12 +10,11 @@ class BaseTest(unittest.TestCase):
     This will hold the basic methods required by other tests, for 
     example authentication in order to test guarded endpoints
     """
-    def loginCustomer(self):
+    def loginCustomer(self, email='customer@mail.com'):
         with self.app.app_context():
-            user_email = 'customer@mail.com'
-            user = User.query.filter_by(email=user_email).first()
+            user = User.query.filter_by(email=email).first()
             if not user:
-                user = User(username='John', email='customer@mail.com',
+                user = User(username='John', email=email,
                             password='secret')
                 user.save()
 
@@ -23,7 +22,7 @@ class BaseTest(unittest.TestCase):
             res = self.client().post(
                 '/api/v1/auth/login',
                 data=json.dumps({
-                    'email': 'customer@mail.com',
+                    'email': email,
                     'password': 'secret'
                 }),
                 headers={'Content-Type' : 'application/json'}

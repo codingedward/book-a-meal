@@ -103,6 +103,32 @@ class AuthenticationTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'provide a valid email', res.data)
 
+    def test_cannot_signup_with_used_email(self):
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().post(
+            '/api/v1/auth/signup', 
+            data=json.dumps({
+                'username': 'John',
+                'email': 'john@doe.com', 
+                'password': 'secret',
+                'confirm_password': 'secret'
+            }),
+            headers=self.headers
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'This email has already been used', res.data)
+
     def test_cannot_signup_with_short_username(self):
         res = self.client().post(
             '/api/v1/auth/signup', 
