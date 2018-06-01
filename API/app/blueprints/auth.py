@@ -1,7 +1,7 @@
 import json
 from app.models import Blacklist, User, UserType 
 from flask_restless import ProcessingException
-from app.validators import Valid, AuthorizationError
+from app.validators import Valid
 from flask import Blueprint, request, jsonify, Response, abort, make_response
 from flask_jwt_extended import (
     jwt_required, create_access_token,
