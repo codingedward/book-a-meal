@@ -2,7 +2,6 @@ from flask import abort, make_response, jsonify, Blueprint
 from app.models import Blacklist
 from flask_jwt_extended import get_raw_jwt
 from werkzeug.exceptions import HTTPException, default_exceptions
-from app.validators import AuthorizationError
 
 
 def init_app(app):
