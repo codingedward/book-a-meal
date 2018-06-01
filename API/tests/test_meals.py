@@ -207,6 +207,34 @@ class MealTestCase(BaseTest):
         self.assertEqual(json_result['name'], 'Sembe')
         self.assertEqual(json_result['cost'], 300)
 
+    def test_meal_cannot_be_updated_without_unique_name(self):
+        caterer_header, id = self.loginCaterer()
+        res = self.client().post('/api/v1/meals',
+                                 data=self.meal, headers=caterer_header)
+        self.assertEqual(res.status_code, 201)
+        res = self.client().post(
+            '/api/v1/meals',
+            data=json.dumps({
+                'name': 'Sembe',
+                'img_path': '#',
+                'cost': 300.0
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 201)
+
+        res = self.client().put(
+            '/api/v1/meals/1',
+            data=json.dumps({
+                'name': 'Sembe',
+                'img_path': '#',
+                'cost': 300.0
+            }),
+            headers=caterer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Meal name must be unique', res.data)
+
     def test_cannot_update_meal_with_no_details(self):
         caterer_header, id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
