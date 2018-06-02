@@ -1,4 +1,5 @@
 # Book A Meal :pizza:
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/db058d98089445e1819c389cc18885cf)](https://app.codacy.com/app/codingedward/book-a-meal?utm_source=github.com&utm_medium=referral&utm_content=codingedward/book-a-meal&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=feature%2Fapi)](https://travis-ci.org/codingedward/book-a-meal)
 [![Coverage Status](https://coveralls.io/repos/github/codingedward/book-a-meal/badge.svg?branch=feature%2Fpersistence)](https://coveralls.io/github/codingedward/book-a-meal?branch=feature%2Fpersistence)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
