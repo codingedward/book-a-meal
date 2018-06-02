@@ -21,8 +21,8 @@ class NotificationTestCase(BaseTest):
 
     def test_notification_creation(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        _, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -33,11 +33,11 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_create_notification_without_title(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/notifications',
             data=json.dumps({
-                'user_id': id,
+                'user_id': user_id,
                 'message': 'I have a message for you',
             }),
             headers=caterer_header)
@@ -46,11 +46,11 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_create_notification_without_message(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/notifications',
             data=json.dumps({
-                'user_id': id,
+                'user_id': user_id,
                 'title': 'Hello there',
             }),
             headers=caterer_header)
@@ -59,7 +59,7 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_create_notification_without_user_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/notifications',
             data=json.dumps({
@@ -73,7 +73,7 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_create_notification_with_wrong_user_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/notifications',
             data=json.dumps({
@@ -89,8 +89,8 @@ class NotificationTestCase(BaseTest):
 
     def test_can_get_all_notifications(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -106,8 +106,8 @@ class NotificationTestCase(BaseTest):
 
     def test_can_get_notification_by_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -125,8 +125,8 @@ class NotificationTestCase(BaseTest):
 
     def test_notification_can_be_updated(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -148,8 +148,8 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_update_notification_with_wrong_user_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -169,8 +169,8 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_update_notification_with_empty_title(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -190,8 +190,8 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_update_notification_with_empty_message(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)
@@ -210,8 +210,8 @@ class NotificationTestCase(BaseTest):
 
     def test_notification_deletion(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
-        self.notification['user_id'] = id
+        customer_header, user_id = self.loginCustomer()
+        self.notification['user_id'] = user_id
         res = self.client().post('/api/v1/notifications',
                                  data=json.dumps(self.notification),
                                  headers=caterer_header)

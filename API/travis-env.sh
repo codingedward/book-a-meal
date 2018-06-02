@@ -1,3 +1,4 @@
+#!/bin/bash
 export FLASK_APP="run.py"
 export APP_MODE="dev"
 export SECRET="232adfadk32323jkadfo23i232323"

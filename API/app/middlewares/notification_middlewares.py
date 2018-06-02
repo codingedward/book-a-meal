@@ -1,7 +1,7 @@
 from app.validators import Valid
 from app.models import Notification
 from .common_middlewares import (
-    single_for_user, many_for_user, todays, post_delete, check_exists
+    single_for_user, many_for_user, post_delete, check_exists
 )
 from .auth_middlewares import caterer_auth, default_auth
 

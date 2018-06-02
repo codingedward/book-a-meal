@@ -18,8 +18,7 @@ class OrderTestCase(BaseTest):
             db.create_all()
 
     def test_order_creation(self):
-        caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
@@ -30,11 +29,11 @@ class OrderTestCase(BaseTest):
         json_result = json.loads(res.get_data(as_text=True))
 
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(json_result['user_id'], id)
+        self.assertEqual(json_result['user_id'], user_id)
 
     def test_cannot_create_order_without_menu_item_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        _, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({}),
@@ -44,7 +43,7 @@ class OrderTestCase(BaseTest):
 
     def test_cannot_create_order_with_non_existing_menu_item_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({'menu_item_id': 40}),
@@ -55,7 +54,7 @@ class OrderTestCase(BaseTest):
 
     def test_can_get_all_orders(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
@@ -72,7 +71,7 @@ class OrderTestCase(BaseTest):
 
     def test_can_get_order_by_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
@@ -89,11 +88,11 @@ class OrderTestCase(BaseTest):
 
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(json_result['user_id'], id)
+        self.assertEqual(json_result['user_id'], user_id)
 
     def test_cannot_get_other_users_order(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
@@ -104,7 +103,7 @@ class OrderTestCase(BaseTest):
         json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 201)
 
-        customer_header, id = self.loginCustomer('hacker@mail.com')
+        customer_header, user_id = self.loginCustomer('hacker@mail.com')
         res = self.client().get(
             '/api/v1/orders/{}'.format(json_result['id']),
             headers=customer_header
@@ -115,12 +114,12 @@ class OrderTestCase(BaseTest):
 
     def test_cannot_create_order_with_expired_menu(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(yesterdays=True),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -129,12 +128,12 @@ class OrderTestCase(BaseTest):
 
     def test_order_can_be_updated(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -142,8 +141,8 @@ class OrderTestCase(BaseTest):
         res = self.client().put(
             '/api/v1/orders/1',
             data=json.dumps({
-                'menu_item_id': self.createMenuItem(id=2),
-                'user_id': id
+                'menu_item_id': self.createMenuItem(menu_item_id=2),
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -158,12 +157,12 @@ class OrderTestCase(BaseTest):
 
     def test_cannot_update_order_with_wrong_menu_id(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -172,7 +171,7 @@ class OrderTestCase(BaseTest):
             '/api/v1/orders/1',
             data=json.dumps({
                 'menu_item_id': 100,
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -181,12 +180,12 @@ class OrderTestCase(BaseTest):
 
     def test_cannot_update_order_with_expired_menu(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -195,7 +194,7 @@ class OrderTestCase(BaseTest):
             '/api/v1/orders/1',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(yesterdays=True),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -204,22 +203,22 @@ class OrderTestCase(BaseTest):
 
     def test_cannot_edit_another_users_order(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=customer_header
         )
-        customer_header, id = self.loginCustomer(email='hacker@mail.com')
+        customer_header, user_id = self.loginCustomer(email='hacker@mail.com')
         self.assertEqual(res.status_code, 201)
         res = self.client().put(
             '/api/v1/orders/1',
             data=json.dumps({
-                'menu_item_id': self.createMenuItem(id=2),
-                'user_id': id
+                'menu_item_id': self.createMenuItem(menu_item_id=2),
+                'user_id': user_id
             }),
             headers=customer_header
         )
@@ -228,12 +227,12 @@ class OrderTestCase(BaseTest):
 
     def test_order_deletion(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, id = self.loginCustomer()
+        customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({
                 'menu_item_id': self.createMenuItem(),
-                'user_id': id
+                'user_id': user_id
             }),
             headers=caterer_header
         )
@@ -245,9 +244,9 @@ class OrderTestCase(BaseTest):
         res = self.client().get('/api/v1/orders/1', headers=customer_header)
         self.assertEqual(res.status_code, 404)
 
-    def createMenuItem(self, id=1, yesterdays=False):
+    def createMenuItem(self, menu_item_id=1, yesterdays=False):
         with self.app.app_context():
-            menu_item = MenuItem.query.get(id)
+            menu_item = MenuItem.query.get(menu_item_id)
             if not menu_item or yesterdays:
                 menu = Menu.query.get(1)
                 if not menu or yesterdays:

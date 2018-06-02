@@ -1,8 +1,7 @@
-import json
 from datetime import datetime
 from flask_jwt_extended import get_jwt_identity
 from flask import abort, make_response, jsonify
-from app.models import Blacklist, User
+from app.models import User
 
 
 def single_for_user(model):
@@ -72,7 +71,7 @@ def check_exists(model):
     def pre_get_model(instance_id=None, **kwargs):
         try:
             int(instance_id)
-        except:
+        except ValueError:
             abort(make_response(jsonify({'message': 'Id must be an integer'}),
                                 400))
         if not model.query.get(instance_id):

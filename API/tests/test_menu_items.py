@@ -1,6 +1,4 @@
-import os
 import json
-import unittest
 from app import create_app, db
 from app.models import Meal, MenuType, Menu
 from tests.base import BaseTest
@@ -160,7 +158,7 @@ class MenuItemTestCase(BaseTest):
         res = self.client().put(
             '/api/v1/menu_items/1',
             data=json.dumps({
-                'meal_id': self.createMeal(id=2),
+                'meal_id': self.createMeal(meal_id=2),
                 'menu_id': self.createMenu(),
             }),
             headers=caterer_header
@@ -182,7 +180,7 @@ class MenuItemTestCase(BaseTest):
             headers=caterer_header
         )
         menu_id = self.createMenu()
-        meal_id = self.createMeal(id=2)
+        meal_id = self.createMeal(meal_id=2)
         self.assertEqual(res.status_code, 201)
         res = self.client().post(
             '/api/v1/menu_items',
@@ -233,7 +231,7 @@ class MenuItemTestCase(BaseTest):
         res = self.client().put(
             '/api/v1/menu_items/1',
             data=json.dumps({
-                'meal_id': self.createMeal(id=2),
+                'meal_id': self.createMeal(meal_id=2),
                 'menu_id': 48
             }),
             headers=caterer_header
@@ -276,19 +274,19 @@ class MenuItemTestCase(BaseTest):
                                 headers=customer_header)
         self.assertEqual(res.status_code, 404)
 
-    def createMenu(self, id = 1):
+    def createMenu(self, menu_id=1):
         with self.app.app_context():
-            menu = Menu.query.get(id)
+            menu = Menu.query.get(menu_id)
             if not menu:
                 menu = Menu(category=MenuType.BREAKFAST)
                 menu.save()
             return menu.id
 
-    def createMeal(self, id = 1):
+    def createMeal(self, meal_id=1):
         with self.app.app_context():
-            meal = Meal.query.get(id)
+            meal = Meal.query.get(meal_id)
             if not meal:
-                meal = Meal(name='meal_{}'.format(id), img_path='#', cost=200)
+                meal = Meal(name='meal_{}'.format(meal_id), img_path='#', cost=200)
                 meal.save()
             return meal.id
 

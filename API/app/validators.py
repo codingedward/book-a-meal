@@ -1,9 +1,9 @@
 import re
-from datetime import datetime, date
+from datetime import datetime
 from flask import request
 from flask_restless import ProcessingException
 from app.models import (
-    User, UserType, Meal, MenuType,
+    User, Meal, MenuType,
     Menu, MenuItem, Notification, Order
 )
 from flask_jwt_extended import get_jwt_identity

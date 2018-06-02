@@ -1,5 +1,4 @@
 import json
-import unittest
 from app import create_app, db
 from tests.base import BaseTest
 
@@ -136,7 +135,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_can_get_all_meals(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -148,7 +147,7 @@ class MealTestCase(BaseTest):
         self.assertIn(b'objects', res.data)
 
     def test_can_get_meal_by_id(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -164,7 +163,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(json_result['cost'], 200)
 
     def test_cannnot_get_meal_with_wrong_index(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().get(
             '/api/v1/meals/x',
             headers=caterer_header
@@ -174,7 +173,7 @@ class MealTestCase(BaseTest):
         self.assertIn(b'Id must be an integer', res.data)
 
     def test_meal_can_be_updated(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -196,7 +195,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(json_result['cost'], 300)
 
     def test_meal_cannot_be_updated_without_unique_name(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -224,7 +223,7 @@ class MealTestCase(BaseTest):
         self.assertIn(b'Meal name must be unique', res.data)
 
     def test_cannot_update_meal_with_no_details(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -236,7 +235,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_update_meal_with_empty_name(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -252,7 +251,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_update_meal_with_non_numeric_cost(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -268,7 +267,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_meal_deletion(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
@@ -279,7 +278,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 404)
 
     def test_cannot_delete_nonexistent_meal(self):
-        caterer_header, id = self.loginCaterer()
+        caterer_header, user_id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)
