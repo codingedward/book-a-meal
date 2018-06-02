@@ -1,5 +1,6 @@
 # Book A Meal :pizza:
 [![Build Status](https://travis-ci.org/codingedward/book-a-meal.svg?branch=develop)](https://travis-ci.org/codingedward/book-a-meal)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/49c7aa4533664706889b54e1254a4b6f?branch=develop)](https://www.codacy.com/app/codingedward/book-a-meal?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codingedward/book-a-meal&amp;utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/github/codingedward/book-a-meal/badge.svg?branch=develop)](https://coveralls.io/github/codingedward/book-a-meal?branch=develop)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 <a href="http://flask.pocoo.org/"><img
