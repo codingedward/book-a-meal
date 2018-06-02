@@ -135,7 +135,7 @@ class MealTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_can_get_all_meals(self):
-        caterer_header, user_id = self.loginCaterer()
+        caterer_header, _ = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
                                  data=self.meal, headers=caterer_header)
         self.assertEqual(res.status_code, 201)

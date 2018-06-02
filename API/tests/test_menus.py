@@ -54,7 +54,6 @@ class MenuTestCase(BaseTest):
             data=self.menu,
             headers=caterer_header
         )
-        json_result = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 201)
         customer_header, _ = self.loginCustomer()
         res = self.client().get('/api/v1/menu', headers=customer_header)

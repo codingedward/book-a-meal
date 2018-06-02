@@ -1,4 +1,4 @@
-from flask import make_response, jsonify, Blueprint
+from flask import jsonify
 from app.models import Blacklist
 from werkzeug.exceptions import default_exceptions
 

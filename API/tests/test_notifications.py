@@ -33,7 +33,7 @@ class NotificationTestCase(BaseTest):
 
     def test_cannot_create_notification_without_title(self):
         caterer_header, _ = self.loginCaterer()
-        customer_header, user_id = self.loginCustomer()
+        _, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/notifications',
             data=json.dumps({

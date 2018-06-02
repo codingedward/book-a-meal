@@ -32,8 +32,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(json_result['user_id'], user_id)
 
     def test_cannot_create_order_without_menu_item_id(self):
-        caterer_header, _ = self.loginCaterer()
-        _, user_id = self.loginCustomer()
+        customer_header, _ = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
             data=json.dumps({}),

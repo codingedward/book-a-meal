@@ -1,6 +1,5 @@
 from app import db
 from passlib.hash import bcrypt
-from sqlalchemy import cast, DATE
 
 
 class UserType:
