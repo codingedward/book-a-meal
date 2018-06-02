@@ -23,13 +23,13 @@ def single_for_user(model):
             model_instance = model.query.get(instance_id)
             if current_user.id != model_instance.user_id:
                 abort(make_response(
-                    jsonify({'message': 'Unauthorized access'}), 
+                    jsonify({'message': 'Unauthorized access'}),
                             401))
     return get_single_for_user
 
 
 def many_for_user(search_params=None, **kwargs):
-    """This will change request to ensure the user only accesses their own 
+    """This will change request to ensure the user only accesses their own
     resource list.
 
     This assumes the model has a user_id referencing the user and that
@@ -38,8 +38,8 @@ def many_for_user(search_params=None, **kwargs):
     current_user = User.query.filter_by(email=get_jwt_identity()).first()
     if not current_user.is_caterer():
         search_params['filters'] = [{
-            'name': 'user_id', 
-            'op': 'eq', 
+            'name': 'user_id',
+            'op': 'eq',
             'val': current_user.id
         }]
 
@@ -53,7 +53,7 @@ def todays(search_params=None, **kwargs):
         'name': 'day',
         'op': 'eq',
         'val': str(datetime.utcnow().date())
-    }] 
+    }]
 
 
 def post_delete(was_deleted=None, **kwargs):
@@ -66,17 +66,17 @@ def post_delete(was_deleted=None, **kwargs):
 
 
 def check_exists(model):
-    """This allows us to return a custom message if a resource is not 
+    """This allows us to return a custom message if a resource is not
     found.
     """
     def pre_get_model(instance_id=None, **kwargs):
-        try: 
+        try:
             int(instance_id)
         except:
-            abort(make_response(jsonify({'message': 'Id must be an integer'}), 
+            abort(make_response(jsonify({'message': 'Id must be an integer'}),
                                 400))
         if not model.query.get(instance_id):
-            abort(make_response(jsonify({'message': 'Not found'}), 
+            abort(make_response(jsonify({'message': 'Not found'}),
                                 404))
     return pre_get_model
 

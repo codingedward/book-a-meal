@@ -15,7 +15,7 @@ class MealTestCase(BaseTest):
             'img_path': '#',
             'cost': 200.0
         })
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
 
         with self.app.app_context():
             db.create_all()
@@ -69,7 +69,7 @@ class MealTestCase(BaseTest):
         )
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'Meal name must be unique', res.data)
-        
+
     def test_cannot_create_meal_without_name(self):
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
@@ -96,18 +96,6 @@ class MealTestCase(BaseTest):
         )
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'Invalid meal name', res.data)
-
-    def test_cannot_create_meal_without_cost(self):
-        caterer_header, _ = self.loginCaterer()
-        res = self.client().post(
-            '/api/v1/meals',
-            data=json.dumps({
-                'name': 'Ugali',
-                'img_path': '#',
-            }),
-            headers=caterer_header
-        )
-        self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_meal_without_cost(self):
         caterer_header, _ = self.loginCaterer()
@@ -246,7 +234,7 @@ class MealTestCase(BaseTest):
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 400)
-        
+
     def test_cannot_update_meal_with_empty_name(self):
         caterer_header, id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',
@@ -278,7 +266,7 @@ class MealTestCase(BaseTest):
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 400)
-        
+
     def test_meal_deletion(self):
         caterer_header, id = self.loginCaterer()
         res = self.client().post('/api/v1/meals',

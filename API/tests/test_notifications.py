@@ -10,7 +10,7 @@ class NotificationTestCase(BaseTest):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
         self.notification = {
             'title': 'Hello there',
             'message': 'I have a message for you',
@@ -24,7 +24,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         json_result = json.loads(res.get_data(as_text=True))
 
@@ -35,7 +35,7 @@ class NotificationTestCase(BaseTest):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
         res = self.client().post(
-            '/api/v1/notifications', 
+            '/api/v1/notifications',
             data=json.dumps({
                 'user_id': id,
                 'message': 'I have a message for you',
@@ -48,7 +48,7 @@ class NotificationTestCase(BaseTest):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
         res = self.client().post(
-            '/api/v1/notifications', 
+            '/api/v1/notifications',
             data=json.dumps({
                 'user_id': id,
                 'title': 'Hello there',
@@ -61,7 +61,7 @@ class NotificationTestCase(BaseTest):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
         res = self.client().post(
-            '/api/v1/notifications', 
+            '/api/v1/notifications',
             data=json.dumps({
                 'title': 'Hello there',
                 'message': 'I have a message for you',
@@ -75,7 +75,7 @@ class NotificationTestCase(BaseTest):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
         res = self.client().post(
-            '/api/v1/notifications', 
+            '/api/v1/notifications',
             data=json.dumps({
                 'title': 'Hello there',
                 'message': 'I have a message for you',
@@ -92,7 +92,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
@@ -109,7 +109,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
@@ -128,18 +128,18 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
         self.notification['title'] = 'Hi'
         res = self.client().put(
             '/api/v1/notifications/1',
-            data=json.dumps(self.notification), 
+            data=json.dumps(self.notification),
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 200)
-        res = self.client().get('/api/v1/notifications/1', 
+        res = self.client().get('/api/v1/notifications/1',
                                 headers=customer_header)
         json_result = json.loads(res.get_data(as_text=True))
 
@@ -151,7 +151,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
@@ -161,18 +161,18 @@ class NotificationTestCase(BaseTest):
             '/api/v1/notifications/1',
             data=json.dumps({
                 'user_id': 300
-            }), 
+            }),
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'No user found for that user_id', res.data)
-        
+
     def test_cannot_update_notification_with_empty_title(self):
         caterer_header, _ = self.loginCaterer()
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
@@ -181,7 +181,7 @@ class NotificationTestCase(BaseTest):
             '/api/v1/notifications/1',
             data=json.dumps({
                 'title': ''
-            }), 
+            }),
             headers=caterer_header
         )
         print(res.data)
@@ -193,7 +193,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 
@@ -202,7 +202,7 @@ class NotificationTestCase(BaseTest):
             '/api/v1/notifications/1',
             data=json.dumps({
                 'message': ''
-            }), 
+            }),
             headers=caterer_header
         )
         self.assertEqual(res.status_code, 400)
@@ -213,7 +213,7 @@ class NotificationTestCase(BaseTest):
         customer_header, id = self.loginCustomer()
         self.notification['user_id'] = id
         res = self.client().post('/api/v1/notifications',
-                                 data=json.dumps(self.notification), 
+                                 data=json.dumps(self.notification),
                                  headers=caterer_header)
         self.assertEqual(res.status_code, 201)
 

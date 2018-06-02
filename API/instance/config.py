@@ -7,7 +7,7 @@ class Config(object):
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    
+
     PROPAGATE_ERRORS = True
     PROPAGATE_EXCEPTIONS = True
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=48)

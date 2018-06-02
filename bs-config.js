@@ -21,14 +21,14 @@ module.exports = {
         }
     },
     "files": [ 
-        './*.html', 
-        'UI/*.html', 
-        'UI/css/*.css', 
-        'UI/js/*.js', 
-        'UI/imgs/*.png',
-        'UI/imgs/*.jpeg', 
-        'UI/imgs/*.jpg', 
-        'UI/imgs/*.gif' 
+        "./*.html", 
+        "UI/*.html", 
+        "UI/css/*.css", 
+        "UI/js/*.js", 
+        "UI/imgs/*.png",
+        "UI/imgs/*.jpeg", 
+        "UI/imgs/*.jpg", 
+        "UI/imgs/*.gif"
     ],
     "watchEvents": [
         "change"

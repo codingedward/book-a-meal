@@ -11,7 +11,7 @@ class MenuTestCase(BaseTest):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
         self.menu = json.dumps({
             'category': MenuType.BREAKFAST
         })

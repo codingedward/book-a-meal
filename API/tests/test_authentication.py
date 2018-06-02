@@ -11,11 +11,11 @@ class AuthenticationTestCase(unittest.TestCase):
         self.client = self.app.test_client
         self.user = json.dumps({
             'username': 'John',
-            'email': 'john@doe.com', 
+            'email': 'john@doe.com',
             'password': 'secret',
             'confirm_password': 'secret'
         })
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
         with self.app.app_context():
             db.create_all()
 
@@ -26,9 +26,9 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_without_username(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
                 'confirm_password': 'secret'
             }),
@@ -39,7 +39,7 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_without_email(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
                 'password': 'secret',
@@ -52,10 +52,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_without_password(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'confirm_password': 'secret'
             }),
             headers=self.headers
@@ -65,10 +65,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_without_password_confirmation(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
             }),
             headers=self.headers
@@ -78,10 +78,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_without_password_matching(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
                 'confirm_password': 'secre'
             }),
@@ -91,10 +91,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_with_wrong_email(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'johndoe.com', 
+                'email': 'johndoe.com',
                 'password': 'secret',
                 'confirm_password': 'secret'
             }),
@@ -105,10 +105,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_with_used_email(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
                 'confirm_password': 'secret'
             }),
@@ -117,10 +117,10 @@ class AuthenticationTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
 
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
                 'confirm_password': 'secret'
             }),
@@ -131,10 +131,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_with_short_username(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'Jo',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'secret',
                 'confirm_password': 'secret'
             }),
@@ -145,10 +145,10 @@ class AuthenticationTestCase(unittest.TestCase):
 
     def test_cannot_signup_with_short_password(self):
         res = self.client().post(
-            '/api/v1/auth/signup', 
+            '/api/v1/auth/signup',
             data=json.dumps({
                 'username': 'John',
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
                 'password': 'sec',
                 'confirm_password': 'sec'
             }),
@@ -161,7 +161,7 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=json.dumps({
                 'password': 'secret',
             }),
@@ -174,9 +174,9 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=json.dumps({
-                'email': 'john@doe.com', 
+                'email': 'john@doe.com',
             }),
             headers=self.headers
         )
@@ -187,10 +187,10 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=json.dumps({
-                'email': 'john@doe.com', 
-                'password': 'pass', 
+                'email': 'john@doe.com',
+                'password': 'pass',
             }),
             headers=self.headers
         )
@@ -201,7 +201,7 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=self.user,
             headers=self.headers
         )
@@ -212,7 +212,7 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=self.user,
             headers=self.headers
         )
@@ -235,7 +235,7 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=self.user,
             headers=self.headers
         )
@@ -256,7 +256,7 @@ class AuthenticationTestCase(unittest.TestCase):
         res = self.client().post('/api/v1/auth/signup',
                                  data=self.user, headers=self.headers)
         res = self.client().post(
-            '/api/v1/auth/login', 
+            '/api/v1/auth/login',
             data=self.user,
             headers=self.headers
         )

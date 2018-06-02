@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restless import APIManager
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from instance.config import app_config
 
@@ -12,7 +12,7 @@ from app.blueprints.auth import auth
 from app.blueprints.docs import documentation
 from app.exceptions import handler
 from app.controllers import (
-    meal_controller, menu_controller, 
+    meal_controller, menu_controller,
     menu_item_controller, order_controller,
     notification_controller
 )

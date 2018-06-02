@@ -6,8 +6,8 @@ from app.models import User, UserType
 
 
 class BaseTest(unittest.TestCase):
-    """ 
-    This will hold the basic methods required by other tests, for 
+    """
+    This will hold the basic methods required by other tests, for
     example authentication in order to test guarded endpoints
     """
     def loginCustomer(self, email='customer@mail.com'):
@@ -37,7 +37,7 @@ class BaseTest(unittest.TestCase):
     def loginCaterer(self):
         with self.app.app_context():
             # create a temporary caterer
-            user = User(username="John", email="caterer@mail.com", 
+            user = User(username="John", email="caterer@mail.com",
                         password="secret", role=UserType.CATERER)
             user.save()
 

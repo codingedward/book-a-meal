@@ -12,7 +12,7 @@ class OrderTestCase(BaseTest):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
 
         with self.app.app_context():
             db.create_all()

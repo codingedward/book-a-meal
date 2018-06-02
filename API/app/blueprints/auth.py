@@ -1,5 +1,5 @@
 import json
-from app.models import Blacklist, User, UserType 
+from app.models import Blacklist, User, UserType
 from flask_restless import ProcessingException
 from app.validators import Valid
 from flask import Blueprint, request, jsonify, Response, abort, make_response

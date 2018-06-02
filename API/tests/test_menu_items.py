@@ -11,7 +11,7 @@ class MenuItemTestCase(BaseTest):
     def setUp(self):
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.headers = {'Content-Type' : 'application/json'} 
+        self.headers = {'Content-Type' : 'application/json'}
 
         with self.app.app_context():
             db.create_all()
@@ -167,7 +167,7 @@ class MenuItemTestCase(BaseTest):
         )
         self.assertEqual(res.status_code, 200)
         customer_header, _ = self.loginCustomer()
-        res = self.client().get('/api/v1/menu_items/1', 
+        res = self.client().get('/api/v1/menu_items/1',
                                 headers=customer_header)
         json_result = json.loads(res.get_data(as_text=True))
 
@@ -272,7 +272,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 200)
 
         customer_header, _ = self.loginCustomer()
-        res = self.client().get('/api/v1/menu_items/1', 
+        res = self.client().get('/api/v1/menu_items/1',
                                 headers=customer_header)
         self.assertEqual(res.status_code, 404)
 
