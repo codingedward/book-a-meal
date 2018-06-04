@@ -8,6 +8,7 @@ from instance.config import app_config
 db = SQLAlchemy()
 
 
+from app.mail import mail, email_verification
 from app.blueprints.auth import auth
 from app.blueprints.docs import documentation
 from app.exceptions import handler
@@ -29,6 +30,7 @@ def create_app(config_name):
     app.register_blueprint(documentation)
 
     db.init_app(app)
+    mail.init_app(app)
     handler.init_app(app)
     handler.init_jwt(jwt)
 

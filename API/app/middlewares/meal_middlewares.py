@@ -3,6 +3,7 @@ from app.models import Meal
 from .common_middlewares import post_delete, check_exists
 from .auth_middlewares import caterer_auth, default_auth
 
+
 pre_meal={
     'POST': [caterer_auth, Valid.post_meal],
     'GET_MANY': [default_auth],

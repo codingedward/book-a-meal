@@ -3,6 +3,7 @@ from app.models import MenuItem
 from .common_middlewares import post_delete, check_exists
 from .auth_middlewares import caterer_auth, default_auth
 
+
 pre_menu_item={
     'POST': [caterer_auth, Valid.post_menu_item],
     'GET_SINGLE': [default_auth, check_exists(MenuItem)],

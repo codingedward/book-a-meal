@@ -44,6 +44,7 @@ class User(db.Model, BaseModel):
     email = db.Column(db.String(1024), unique=True)
     password_hash = db.Column(db.String(300))
     role = db.Column(db.Integer)
+    token = db.Column(db.String(1024), nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -62,6 +63,23 @@ class User(db.Model, BaseModel):
 
     def is_caterer(self):
         return self.role == UserType.CATERER
+
+
+class PasswordReset(db.Model, BaseModel):
+
+    __tablename__ = 'password_resets'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    token = db.Column(db.String(1024))
+    user = db.relationship(
+        'User',
+        backref=db.backref('password_resets', lazy='dynamic')
+    )
+
+    def __init__(self, user_id, token):
+        self.user_id = user_id
+        self.token = token
 
 
 class Menu(db.Model, BaseModel):

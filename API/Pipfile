@@ -36,6 +36,7 @@ nose-cov = "*"
 coveralls = "*"
 gunicorn = "*"
 flask-restless = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.6"
