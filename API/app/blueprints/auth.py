@@ -1,3 +1,6 @@
+"""This handles user authentication"""
+
+
 from app.models import User, Blacklist
 from flask_restless import ProcessingException
 from app.validators import Valid
@@ -12,6 +15,9 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/api/v1/auth/signup', methods=['POST'])
 def register():
+    """Register a user using their username, email and 
+    password"""
+
     try:
         Valid.user()
     except ProcessingException as err:
@@ -34,6 +40,7 @@ def register():
 
 @auth.route('/api/v1/auth/login', methods=['POST'])
 def login():
+    """Logs in a user using JwT and responds with an access token"""
     if not request.json.get('email'):
         return jsonify({'errors': ['Email is required']}), 400
     if not request.json.get('password'):
@@ -56,6 +63,7 @@ def login():
 @auth.route('/api/v1/auth/get', methods=['GET'])
 @jwt_required
 def get_user():
+    """Returns the authencicated users details"""
     user = User.query.filter_by(email=get_jwt_identity()).first()
     return jsonify({
         'user': {
@@ -69,6 +77,7 @@ def get_user():
 @auth.route('/api/v1/auth/logout', methods=['DELETE'])
 @jwt_required
 def logout():
+    """Logs out currently logged in user by adding the JWT to a blacklist"""
     jti = get_raw_jwt()['jti']
     blacklist = Blacklist(token=jti)
     blacklist.save()

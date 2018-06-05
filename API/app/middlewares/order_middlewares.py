@@ -1,3 +1,6 @@
+"""Order resource middlewares"""
+
+
 from app.validators import Valid
 from app.models import Order
 from .common_middlewares import (

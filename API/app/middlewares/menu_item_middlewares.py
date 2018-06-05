@@ -1,3 +1,6 @@
+"""Middlewares for menu items"""
+
+
 from app.validators import Valid
 from app.models import MenuItem
 from .common_middlewares import post_delete, check_exists

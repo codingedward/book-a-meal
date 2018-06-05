@@ -1,3 +1,6 @@
+"""Authentication middlewares"""
+
+
 from app.models import User
 from flask import jsonify, abort, make_response
 from flask_jwt_extended import  jwt_required, get_jwt_identity

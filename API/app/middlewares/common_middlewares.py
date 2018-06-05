@@ -1,3 +1,5 @@
+"""Miscellaneous middlewares"""
+
 from datetime import datetime
 from flask_jwt_extended import get_jwt_identity
 from flask import abort, make_response, jsonify

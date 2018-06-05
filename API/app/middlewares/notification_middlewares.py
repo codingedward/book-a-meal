@@ -1,3 +1,6 @@
+"""Middlewares for the notification resource"""
+
+
 from app.validators import Valid
 from app.models import Notification
 from .common_middlewares import (

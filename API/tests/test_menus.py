@@ -1,3 +1,7 @@
+"""Test the menu resource endpoints"""
+
+
+
 import json
 from app import create_app, db
 from app.models import MenuType
@@ -8,6 +12,7 @@ class MenuTestCase(BaseTest):
     """ This will test menu resource endpoints"""
 
     def setUp(self):
+        """Create an application"""
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
         self.headers = {'Content-Type' : 'application/json'}
@@ -19,6 +24,7 @@ class MenuTestCase(BaseTest):
             db.create_all()
 
     def test_menu_creation(self):
+        """Test can create a menu"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -30,6 +36,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(json_result['category'], MenuType.BREAKFAST)
 
     def test_cannot_create_menu_without_category(self):
+        """Tesct cannot create a menu without category"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -39,6 +46,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_menu_with_non_existing_category(self):
+        """Test cannot create a menu with non-existing category"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -48,6 +56,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_can_get_all_menus(self):
+        """Test can get all menus"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -63,6 +72,7 @@ class MenuTestCase(BaseTest):
         self.assertIn(b'objects', res.data)
 
     def test_can_get_menu_by_id(self):
+        """Test can get menu by id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -83,6 +93,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(json_result['category'], MenuType.BREAKFAST)
 
     def test_menu_can_be_updated(self):
+        """Test menu can be updated"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -108,6 +119,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(json_result['category'], MenuType.SUPPER)
 
     def test_cannot_update_menu_without_category(self):
+        """Test cannot update a menu without category"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -124,6 +136,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_update_menu_with_non_existing_category(self):
+        """Test cannot update a menu with a non-existing category"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',
@@ -140,6 +153,7 @@ class MenuTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_menu_deletion(self):
+        """Test can delete a menu"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu',

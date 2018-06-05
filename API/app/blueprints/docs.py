@@ -1,3 +1,6 @@
+"""Servers the API documentation"""
+
+
 from flask import Blueprint, send_from_directory
 
 

@@ -1,3 +1,6 @@
+"""Notification resource controller"""
+
+
 from app.models import Notification
 from app.middlewares.notification_middlewares import (
     pre_notification, post_notification
@@ -5,6 +8,7 @@ from app.middlewares.notification_middlewares import (
 
 
 def create_api(manager, url_prefix=''):
+    """Creates the notifications api endpoints"""
     manager.create_api(
         Notification,
         methods=['GET', 'POST', 'DELETE', 'PUT'],

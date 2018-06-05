@@ -1,3 +1,6 @@
+"""Test the notifications resources"""
+
+
 import json
 import unittest
 from app import create_app, db
@@ -8,6 +11,7 @@ class NotificationTestCase(BaseTest):
     """ This will test notification resource endpoints"""
 
     def setUp(self):
+        """Create an application"""
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
         self.headers = {'Content-Type' : 'application/json'}
@@ -20,6 +24,7 @@ class NotificationTestCase(BaseTest):
             db.create_all()
 
     def test_notification_creation(self):
+        """Test creation of a notification"""
         caterer_header, _ = self.loginCaterer()
         _, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -32,6 +37,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(json_result['title'], 'Hello there')
 
     def test_cannot_create_notification_without_title(self):
+        """Test cannot create a notification without a title"""
         caterer_header, _ = self.loginCaterer()
         _, user_id = self.loginCustomer()
         res = self.client().post(
@@ -45,6 +51,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_notification_without_message(self):
+        """Test cannot create a notification without message"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -58,6 +65,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_notification_without_user_id(self):
+        """Test cannot create a notification without user id"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -72,6 +80,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_notification_with_wrong_user_id(self):
+        """Test cannot create notification with wrong user id"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -88,6 +97,7 @@ class NotificationTestCase(BaseTest):
         self.assertIn(b'No user found for that user_id', res.data)
 
     def test_can_get_all_notifications(self):
+        """Test can get all notifications"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -105,6 +115,7 @@ class NotificationTestCase(BaseTest):
         self.assertIn(b'objects', res.data)
 
     def test_can_get_notification_by_id(self):
+        """Test can get a notification by id"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -124,6 +135,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(json_result['title'], 'Hello there')
 
     def test_notification_can_be_updated(self):
+        """Test notification can be updated"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -147,6 +159,7 @@ class NotificationTestCase(BaseTest):
         self.assertEqual(json_result['title'], 'Hi')
 
     def test_cannot_update_notification_with_wrong_user_id(self):
+        """Test cannot update notification with wrong user"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -168,6 +181,7 @@ class NotificationTestCase(BaseTest):
         self.assertIn(b'No user found for that user_id', res.data)
 
     def test_cannot_update_notification_with_empty_title(self):
+        """Test cannot update notification with empty title"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -189,6 +203,7 @@ class NotificationTestCase(BaseTest):
         self.assertIn(b'Title is required', res.data)
 
     def test_cannot_update_notification_with_empty_message(self):
+        """Test cannot update notification with empty message"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id
@@ -209,6 +224,7 @@ class NotificationTestCase(BaseTest):
         self.assertIn(b'Message is required', res.data)
 
     def test_notification_deletion(self):
+        """Test notification deletion"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         self.notification['user_id'] = user_id

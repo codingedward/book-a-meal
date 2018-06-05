@@ -1,3 +1,7 @@
+"""Test orders resource endpoints"""
+
+
+
 import json
 import unittest
 from datetime import datetime, timedelta
@@ -10,6 +14,7 @@ class OrderTestCase(BaseTest):
     """ This will test order resource endpoints """
 
     def setUp(self):
+        """Create a test application"""
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
         self.headers = {'Content-Type' : 'application/json'}
@@ -18,6 +23,7 @@ class OrderTestCase(BaseTest):
             db.create_all()
 
     def test_order_creation(self):
+        """Test order creation"""
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
@@ -32,6 +38,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(json_result['user_id'], user_id)
 
     def test_cannot_create_order_without_menu_item_id(self):
+        """Test cannot create order without a menu item id"""
         customer_header, _ = self.loginCustomer()
         res = self.client().post(
             '/api/v1/orders',
@@ -41,6 +48,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_order_with_non_existing_menu_item_id(self):
+        """Test cannot create order with non-existing menu item"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -52,6 +60,7 @@ class OrderTestCase(BaseTest):
 
 
     def test_can_get_all_orders(self):
+        """Test can get all orders"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -69,6 +78,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'objects', res.data)
 
     def test_can_get_order_by_id(self):
+        """Test can get order by id"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -90,6 +100,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(json_result['user_id'], user_id)
 
     def test_cannot_get_other_users_order(self):
+        """Test cannot get other user's order"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -112,6 +123,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'Unauthorized access', res.data)
 
     def test_cannot_create_order_with_expired_menu(self):
+        """Test cannot create order with expired menu"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -126,6 +138,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'This menu is expired', res.data)
 
     def test_order_can_be_updated(self):
+        """Test order can be updated"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -155,6 +168,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(json_result['menu_item_id'], 2)
 
     def test_cannot_update_order_with_wrong_menu_id(self):
+        """Test cannot update order with wrong menu id"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -178,6 +192,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'No menu item found for that', res.data)
 
     def test_cannot_update_order_with_expired_menu(self):
+        """Test cannot update order with expired menu"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -201,6 +216,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'This menu is expired', res.data)
 
     def test_cannot_edit_another_users_order(self):
+        """Test cannot edit another users order"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -225,6 +241,7 @@ class OrderTestCase(BaseTest):
         self.assertIn(b'This user cannot edit this order', res.data)
 
     def test_order_deletion(self):
+        """Test order deletion"""
         caterer_header, _ = self.loginCaterer()
         customer_header, user_id = self.loginCustomer()
         res = self.client().post(
@@ -244,6 +261,7 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 404)
 
     def createMenuItem(self, menu_item_id=1, yesterdays=False):
+        """Create menu item for the order"""
         with self.app.app_context():
             menu_item = MenuItem.query.get(menu_item_id)
             if not menu_item or yesterdays:

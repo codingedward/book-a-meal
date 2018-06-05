@@ -1,3 +1,6 @@
+"""Middlewares for the meal resource"""
+
+
 from app.validators import Valid
 from app.models import Meal
 from .common_middlewares import post_delete, check_exists

@@ -1,3 +1,6 @@
+"""Middlewares for menu resource"""
+
+
 from app.validators import Valid
 from app.models import Menu
 from .common_middlewares import (

@@ -3,6 +3,7 @@ from datetime import timedelta
 
 
 class Config(object):
+    """Base configuration"""
     DEBUG = False
     SECRET = os.getenv('SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
@@ -17,6 +18,7 @@ class Config(object):
 
 
 class ProductionConfig(Config):
+    """Production configuration"""
     DEBUG = False
     TESTING = False
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=2)
@@ -28,6 +30,7 @@ class DevConfig(Config):
 
 
 class TestingConfig(Config):
+    """Testing configuration"""
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URL')

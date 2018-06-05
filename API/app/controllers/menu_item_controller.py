@@ -1,3 +1,6 @@
+"""Menu item resource controller"""
+
+
 from app.models import MenuItem
 from app.middlewares.menu_item_middlewares import (
     pre_menu_item, post_menu_item
@@ -5,6 +8,7 @@ from app.middlewares.menu_item_middlewares import (
 
 
 def create_api(manager, url_prefix=''):
+    """Creates the menu items api endpoints"""
     manager.create_api(
         MenuItem,
         methods=['GET', 'POST', 'DELETE', 'PUT'],

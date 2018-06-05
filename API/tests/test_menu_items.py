@@ -1,3 +1,6 @@
+"""Test the menu item resource endpoints"""
+
+
 import json
 from app import create_app, db
 from app.models import Meal, MenuType, Menu
@@ -7,6 +10,7 @@ class MenuItemTestCase(BaseTest):
     """ This will test menu item resource endpoints"""
 
     def setUp(self):
+        """Create an application"""
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
         self.headers = {'Content-Type' : 'application/json'}
@@ -19,6 +23,7 @@ class MenuItemTestCase(BaseTest):
             })
 
     def test_menu_item_creation(self):
+        """Test can create a menu item"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -30,6 +35,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(json_result['menu_id'], 1)
 
     def test_cannot_create_same_menu_item(self):
+        """Test cannot create same menu item"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -48,6 +54,7 @@ class MenuItemTestCase(BaseTest):
         self.assertIn(b'This menu item already exists', res.data)
 
     def test_cannot_create_menu_item_without_meal_id(self):
+        """Test cannot create a menu item without a meal id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -59,6 +66,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_menu_item_without_menu_id(self):
+        """Test cannot create a menu item without a menu id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -70,6 +78,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_menu_item_with_wrong_meal_id(self):
+        """Test cannot create a menut item with a wrong meal id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -82,6 +91,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_menu_item_with_wrong_menu_id(self):
+        """Test cannot create a menu item with wrong menu id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -94,6 +104,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_create_existing_menu_item(self):
+        """Test cannot create an existing menu item"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -110,6 +121,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_can_get_all_menu_items(self):
+        """Test can get all menu items"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -127,6 +139,7 @@ class MenuItemTestCase(BaseTest):
         self.assertIn(b'objects', res.data)
 
     def test_can_get_menu_item_by_id(self):
+        """Test can get a menu item by id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -147,6 +160,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(json_result['meal_id'], 1)
 
     def test_menu_item_can_be_updated(self):
+        """Test menu item can be updated"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -173,6 +187,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(json_result['meal_id'], 2)
 
     def test_cannot_update_menu_item_with_same_data(self):
+        """Test cannot update a menu item without being unique"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -204,6 +219,7 @@ class MenuItemTestCase(BaseTest):
 
 
     def test_cannot_update_menu_item_without_data(self):
+        """Test cannot update a menu item without required fields"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -220,6 +236,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_update_menu_item_with_non_existing_menu_id(self):
+        """Test cannot update a menu item with non-existing menu id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -239,6 +256,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_cannot_update_menu_item_with_non_existing_meal_id(self):
+        """Test cannot update a menu item with non-existing meal id"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -258,6 +276,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
 
     def test_menu_item_deletion(self):
+        """Test menu item deletion"""
         caterer_header, _ = self.loginCaterer()
         res = self.client().post(
             '/api/v1/menu_items',
@@ -275,6 +294,7 @@ class MenuItemTestCase(BaseTest):
         self.assertEqual(res.status_code, 404)
 
     def createMenu(self, menu_id=1):
+        """Create a temporary menu for creating a menu item"""
         with self.app.app_context():
             menu = Menu.query.get(menu_id)
             if not menu:
@@ -283,6 +303,7 @@ class MenuItemTestCase(BaseTest):
             return menu.id
 
     def createMeal(self, meal_id=1):
+        """Create a temporary meal for creating a menu item"""
         with self.app.app_context():
             meal = Meal.query.get(meal_id)
             if not meal:
