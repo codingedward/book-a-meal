@@ -137,6 +137,38 @@ class OrderTestCase(BaseTest):
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'This menu is expired', res.data)
 
+    def test_cannot_create_order_with_more_quantity_than_is_available(self):
+        """Test cannot create order with more quantity than is available"""
+        caterer_header, _ = self.loginCaterer()
+        customer_header, user_id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': user_id,
+                'quantity': 1000,
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'menu items are available', res.data)
+
+    def test_cannot_create_order_with_negative_quantity(self):
+        """Test cannot create order with negative quantity"""
+        caterer_header, _ = self.loginCaterer()
+        customer_header, user_id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': user_id,
+                'quantity': -1,
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'Quantity must be positive', res.data)
+
     def test_order_can_be_updated(self):
         """Test order can be updated"""
         caterer_header, _ = self.loginCaterer()
@@ -190,6 +222,32 @@ class OrderTestCase(BaseTest):
         )
         self.assertEqual(res.status_code, 400)
         self.assertIn(b'No menu item found for that', res.data)
+
+    def test_cannot_update_order_with_more_quantity_than_is_available(self):
+        """Test cannot update order with more quantity than is available"""
+        caterer_header, _ = self.loginCaterer()
+        customer_header, user_id = self.loginCustomer()
+        res = self.client().post(
+            '/api/v1/orders',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': user_id
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 201)
+        res = self.client().put(
+            '/api/v1/orders/1',
+            data=json.dumps({
+                'menu_item_id': self.createMenuItem(),
+                'user_id': user_id,
+                'quantity': 100,
+            }),
+            headers=customer_header
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn(b'menu items are available', res.data)
+
 
     def test_cannot_update_order_with_expired_menu(self):
         """Test cannot update order with expired menu"""
@@ -260,7 +318,7 @@ class OrderTestCase(BaseTest):
         res = self.client().get('/api/v1/orders/1', headers=customer_header)
         self.assertEqual(res.status_code, 404)
 
-    def createMenuItem(self, menu_item_id=1, yesterdays=False):
+    def createMenuItem(self, menu_item_id=1, quantity=1, yesterdays=False):
         """Create menu item for the order"""
         with self.app.app_context():
             menu_item = MenuItem.query.get(menu_item_id)
@@ -276,7 +334,8 @@ class OrderTestCase(BaseTest):
                 if not meal:
                     meal = Meal(name=meal_name, img_path='#', cost=200)
                     meal.save()
-                menu_item = MenuItem(menu_id=menu.id, meal_id=meal.id)
+                menu_item = MenuItem(menu_id=menu.id, 
+                                     meal_id=meal.id, quantity=quantity)
                 menu_item.save()
             return menu_item.id
 
