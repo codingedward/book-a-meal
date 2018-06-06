@@ -106,6 +106,7 @@ class MenuItem(db.Model, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'))
     meal_id = db.Column(db.Integer, db.ForeignKey('meals.id'))
+    quantity = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     updated_at = db.Column(
         db.DateTime,
@@ -113,22 +114,23 @@ class MenuItem(db.Model, BaseModel):
         onupdate=db.func.current_timestamp()
     )
 
-    # r/shp with the menu
+    # relationship with the menu
     menu = db.relationship(
         'Menu',
         backref=db.backref('menu_items', lazy='dynamic')
     )
 
-    # r/shp with the meail
+    # relationship with the meal
     meal = db.relationship(
         'Meal',
         backref=db.backref('menu_items', lazy='dynamic')
     )
 
-    def __init__(self, menu_id, meal_id):
+    def __init__(self, menu_id, meal_id, quantity=1):
         """Initialize a meal item"""
         self.menu_id = menu_id
         self.meal_id = meal_id
+        self.quantity = quantity
 
 
 class Meal(db.Model, BaseModel):
@@ -174,7 +176,7 @@ class Order(db.Model, BaseModel):
         onupdate=db.func.current_timestamp()
     )
 
-    # r/shp with the menu items
+    # relationship with the menu items
     menu_item = db.relationship(
         'MenuItem',
         backref=db.backref("orders", lazy="dynamic")
@@ -204,7 +206,7 @@ class Notification(db.Model, BaseModel):
         onupdate=db.func.current_timestamp()
     )
 
-    # r/shp with a user
+    # relationship with a user
     user = db.relationship(
         'User',
         backref=db.backref("notifications", lazy="dynamic")
