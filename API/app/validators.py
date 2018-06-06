@@ -211,20 +211,15 @@ class Valid:
                 code=400
             )
 
-        if fields.get('quantity') is None:
-            raise ProcessingException(
-                description='Quantity is required',
-                code=400
-            )
-
         try:
-            int(fields['quantity'])
+            if fields.get('quantity') is None or \
+                    int(fields['quantity']) < 0:
+                raise ValueError()
         except ValueError:
             raise ProcessingException(
-                description='Quantity must be numeric',
+                description='Quantity is required and must be positive',
                 code=400
             )
-
 
         meal = Meal.query.get(fields['meal_id'])
         if not meal:
@@ -274,6 +269,17 @@ class Valid:
                 )
             menu_id = fields['menu_id']
 
+
+        if 'quantity' in fields:
+            try:
+                if int(fields['quantity']) < 0:
+                    raise ValueError()
+            except ValueError:
+                raise ProcessingException(
+                    description='Quantity must be positive',
+                    code=400
+                )
+
         # ensure the same menu item is not added twice...
         menu_item2 = MenuItem.query.filter_by(menu_id=menu_id,
                                              meal_id=meal_id).first()
@@ -299,7 +305,17 @@ class Valid:
 
         # set a default quantity
         if fields.get('quantity') is None:
-            request.json['quantity'] = 1
+            fields['quantity'] = request.json['quantity'] = 1
+
+        try:
+            if fields.get('quantity') is None or \
+                    int(fields['quantity']) < 0:
+                raise ValueError()
+        except ValueError:
+            raise ProcessingException(
+                description='Quantity must be positive',
+                code=400
+            )
 
         menu_item = MenuItem.query.get(fields['menu_item_id'])
         if menu_item is None:
@@ -358,6 +374,15 @@ class Valid:
                 )
 
         if 'quantity' in fields:
+            try:
+                if int(fields['quantity']) < 0:
+                    raise ValueError()
+            except ValueError:
+                raise ProcessingException(
+                    description='Quantity must be positive',
+                    code=400
+                )
+
             additional = fields['quantity'] - menu_item.quantity
             if menu_item.quantity < additional:
                 raise ProcessingException(
