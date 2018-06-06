@@ -196,7 +196,7 @@ class Valid:
 
     @staticmethod
     def post_menu_item(**kwargs):
-        clean_unexpected(request, ['meal_id', 'menu_id'])
+        clean_unexpected(request, ['meal_id', 'menu_id', 'quantity'])
         fields = request.json
 
         if fields.get('meal_id') is None:
@@ -210,6 +210,21 @@ class Valid:
                 description='Menu id is required',
                 code=400
             )
+
+        if fields.get('quantity') is None:
+            raise ProcessingException(
+                description='Quantity is required',
+                code=400
+            )
+
+        try:
+            int(fields['quantity'])
+        except ValueError:
+            raise ProcessingException(
+                description='Quantity must be numeric',
+                code=400
+            )
+
 
         meal = Meal.query.get(fields['meal_id'])
         if not meal:
@@ -235,15 +250,12 @@ class Valid:
 
     @staticmethod
     def put_menu_item(instance_id=None, **kwargs):
-        clean_unexpected(request, ['meal_id', 'menu_id'])
+        clean_unexpected(request, ['meal_id', 'menu_id', 'quantity'])
         fields = request.json
 
-        if len(fields) == 0:
-            raise ProcessingException(
-                description='Nothing to update',
-                code=400
-            )
-
+        menu_item = MenuItem.query.get(instance_id)
+        menu_id = menu_item.id
+        meal_id = menu_item.id
         if 'meal_id' in fields:
             meal = Meal.query.get(fields['meal_id'])
             if not meal:
@@ -251,6 +263,7 @@ class Valid:
                     description='No meal found for that meal_id',
                     code=400
                 )
+            meal_id = fields['meal_id']
 
         if 'menu_id' in fields:
             menu = Menu.query.get(fields['menu_id'])
@@ -259,11 +272,12 @@ class Valid:
                     description='No menu found for that menu_id',
                     code=400
                 )
+            menu_id = fields['menu_id']
 
         # ensure the same menu item is not added twice...
-        menu_item = MenuItem.query.filter_by(menu_id=menu.id,
-                                             meal_id=meal.id).first()
-        if menu_item and instance_id != menu_item.id:
+        menu_item2 = MenuItem.query.filter_by(menu_id=menu_id,
+                                             meal_id=meal_id).first()
+        if menu_item2 and instance_id != menu_item2.id:
             raise ProcessingException(
                 description='This menu item already exists',
                 code=400
@@ -294,13 +308,21 @@ class Valid:
                 code=400
             )
 
+        if menu_item.quantity < request.json['quantity']:
+            raise ProcessingException(
+                description=
+                    'Only ' +
+                    str(menu_item.quantity) + 
+                    ' menu items are available',
+                code=400
+            )
+
         menu = Menu.query.get(menu_item.menu_id)
         if menu.day != datetime.utcnow().date():
             raise ProcessingException(
                 description='This menu is expired',
                 code=400
             )
-
 
     @staticmethod
     def put_order(instance_id=None, **kwargs):
@@ -315,6 +337,7 @@ class Valid:
         clean_unexpected(request, ['menu_item_id', 'quantity'])
         fields = request.json
 
+        menu_item = order.menu_item
         if 'menu_item_id' in fields:
             menu_item = MenuItem.query.get(fields['menu_item_id'])
             if menu_item is None:
@@ -323,10 +346,24 @@ class Valid:
                     code=400
                 )
 
+            # take back the available quantity to be updated later
+            menu_item.quantity += order.quantity
+            menu_item.save()
+
             menu = Menu.query.get(menu_item.menu_id)
             if menu.day != datetime.utcnow().date():
                 raise ProcessingException(
                     description='This menu is expired',
+                    code=400
+                )
+
+        if 'quantity' in fields:
+            additional = fields['quantity'] - menu_item.quantity
+            if menu_item.quantity < additional:
+                raise ProcessingException(
+                    description='Only ' +
+                        str(menu_item.quantity) + 
+                        ' menu items are available',
                     code=400
                 )
 
