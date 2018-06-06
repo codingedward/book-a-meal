@@ -13,3 +13,13 @@ TEST_DATABASE_URL="postgresql://username:password@host/db_test"
 # JWT for authentication
 JWT_SECRET_KEY=
 
+# Default admin credentials
+DEFAULT_ADMIN_PASSWORD=
+DEFAULT_ADMIN_EMAIL=
+DEFAULT_ADMIN_USERNAME=
+
+# SMTP server config
+MAIL_PORT=
+MAIL_SERVER=
+MAIL_USERNAME=
+MAIL_PASSWORD=
