@@ -18,8 +18,9 @@ def update_quantity(result=None, **kwargs):
         menu_item.save()
 
 def post_get_many(result=None, search_params=None, **kwargs):
-    result['orders'] = result['objects']
-    del result['objects']
+    if result:
+        result['orders'] = result['objects']
+        del result['objects']
 
 pre_order={
     'POST': [default_auth, Valid.post_order],
