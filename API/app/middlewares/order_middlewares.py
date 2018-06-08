@@ -17,10 +17,14 @@ def update_quantity(result=None, **kwargs):
         menu_item.quantity -= result['quantity']
         menu_item.save()
 
+def post_get_many(result=None, search_params=None, **kwargs):
+    result['orders'] = result['objects']
+    del result['objects']
+
 pre_order={
     'POST': [default_auth, Valid.post_order],
     'GET_SINGLE': [default_auth, check_exists(Order), single_for_user(Order)],
-    'GET_MANY': [default_auth, many_for_user],
+    'GET_MANY': [default_auth, many_for_user, post_get_many],
     'PUT_SINGLE': [default_auth, check_exists(Order), Valid.put_order],
     'DELETE_SINGLE': [default_auth],
     'DELETE_MANY': [caterer_auth],

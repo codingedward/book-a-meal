@@ -6,9 +6,15 @@ from app.models import Meal
 from .common_middlewares import post_delete, check_exists
 from .auth_middlewares import caterer_auth, default_auth
 
+
+def post_get_many(result=None, search_params=None, **kwargs):
+    if result:
+        result['meals'] = result['objects']
+        del result['objects']
+
 pre_meal={
     'POST': [caterer_auth, Valid.post_meal],
-    'GET_MANY': [default_auth],
+    'GET_MANY': [default_auth, post_get_many],
     'GET_SINGLE': [default_auth, check_exists(Meal)],
     'PUT_SINGLE': [caterer_auth, check_exists(Meal), Valid.put_meal],
     'DELETE_SINGLE': [caterer_auth],

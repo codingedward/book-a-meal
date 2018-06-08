@@ -9,6 +9,11 @@ from .common_middlewares import (
 from .auth_middlewares import caterer_auth, default_auth
 
 
+def post_get_many(result=None, search_params=None, **kwargs):
+    if results: 
+        result['notifications'] = result['objects']
+        del result['objects']
+
 pre_notification={
     'POST': [caterer_auth, Valid.post_notification],
     'GET_SINGLE': [default_auth, check_exists(Notification),
