@@ -140,7 +140,9 @@ class Valid:
                 )
 
             # check if another meal has the new name...
-            meal = Meal.query.filter_by(name=fields['name']).first()
+            meal = Meal.query.filter(
+                func.lower(Menu.name) == func.lower(fields['name'].strip()),
+            ).first()
             if meal and  meal.id != instance_id:
                 raise ProcessingException(
                     description='Meal name must be unique',
@@ -173,7 +175,6 @@ class Valid:
                 description='Unknown meal type',
                 code=400
             )
-
 
     @staticmethod
     def put_menu(instance_id=None, **kwargs):
